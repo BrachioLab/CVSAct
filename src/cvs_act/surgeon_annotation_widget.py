@@ -412,10 +412,10 @@ class SurgeonVideoMenuWidget:
         ann = annotations.get((clip.clip_id, self.annotator.value))
         self.note.value = ann.get("note", "") if ann else ""
 
-        self.current_frame_dir = self.frames_root / (clip.split or "test") / clip.video_name
         self.current_frame_ids = _frame_ids_1fps(clip.start_frame, clip.end_frame)
         self.current_cvs_frame_labels = _cvs_labels_by_frame(clip.video_name, self.current_frame_ids)
         asset_info = _ensure_clip_assets(clip, frames_root=self.frames_root, assets_root=self.assets_root)
+        self.current_frame_dir = Path(asset_info["frame_dir"])
 
         self.meta_box.value = (
             "<div style='margin:8px 0;font-size:13px;color:#334155;'>"
@@ -1010,10 +1010,16 @@ def _ensure_clip_assets(clip: ClipManifestRow, frames_root: Path, assets_root: P
     missing_frames = []
     for frame_id in frame_ids:
         source = source_frame_dir / f"frame_{int(frame_id):06d}.png"
+        dest = frame_asset_dir / f"frame_{int(frame_id):06d}.png"
         if not source.exists():
+            if dest.exists():
+                copied_frames.append(str(dest))
+                continue
+            if _extract_frame_from_raw_video(clip, frame_id, dest):
+                copied_frames.append(str(dest))
+                continue
             missing_frames.append(int(frame_id))
             continue
-        dest = frame_asset_dir / source.name
         if not dest.exists() or dest.stat().st_size != source.stat().st_size:
             shutil.copy2(source, dest)
         copied_frames.append(str(dest))
@@ -1046,6 +1052,28 @@ def _ensure_clip_assets(clip: ClipManifestRow, frames_root: Path, assets_root: P
         "video_path": video_path,
         "missing_frames": len(missing_frames),
     }
+
+
+def _extract_frame_from_raw_video(clip: ClipManifestRow, frame_id: int, dest: Path) -> bool:
+    split = clip.split or "test"
+    source = DEFAULT_RAW_VIDEO_ROOT / split / "videos" / f"{clip.video_name}.mp4"
+    if not source.exists():
+        return False
+    try:
+        import cv2
+
+        cap = cv2.VideoCapture(str(source))
+        try:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, int(frame_id))
+            ok, frame = cap.read()
+        finally:
+            cap.release()
+        if not ok or frame is None:
+            return False
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        return bool(cv2.imwrite(str(dest), frame))
+    except Exception:
+        return False
 
 
 def _clickable_frame_image_html(path: Path, frame_id: int, subclip_index: int, frame_ids: list[int]) -> str:

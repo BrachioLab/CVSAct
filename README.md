@@ -89,6 +89,14 @@ Expert labeling notebook:
 
 - [`notebooks/surgeon_validation/annotate_audit_v11_video_menu.ipynb`](notebooks/surgeon_validation/annotate_audit_v11_video_menu.ipynb)
 
+Generate the local frame/video assets used by the annotation UI:
+
+```bash
+python scripts/data/prepare_surgeon_annotation_assets.py
+```
+
+The script writes subclip frames, interval videos, and asset manifests under `data/processed/CVS_Challenge_SAGES_v1/cvs_act_surgeon_annotations/aws_upload_assets/`. It uses pre-extracted frames when available and otherwise extracts the needed frames from the raw MP4s under `data/raw/CVS_Challenge_SAGES_v1`.
+
 Final artifacts:
 
 - [`data/processed/CVS_Challenge_SAGES_v1/cvs_act_surgeon_annotations/`](data/processed/CVS_Challenge_SAGES_v1/cvs_act_surgeon_annotations/)
