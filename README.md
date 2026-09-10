@@ -12,6 +12,15 @@ CVS-Act contains the annotation workflows, synthetic-label pipeline, dataset exp
 - [`hf_repos/cvs-act/`](hf_repos/cvs-act/): local Hugging Face dataset export.
 - [`outputs/`](outputs/): only the final prediction JSONL files used by the human-vs-synthetic correlation analysis.
 
+## Roadmap
+
+CVS-Act focuses on action recommendations for moving from the current CVS state toward a safer state for cutting. The repo currently contains the action taxonomy, v3.1 synthetic-label pipeline, Weiqiu's human validation annotations, and baseline LLM / SurGent generation plus evaluation. The next validation step is expert surgeon annotation; future work includes simpler free-running LLM or agent baselines and finetuning/RL on the generated labels.
+
+Pointers:
+
+- Run an LLM on this data: use [`scripts/run/run_cot_cvs_act_v1_eval.sh`](scripts/run/run_cot_cvs_act_v1_eval.sh); the exact final command is in [System Generation](#system-generation).
+- Visualize the data: open [`notebooks/artifacts/audit_v11_simple_action_gt/audit_v11_simple_action_gt_visualization_natural_language.html`](notebooks/artifacts/audit_v11_simple_action_gt/audit_v11_simple_action_gt_visualization_natural_language.html).
+
 ## Setup
 
 With `venv` and `pip`:
