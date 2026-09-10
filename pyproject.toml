@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cvs-act"
+version = "0.1.0"
+description = "CVS-Act action recommendation dataset, annotation workflows, and evaluation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+dependencies = [
+    "datasets",
+    "ipython",
+    "ipywidgets",
+    "jupyterlab",
+    "langchain",
+    "langchain-community",
+    "langchain-openai",
+    "matplotlib",
+    "numpy",
+    "openai",
+    "opencv-python",
+    "pandas",
+    "pillow",
+    "pydantic>=2",
+    "pydantic-ai",
+    "python-dotenv",
+    "scipy",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

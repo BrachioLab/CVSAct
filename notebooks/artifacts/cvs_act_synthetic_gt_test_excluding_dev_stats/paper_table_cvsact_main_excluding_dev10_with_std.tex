@@ -1,0 +1,28 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l cc c}
+\toprule
+& \multicolumn{2}{c}{\textbf{Held-out human-GT test} ($N=20$)} & \textbf{Pooled, no dev} ($N=55$) \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-4}
+Backbone & CoT & \surgent{} & CoT \\
+\midrule
+\multicolumn{1}{l}{\textit{Majority-label baseline}} & \multicolumn{2}{c}{\textit{0.403}} & \textit{0.383} \\
+\midrule
+Claude Haiku 4.5   & \textbf{0.227 {\scriptsize $\pm$ 0.099}} & 0.193 {\scriptsize $\pm$ 0.033} & \textbf{0.206 {\scriptsize $\pm$ 0.011}} \\
+GPT-5.4-mini       & 0.165 {\scriptsize $\pm$ 0.022} & \textbf{0.191 {\scriptsize $\pm$ 0.025}} & 0.142 {\scriptsize $\pm$ 0.010} \\
+Gemini-2.5-Flash   & 0.145 {\scriptsize $\pm$ 0.024} & \textbf{0.169 {\scriptsize $\pm$ 0.027}} & 0.122 {\scriptsize $\pm$ 0.015} \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{\actionrec{} score on \cvsact{}.} Unweighted mean of the
+three per-actor scores, each at its selected granularity (left instrument
+exact, right instrument medium, camera coarse; Section~\ref{sec:eval-protocol}).
+All results are scored against v3.1 synthetic ground truth after excluding the
+10-video development split; Section~\ref{sec:validation} validates this
+synthetic-GT evaluation against human-GT scores on the held-out human-GT test
+videos. The majority-label baseline predicts each track's most frequent label at every
+onset. Error terms are bootstrap standard deviations of the mean final score.}
+\label{tab:cvsact_main}
+\end{table}

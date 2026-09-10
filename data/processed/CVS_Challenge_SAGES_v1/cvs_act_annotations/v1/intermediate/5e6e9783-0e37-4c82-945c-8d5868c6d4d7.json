@@ -1,0 +1,319 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "5e6e9783-0e37-4c82-945c-8d5868c6d4d7__C2__avg__c_001950_002400",
+    "video_id": "5e6e9783-0e37-4c82-945c-8d5868c6d4d7",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1950,
+      "mid_frame": 2250,
+      "end_frame": 2400,
+      "video_id": "5e6e9783-0e37-4c82-945c-8d5868c6d4d7",
+      "keyframes": {
+        "start": "test/5e6e9783-0e37-4c82-945c-8d5868c6d4d7/frame_001950",
+        "mid": "test/5e6e9783-0e37-4c82-945c-8d5868c6d4d7/frame_002250",
+        "end": "test/5e6e9783-0e37-4c82-945c-8d5868c6d4d7/frame_002400"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "clear scene"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is partially obscured by fat and connective tissue.",
+            "The right hook is actively dissecting tissue near the cystic structures.",
+            "The left grasper retracts the gallbladder infundibulum laterally.",
+            "A small window is beginning to form."
+          ],
+          "confidence": 0.3
+        },
+        "end_state": {
+          "what_is_visible": [
+            "A large, clear window has been created in the hepatocystic triangle.",
+            "The cystic duct and artery are well-defined and separated.",
+            "The liver bed is clearly visible through the dissected window.",
+            "The right hook now retracts the gallbladder body cephalad."
+          ],
+          "confidence": 1.0
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "Connective tissue and fat are cleared from the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "The hook pulls and tears the remaining fibrous tissue between the cystic duct and artery, creating a window."
+          },
+          {
+            "delta": "The right hook's function changes from dissection to retraction.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "cephalad",
+            "evidence_frame": 2250,
+            "mechanism": "After clearing the tissue, the hook is repositioned to push the gallbladder body upward, improving the view of the cleared space."
+          },
+          {
+            "delta": "Stable lateral retraction is maintained on the gallbladder neck.",
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "evidence_frame": 1950,
+            "mechanism": "The grasper consistently holds the infundibulum, creating tension that facilitates the dissection."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right hook dissects connective tissue and fat from the hepatocystic triangle.",
+            "rationale": "This dissection directly removes the obscuring tissue, which is the primary action required to satisfy criterion C2.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.7,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "one_sentence": "The left grasper maintains lateral retraction on the gallbladder neck, exposing the dissection area.",
+            "rationale": "This stable retraction creates the necessary tension and exposure for the dissection to be performed safely and effectively.",
+            "confidence": 1.0
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "cephalad"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "5e6e9783-0e37-4c82-945c-8d5868c6d4d7__C2__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "5e6e9783-0e37-4c82-945c-8d5868c6d4d7",
+        "keyframes": {
+          "start": "test/5e6e9783-0e37-4c82-945c-8d5868c6d4d7/frame_002100",
+          "end": "test/5e6e9783-0e37-4c82-945c-8d5868c6d4d7/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "clear scene"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is partially cleared.",
+              "Some wispy connective tissue remains, obscuring the full view.",
+              "A left grasper retracts the gallbladder infundibulum laterally.",
+              "A right hook is positioned to dissect tissue within the triangle."
+            ],
+            "confidence": 0.33
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is now well-cleared of fibrous tissue.",
+              "The cystic duct and artery are clearly delineated.",
+              "A clear 'window' is visible between the structures and the liver.",
+              "The left grasper maintains strong lateral and cephalad retraction."
+            ],
+            "confidence": 0.9
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The right hook is actively dissecting connective tissue from the posterior aspect.",
+              "The dissection window in the triangle is visibly larger.",
+              "Retraction from the left grasper is maintained, tensing the tissue.",
+              "The view of the cystic artery is improving."
+            ],
+            "evidence_frame": 2220,
+            "confidence": 0.7
+          },
+          "deltas": [
+            {
+              "delta": "Continuous dissection of connective tissue within the hepatocystic triangle.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2220,
+              "mechanism": "The hook actively sweeps and separates remaining fibrous tissue, progressively clearing the space around the cystic structures."
+            },
+            {
+              "delta": "Sustained and adjusted retraction of the gallbladder.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral",
+              "evidence_frame": 2250,
+              "mechanism": "The grasper maintains strong lateral and slightly cephalad tension on the infundibulum, exposing the triangle for dissection."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 1.0,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right hook dissects connective tissue and fat from the hepatocystic triangle.",
+              "rationale": "This action directly removes the obscuring tissue, which is the primary reason for the transition from an unsatisfied to a satisfied C2 criterion.",
+              "confidence": 1.0
+            },
+            {
+              "rank": 2,
+              "importance": 0.9,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral",
+              "one_sentence": "The left grasper retracts the gallbladder infundibulum laterally to expose the surgical field.",
+              "rationale": "This sustained retraction is a critical enabling action that creates the necessary space and tension for the dissection to be performed effectively.",
+              "confidence": 1.0
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            },
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"clear scene\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is partially obscured by fat and connective tissue.\",\n      \"The right hook is actively dissecting tissue near the cystic structures.\",\n      \"The left grasper retracts the gallbladder infundibulum laterally.\",\n      \"A small window is beginning to form.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A large, clear window has been created in the hepatocystic triangle.\",\n      \"The cystic duct and artery are well-defined and separated.\",\n      \"The liver bed is clearly visible through the dissected window.\",\n      \"The right hook now retracts the gallbladder body cephalad.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"Connective tissue and fat are cleared from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The hook pulls and tears the remaining fibrous tissue between the cystic duct and artery, creating a window.\"\n    },\n    {\n      \"delta\": \"The right hook's function changes from dissection to retraction.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"cephalad\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"After clearing the tissue, the hook is repositioned to push the gallbladder body upward, improving the view of the cleared space.\"\n    },\n    {\n      \"delta\": \"Stable lateral retraction is maintained on the gallbladder neck.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The grasper consistently holds the infundibulum, creating tension that facilitates the dissection.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue and fat from the hepatocystic triangle.\",\n      \"rationale\": \"This dissection directly removes the obscuring tissue, which is the primary action required to satisfy criterion C2.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper maintains lateral retraction on the gallbladder neck, exposing the dissection area.\",\n      \"rationale\": \"This stable retraction creates the necessary tension and exposure for the dissection to be performed safely and effectively.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"cephalad\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"clear scene\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is partially cleared.\",\n      \"Some wispy connective tissue remains, obscuring the full view.\",\n      \"A left grasper retracts the gallbladder infundibulum laterally.\",\n      \"A right hook is positioned to dissect tissue within the triangle.\"\n    ],\n    \"confidence\": 0.33\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is now well-cleared of fibrous tissue.\",\n      \"The cystic duct and artery are clearly delineated.\",\n      \"A clear 'window' is visible between the structures and the liver.\",\n      \"The left grasper maintains strong lateral and cephalad retraction.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right hook is actively dissecting connective tissue from the posterior aspect.\",\n      \"The dissection window in the triangle is visibly larger.\",\n      \"Retraction from the left grasper is maintained, tensing the tissue.\",\n      \"The view of the cystic artery is improving.\"\n    ],\n    \"evidence_frame\": 2220,\n    \"confidence\": 0.7\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Continuous dissection of connective tissue within the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2220,\n      \"mechanism\": \"The hook actively sweeps and separates remaining fibrous tissue, progressively clearing the space around the cystic structures.\"\n    },\n    {\n      \"delta\": \"Sustained and adjusted retraction of the gallbladder.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The grasper maintains strong lateral and slightly cephalad tension on the infundibulum, exposing the triangle for dissection.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 1.0,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue and fat from the hepatocystic triangle.\",\n      \"rationale\": \"This action directly removes the obscuring tissue, which is the primary reason for the transition from an unsatisfied to a satisfied C2 criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder infundibulum laterally to expose the surgical field.\",\n      \"rationale\": \"This sustained retraction is a critical enabling action that creates the necessary space and tension for the dissection to be performed effectively.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T20:35:01.723326+00:00"
+    }
+  }
+]

@@ -1,0 +1,432 @@
+{
+  "_meta": {
+    "description": "Remap from audit_v3+v4 to audit_v5 (merges + splits + combo remaps)",
+    "created_at": "2026-02-21T05:34:31.733511",
+    "n_intention_remapped": 19,
+    "n_split_rules": 10,
+    "n_combo_rules": 0
+  },
+  "intention_merge_map": {
+    "clear the view": "improve visualization of the surgical field",
+    "create a window": "clear the hepatocystic triangle",
+    "expose its detachment from the liver": "expose the cystic plate",
+    "expose the cleared triangle": "expose the hepatocystic triangle",
+    "expose the surgical field": "expose the hepatocystic triangle",
+    "expose underlying structures": "expose the two tubular structures",
+    "get a clearer view": "improve visualization of the surgical field",
+    "get a clearer view of the gallbladder, hepatocystic triangle and the two tubular structures": "improve visualization of the surgical field",
+    "get a focused close-up view": "improve visualization of the surgical field",
+    "get a focused closed-up view": "improve visualization of the surgical field",
+    "get a wider contextual view": "improve visualization of the surgical field",
+    "improve exposure of the cystic plate": "expose the cystic plate",
+    "improve exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+    "improve exposure of the two tubular structures": "expose the two tubular structures",
+    "improve visualization of the anatomy": "expose the hepatocystic triangle",
+    "improve visualization of the cleared window": "improve visualization of the surgical field",
+    "improve visualization of the dissection field": "improve visualization of the surgical field",
+    "isolate the two tubular structures": "skeletonize the two tubular structures",
+    "maintain exposure of the liver bed": "maintain exposure of the cystic plate"
+  },
+  "split_rules": [
+    {
+      "source_intention": "improve visualization of the cleared window",
+      "combo": {
+        "actor_role": "right_instrument",
+        "tool_type": "Maryland grasper",
+        "action_code": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+        "target_structure": "TwoTubularStructures"
+      },
+      "new_intention": "clear the view"
+    },
+    {
+      "source_intention": "make the view clearer",
+      "combo": {
+        "actor_role": "camera",
+        "tool_type": "Unknown",
+        "action_code": "CAMERA_ZOOM_IN",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "get a focused closed-up view"
+    },
+    {
+      "source_intention": "make the view clearer",
+      "combo": {
+        "actor_role": "camera",
+        "tool_type": "Unknown",
+        "action_code": "CAMERA_ZOOM_OUT",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "get a wider contextual view"
+    },
+    {
+      "source_intention": "(not set)",
+      "combo": {
+        "actor_role": "left_instrument",
+        "tool_type": "Grasper",
+        "action_code": "RETRACT_UPWARD",
+        "target_structure": "GallbladderNeck_Infundibulum"
+      },
+      "new_intention": "expose the hepatocystic triangle"
+    },
+    {
+      "source_intention": "get a focused closed-up view",
+      "combo": {
+        "actor_role": "camera",
+        "tool_type": "Unknown",
+        "action_code": "CAMERA_ZOOM_IN",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "get a focused close-up view"
+    },
+    {
+      "source_intention": "(not set)",
+      "combo": {
+        "actor_role": "right_instrument",
+        "tool_type": "Maryland grasper",
+        "action_code": "DISSECT",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "clear the hepatocystic triangle"
+    },
+    {
+      "source_intention": "create tension for dissection",
+      "combo": {
+        "actor_role": "left_instrument",
+        "tool_type": "Grasper",
+        "action_code": "RETRACT_LATERAL",
+        "target_structure": "GallbladderNeck_Infundibulum"
+      },
+      "new_intention": "expose the hepatocystic triangle"
+    },
+    {
+      "source_intention": "get a clearer view",
+      "combo": {
+        "actor_role": "right_instrument",
+        "tool_type": "Maryland grasper",
+        "action_code": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+        "target_structure": "TwoTubularStructures"
+      },
+      "new_intention": "improve visualization of the surgical field"
+    },
+    {
+      "source_intention": "get a focused close-up view",
+      "combo": {
+        "actor_role": "camera",
+        "tool_type": "Unknown",
+        "action_code": "CAMERA_ZOOM_IN",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "improve visualization of the surgical field"
+    },
+    {
+      "source_intention": "get a wider contextual view",
+      "combo": {
+        "actor_role": "camera",
+        "tool_type": "Unknown",
+        "action_code": "CAMERA_ZOOM_OUT",
+        "target_structure": "HepatocysticTriangle"
+      },
+      "new_intention": "improve visualization of the surgical field"
+    }
+  ],
+  "merge_log": [
+    {
+      "type": "merge",
+      "from": [
+        "clear the hepatocystic triangle",
+        "create a window"
+      ],
+      "to": "clear the hepatocystic triangle"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "isolate the two tubular structures",
+        "skeletonize the two tubular structures"
+      ],
+      "to": "skeletonize the two tubular structures"
+    },
+    {
+      "type": "split",
+      "from": [
+        "improve visualization of the cleared window"
+      ],
+      "to": "clear the view",
+      "combos": [
+        {
+          "actor_role": "right_instrument",
+          "tool_type": "Maryland grasper",
+          "action_code": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+          "target_structure": "TwoTubularStructures"
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "from": [
+        "get a clearer view",
+        "improve visualization of the cleared window"
+      ],
+      "to": "get a clearer view"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the hepatocystic triangle",
+        "expose the surgical field"
+      ],
+      "to": "expose the hepatocystic triangle"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the two tubular structures",
+        "expose underlying structures"
+      ],
+      "to": "expose the two tubular structures"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose its detachment from the liver",
+        "expose the cystic plate"
+      ],
+      "to": "expose the cystic plate"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the cleared triangle",
+        "expose the hepatocystic triangle"
+      ],
+      "to": "expose the hepatocystic triangle"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "improve exposure of the hepatocystic triangle",
+        "improve visualization of the anatomy"
+      ],
+      "to": "improve exposure of the hepatocystic triangle"
+    },
+    {
+      "type": "split",
+      "from": [
+        "make the view clearer"
+      ],
+      "to": "get a focused closed-up view",
+      "combos": [
+        {
+          "actor_role": "camera",
+          "tool_type": "Unknown",
+          "action_code": "CAMERA_ZOOM_IN",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "from": [
+        "make the view clearer"
+      ],
+      "to": "get a wider contextual view",
+      "combos": [
+        {
+          "actor_role": "camera",
+          "tool_type": "Unknown",
+          "action_code": "CAMERA_ZOOM_OUT",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "from": [
+        "(not set)"
+      ],
+      "to": "expose the hepatocystic triangle",
+      "combos": [
+        {
+          "actor_role": "left_instrument",
+          "tool_type": "Grasper",
+          "action_code": "RETRACT_UPWARD",
+          "target_structure": "GallbladderNeck_Infundibulum"
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "from": [
+        "get a focused close-up view",
+        "get a focused closed-up view"
+      ],
+      "to": "get a focused close-up view"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "get a focused close-up view",
+        "get a focused closed-up view"
+      ],
+      "to": "get a focused close-up view"
+    },
+    {
+      "type": "split",
+      "from": [
+        "get a focused closed-up view"
+      ],
+      "to": "get a focused close-up view",
+      "combos": [
+        {
+          "actor_role": "camera",
+          "tool_type": "Unknown",
+          "action_code": "CAMERA_ZOOM_IN",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "from": [
+        "(not set)"
+      ],
+      "to": "clear the hepatocystic triangle",
+      "combos": [
+        {
+          "actor_role": "right_instrument",
+          "tool_type": "Maryland grasper",
+          "action_code": "DISSECT",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "from": [
+        "clear the view",
+        "improve visualization of the dissection field"
+      ],
+      "to": "clear the view"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "maintain exposure of the cystic plate",
+        "maintain exposure of the liver bed"
+      ],
+      "to": "maintain exposure of the cystic plate"
+    },
+    {
+      "type": "split",
+      "from": [
+        "create tension for dissection"
+      ],
+      "to": "expose the hepatocystic triangle",
+      "combos": [
+        {
+          "actor_role": "left_instrument",
+          "tool_type": "Grasper",
+          "action_code": "RETRACT_LATERAL",
+          "target_structure": "GallbladderNeck_Infundibulum"
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "from": [
+        "clear the view"
+      ],
+      "to": "improve visualization of the surgical field"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the cystic plate",
+        "improve exposure of the cystic plate"
+      ],
+      "to": "expose the cystic plate"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the hepatocystic triangle",
+        "improve exposure of the hepatocystic triangle"
+      ],
+      "to": "expose the hepatocystic triangle"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "expose the two tubular structures",
+        "improve exposure of the two tubular structures"
+      ],
+      "to": "expose the two tubular structures"
+    },
+    {
+      "type": "split",
+      "from": [
+        "get a clearer view"
+      ],
+      "to": "improve visualization of the surgical field",
+      "combos": [
+        {
+          "actor_role": "right_instrument",
+          "tool_type": "Maryland grasper",
+          "action_code": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+          "target_structure": "TwoTubularStructures"
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "from": [
+        "get a clearer view",
+        "get a clearer view of the gallbladder, hepatocystic triangle and the two tubular structures",
+        "get a focused close-up view",
+        "get a wider contextual view",
+        "improve visualization of the surgical field"
+      ],
+      "to": "improve visualization of the surgical field"
+    },
+    {
+      "type": "merge",
+      "from": [
+        "get a focused close-up view",
+        "get a wider contextual view",
+        "improve visualization of the surgical field"
+      ],
+      "to": "improve visualization of the surgical field"
+    },
+    {
+      "type": "split",
+      "from": [
+        "get a focused close-up view"
+      ],
+      "to": "improve visualization of the surgical field",
+      "combos": [
+        {
+          "actor_role": "camera",
+          "tool_type": "Unknown",
+          "action_code": "CAMERA_ZOOM_IN",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "from": [
+        "get a wider contextual view"
+      ],
+      "to": "improve visualization of the surgical field",
+      "combos": [
+        {
+          "actor_role": "camera",
+          "tool_type": "Unknown",
+          "action_code": "CAMERA_ZOOM_OUT",
+          "target_structure": "HepatocysticTriangle"
+        }
+      ]
+    }
+  ],
+  "combo_remap_rules": []
+}

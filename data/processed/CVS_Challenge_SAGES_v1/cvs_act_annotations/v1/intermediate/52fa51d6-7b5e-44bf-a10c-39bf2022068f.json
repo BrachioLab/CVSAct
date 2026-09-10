@@ -1,0 +1,349 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "52fa51d6-7b5e-44bf-a10c-39bf2022068f__C2__avg__c_001950_002400",
+    "video_id": "52fa51d6-7b5e-44bf-a10c-39bf2022068f",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1950,
+      "mid_frame": 2250,
+      "end_frame": 2400,
+      "video_id": "52fa51d6-7b5e-44bf-a10c-39bf2022068f",
+      "keyframes": {
+        "start": "test/52fa51d6-7b5e-44bf-a10c-39bf2022068f/frame_001950",
+        "mid": "test/52fa51d6-7b5e-44bf-a10c-39bf2022068f/frame_002250",
+        "end": "test/52fa51d6-7b5e-44bf-a10c-39bf2022068f/frame_002400"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "blurring",
+          "fouled lens"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward"
+          },
+          "right": {
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Fat",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The surgical field is extremely blurry and obscured by fluid.",
+            "Anatomy of the hepatocystic triangle is completely unidentifiable.",
+            "The view is very close-up and chaotic."
+          ],
+          "confidence": 1.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is clearly defined and free of fat.",
+            "The cystic duct and artery are well-exposed.",
+            "The gallbladder is retracted upward, creating a stable, open view.",
+            "The camera has pulled back to show wider anatomical context."
+          ],
+          "confidence": 1.0
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "An irrigator/aspirator tool is actively clearing fluid and debris.",
+            "The view is improving, but anatomy remains partially obscured.",
+            "A grasper on the left continues to retract the gallbladder."
+          ],
+          "evidence_frame": 2100,
+          "confidence": 0.9
+        },
+        "deltas": [
+          {
+            "delta": "The surgical field was cleared of obscuring fluid and debris.",
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Fluid",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "An irrigator/aspirator tool removes fluid, blood, and loose tissue, dramatically improving visibility."
+          },
+          {
+            "delta": "Fat and connective tissue were removed from the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Fat",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "A dissecting tool (blue handle) clears the remaining tissue to expose the duct and artery."
+          },
+          {
+            "delta": "The camera pulled back to provide a wider, more stable view.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "Changing from a close-up, messy view to a wider shot allows for confident assessment of the cleared anatomy."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.5,
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Fat",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right-hand bipolar dissects fat and connective tissue within the hepatocystic triangle.",
+            "rationale": "This action directly removes the tissue required by the criterion, changing the state of the triangle from uncleared to cleared.",
+            "confidence": 0.9
+          },
+          {
+            "rank": 2,
+            "importance": 0.4,
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Fluid",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right-hand irrigator aspirates fluid and debris to clear the surgical field.",
+            "rationale": "This cleaning action was essential to remove visual obstructions, making it possible to see and confirm the cleared state.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 3,
+            "importance": 0.1,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward",
+            "one_sentence": "The left-hand grasper retracts the gallbladder upward to expose the hepatocystic triangle.",
+            "rationale": "This sustained retraction creates the necessary space and tension for effective dissection and visualization.",
+            "confidence": 1.0
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Fluid",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Fat",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "52fa51d6-7b5e-44bf-a10c-39bf2022068f__C2__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "52fa51d6-7b5e-44bf-a10c-39bf2022068f",
+        "keyframes": {
+          "start": "test/52fa51d6-7b5e-44bf-a10c-39bf2022068f/frame_002100",
+          "end": "test/52fa51d6-7b5e-44bf-a10c-39bf2022068f/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            "right": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is obscured by bloody connective tissue.",
+              "The view is very close-up, focusing on the dissection area.",
+              "A right-sided tool is actively dissecting tissue.",
+              "A left-sided grasper is partially visible, providing retraction."
+            ],
+            "confidence": 0.0
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is almost completely cleared of tissue.",
+              "The cystic duct and cystic artery are clearly exposed.",
+              "The right-sided bipolar tool is positioned near the cleared structures.",
+              "The left grasper maintains retraction on the gallbladder."
+            ],
+            "confidence": 1.0
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "Dissection has partially cleared the hepatocystic triangle.",
+              "The cystic duct and artery are becoming visible through remaining tissue.",
+              "The right bipolar tool continues to dissect connective tissue.",
+              "The camera view has pulled back slightly, improving context."
+            ],
+            "evidence_frame": 2190,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "A significant amount of connective tissue was dissected from the hepatocystic triangle.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2190,
+              "mechanism": "The bipolar tool progressively peels and clears tissue layers, revealing the underlying duct and artery."
+            },
+            {
+              "delta": "The camera view pulled back, improving the overall view of the hepatocystic triangle.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2130,
+              "mechanism": "The camera zooms out, transitioning from a tight focus on the tool tip to a wider view of the anatomical region."
+            },
+            {
+              "delta": "Consistent retraction of the gallbladder was maintained throughout the dissection.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "evidence_frame": 2250,
+              "mechanism": "The left grasper holds the gallbladder under tension, creating the space and exposure needed for dissection."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.8,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right bipolar tool dissects connective tissue from the hepatocystic triangle.",
+              "rationale": "This action directly removes the fat and fibrous tissue, which is the definition of satisfying this criterion.",
+              "confidence": 0.95
+            },
+            {
+              "rank": 2,
+              "importance": 0.6,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "one_sentence": "The left grasper retracts the gallbladder upward at the neck/infundibulum.",
+              "rationale": "This stable retraction creates the necessary tension and exposure for the dissection to be performed effectively.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"blurring\",\n    \"fouled lens\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Fat\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The surgical field is extremely blurry and obscured by fluid.\",\n      \"Anatomy of the hepatocystic triangle is completely unidentifiable.\",\n      \"The view is very close-up and chaotic.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is clearly defined and free of fat.\",\n      \"The cystic duct and artery are well-exposed.\",\n      \"The gallbladder is retracted upward, creating a stable, open view.\",\n      \"The camera has pulled back to show wider anatomical context.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"An irrigator/aspirator tool is actively clearing fluid and debris.\",\n      \"The view is improving, but anatomy remains partially obscured.\",\n      \"A grasper on the left continues to retract the gallbladder.\"\n    ],\n    \"evidence_frame\": 2100,\n    \"confidence\": 0.9\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The surgical field was cleared of obscuring fluid and debris.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Fluid\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"An irrigator/aspirator tool removes fluid, blood, and loose tissue, dramatically improving visibility.\"\n    },\n    {\n      \"delta\": \"Fat and connective tissue were removed from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Fat\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"A dissecting tool (blue handle) clears the remaining tissue to expose the duct and artery.\"\n    },\n    {\n      \"delta\": \"The camera pulled back to provide a wider, more stable view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"Changing from a close-up, messy view to a wider shot allows for confident assessment of the cleared anatomy.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.5,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Fat\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-hand bipolar dissects fat and connective tissue within the hepatocystic triangle.\",\n      \"rationale\": \"This action directly removes the tissue required by the criterion, changing the state of the triangle from uncleared to cleared.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.4,\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Fluid\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-hand irrigator aspirates fluid and debris to clear the surgical field.\",\n      \"rationale\": \"This cleaning action was essential to remove visual obstructions, making it possible to see and confirm the cleared state.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 3,\n      \"importance\": 0.1,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The left-hand grasper retracts the gallbladder upward to expose the hepatocystic triangle.\",\n      \"rationale\": \"This sustained retraction creates the necessary space and tension for effective dissection and visualization.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Fluid\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Fat\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by bloody connective tissue.\",\n      \"The view is very close-up, focusing on the dissection area.\",\n      \"A right-sided tool is actively dissecting tissue.\",\n      \"A left-sided grasper is partially visible, providing retraction.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is almost completely cleared of tissue.\",\n      \"The cystic duct and cystic artery are clearly exposed.\",\n      \"The right-sided bipolar tool is positioned near the cleared structures.\",\n      \"The left grasper maintains retraction on the gallbladder.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"Dissection has partially cleared the hepatocystic triangle.\",\n      \"The cystic duct and artery are becoming visible through remaining tissue.\",\n      \"The right bipolar tool continues to dissect connective tissue.\",\n      \"The camera view has pulled back slightly, improving context.\"\n    ],\n    \"evidence_frame\": 2190,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A significant amount of connective tissue was dissected from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2190,\n      \"mechanism\": \"The bipolar tool progressively peels and clears tissue layers, revealing the underlying duct and artery.\"\n    },\n    {\n      \"delta\": \"The camera view pulled back, improving the overall view of the hepatocystic triangle.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2130,\n      \"mechanism\": \"The camera zooms out, transitioning from a tight focus on the tool tip to a wider view of the anatomical region.\"\n    },\n    {\n      \"delta\": \"Consistent retraction of the gallbladder was maintained throughout the dissection.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The left grasper holds the gallbladder under tension, creating the space and exposure needed for dissection.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.8,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects connective tissue from the hepatocystic triangle.\",\n      \"rationale\": \"This action directly removes the fat and fibrous tissue, which is the definition of satisfying this criterion.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder upward at the neck/infundibulum.\",\n      \"rationale\": \"This stable retraction creates the necessary tension and exposure for the dissection to be performed effectively.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T20:17:53.798424+00:00"
+    }
+  }
+]

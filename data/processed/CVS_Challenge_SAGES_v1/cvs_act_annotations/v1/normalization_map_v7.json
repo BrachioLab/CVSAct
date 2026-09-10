@@ -1,0 +1,188 @@
+{
+  "_meta": {
+    "description": "Strict-to-normalized mapping for taxonomy v7 fields",
+    "taxonomy_version": "v7",
+    "created_at": "2026-02-21T22:58:58.813202",
+    "fields_with_mappings": [
+      "action_code",
+      "target_structure",
+      "intention"
+    ],
+    "total_remaps": 16
+  },
+  "normalization_map": {
+    "action_code": {
+      "RETRACT_MEDIAL_TO_LATERAL": "RETRACT_LATERAL",
+      "CAMERA_ZOOM_OUT": "CAMERA_REPOSITION",
+      "CAMERA_ZOOM_IN": "CAMERA_REPOSITION",
+      "RETRACT_LATERAL_TO_MEDIAL": "RETRACT_MEDIAL",
+      "RETRACT_UPWARD_MEDIAL": "RETRACT_MEDIAL"
+    },
+    "target_structure": {
+      "GallbladderNeck_Infundibulum": "Gallbladder",
+      "TissueNearCysticArtery": "CysticArtery",
+      "tissue between the cystic plate and the gallbladder": "CysticPlate"
+    },
+    "intention": {
+      "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+      "skeletonize the two tubular structures": "expose the two tubular structures",
+      "skeletonize the cystic artery": "expose the two tubular structures",
+      "skeletonize the cystic duct": "expose the two tubular structures",
+      "maintain exposure of the two tubular structures": "expose the two tubular structures",
+      "maintain exposure of the cystic plate": "expose the cystic plate",
+      "separate the gallbladder from the cystic plate": "expose the cystic plate",
+      "clear blood/fluid to improve visualization": "improve visualization of the surgical field"
+    }
+  },
+  "operations_log": [
+    {
+      "field": "action_code",
+      "type": "merge",
+      "selected": [
+        "RETRACT_LATERAL",
+        "RETRACT_MEDIAL_TO_LATERAL"
+      ],
+      "to": "RETRACT_LATERAL",
+      "old_state": {}
+    },
+    {
+      "field": "action_code",
+      "type": "merge",
+      "selected": [
+        "CAMERA_ZOOM_OUT",
+        "CAMERA_REPOSITION",
+        "CAMERA_ZOOM_IN"
+      ],
+      "to": "CAMERA_REPOSITION",
+      "old_state": {
+        "RETRACT_MEDIAL_TO_LATERAL": "RETRACT_LATERAL"
+      }
+    },
+    {
+      "field": "action_code",
+      "type": "merge",
+      "selected": [
+        "RETRACT_MEDIAL",
+        "RETRACT_LATERAL_TO_MEDIAL",
+        "RETRACT_UPWARD_MEDIAL"
+      ],
+      "to": "RETRACT_MEDIAL",
+      "old_state": {
+        "RETRACT_MEDIAL_TO_LATERAL": "RETRACT_LATERAL",
+        "CAMERA_ZOOM_OUT": "CAMERA_REPOSITION",
+        "CAMERA_ZOOM_IN": "CAMERA_REPOSITION"
+      }
+    },
+    {
+      "field": "target_structure",
+      "type": "merge",
+      "selected": [
+        "GallbladderNeck_Infundibulum",
+        "Gallbladder"
+      ],
+      "to": "Gallbladder",
+      "old_state": {}
+    },
+    {
+      "field": "intention",
+      "type": "merge",
+      "selected": [
+        "maintain exposure of the hepatocystic triangle",
+        "expose the hepatocystic triangle"
+      ],
+      "to": "expose the hepatocystic triangle",
+      "old_state": {}
+    },
+    {
+      "field": "intention",
+      "type": "merge",
+      "selected": [
+        "skeletonize the two tubular structures",
+        "expose the two tubular structures",
+        "skeletonize the cystic artery",
+        "skeletonize the cystic duct",
+        "maintain exposure of the two tubular structures"
+      ],
+      "to": "expose the two tubular structures",
+      "old_state": {
+        "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle"
+      }
+    },
+    {
+      "field": "intention",
+      "type": "merge",
+      "selected": [
+        "expose the cystic plate",
+        "maintain exposure of the cystic plate"
+      ],
+      "to": "expose the cystic plate",
+      "old_state": {
+        "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+        "skeletonize the two tubular structures": "expose the two tubular structures",
+        "skeletonize the cystic artery": "expose the two tubular structures",
+        "skeletonize the cystic duct": "expose the two tubular structures",
+        "maintain exposure of the two tubular structures": "expose the two tubular structures"
+      }
+    },
+    {
+      "field": "intention",
+      "type": "merge",
+      "selected": [
+        "expose the cystic plate",
+        "separate the gallbladder from the cystic plate"
+      ],
+      "to": "expose the cystic plate",
+      "old_state": {
+        "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+        "skeletonize the two tubular structures": "expose the two tubular structures",
+        "skeletonize the cystic artery": "expose the two tubular structures",
+        "skeletonize the cystic duct": "expose the two tubular structures",
+        "maintain exposure of the two tubular structures": "expose the two tubular structures",
+        "maintain exposure of the cystic plate": "expose the cystic plate"
+      }
+    },
+    {
+      "field": "intention",
+      "type": "merge",
+      "selected": [
+        "improve visualization of the surgical field",
+        "clear blood/fluid to improve visualization"
+      ],
+      "to": "improve visualization of the surgical field",
+      "old_state": {
+        "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+        "skeletonize the two tubular structures": "expose the two tubular structures",
+        "skeletonize the cystic artery": "expose the two tubular structures",
+        "skeletonize the cystic duct": "expose the two tubular structures",
+        "maintain exposure of the two tubular structures": "expose the two tubular structures",
+        "maintain exposure of the cystic plate": "expose the cystic plate",
+        "separate the gallbladder from the cystic plate": "expose the cystic plate"
+      }
+    },
+    {
+      "field": "target_structure",
+      "type": "merge",
+      "selected": [
+        "CysticArtery",
+        "TissueNearCysticArtery"
+      ],
+      "to": "CysticArtery",
+      "old_state": {
+        "GallbladderNeck_Infundibulum": "Gallbladder"
+      }
+    },
+    {
+      "field": "target_structure",
+      "type": "merge",
+      "selected": [
+        "CysticPlate",
+        "tissue between the cystic plate and the gallbladder"
+      ],
+      "to": "CysticPlate",
+      "old_state": {
+        "GallbladderNeck_Infundibulum": "Gallbladder",
+        "TissueNearCysticArtery": "CysticArtery"
+      }
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "d0465797-0527-4148-ad6f-0aa537d03068__C1__avg__c_001650_002100",
+    "video_id": "d0465797-0527-4148-ad6f-0aa537d03068",
+    "criterion": "C1",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1650,
+      "mid_frame": 1950,
+      "end_frame": 2100,
+      "video_id": "d0465797-0527-4148-ad6f-0aa537d03068",
+      "keyframes": {
+        "start": "test/d0465797-0527-4148-ad6f-0aa537d03068/frame_001650",
+        "mid": "test/d0465797-0527-4148-ad6f-0aa537d03068/frame_001950",
+        "end": "test/d0465797-0527-4148-ad6f-0aa537d03068/frame_002100"
+      },
+      "annotation": {
+        "criterion": "C1",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding",
+          "crowded"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "A hook tool is actively dissecting in the hepatocystic triangle.",
+            "The view is cluttered with connective tissue and some blood.",
+            "The number and identity of tubular structures are ambiguous."
+          ],
+          "confidence": 0.2
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The dissection tool has been removed from the immediate view.",
+            "Two distinct, skeletonized tubular structures are clearly visible.",
+            "The hepatocystic triangle is significantly cleaner and less bloody."
+          ],
+          "confidence": 0.8
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "Connective tissue is progressively cleared from around the tubular structures.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1950,
+            "mechanism": "The hook dissects and removes obscuring tissue, improving the definition and separation of the two structures."
+          },
+          {
+            "delta": "The dissection tool is removed from the field of view.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "Removing the tool provides an unobstructed view of the now-clarified anatomy."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right hook dissects connective tissue in the hepatocystic triangle to expose underlying structures.",
+            "rationale": "This dissection clears away obscuring tissue, which isolates and reveals two distinct tubular structures, satisfying the criterion.",
+            "confidence": 0.9
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "d0465797-0527-4148-ad6f-0aa537d03068__C1__avg__f_001950_002100",
+        "start_frame": 1950,
+        "end_frame": 2100,
+        "video_id": "d0465797-0527-4148-ad6f-0aa537d03068",
+        "keyframes": {
+          "start": "test/d0465797-0527-4148-ad6f-0aa537d03068/frame_001950",
+          "end": "test/d0465797-0527-4148-ad6f-0aa537d03068/frame_002100"
+        },
+        "annotation": {
+          "criterion": "C1",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "clear scene"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A close-up view of the hepatocystic triangle.",
+              "A hook is actively dissecting tissue near vascular structures.",
+              "Tubular structures are present but obscured by blood and tissue.",
+              "It is difficult to count the number of structures."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "A wider, stable view of the hepatocystic triangle.",
+              "A left-sided grasper is retracting the gallbladder neck laterally.",
+              "Two distinct, parallel tubular structures are clearly isolated.",
+              "The surrounding connective tissue has been cleared away."
+            ],
+            "confidence": 0.9
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The camera has pulled back from the initial close-up view.",
+              "The right-sided hook is no longer in the frame.",
+              "The left grasper's retraction of the gallbladder is now visible.",
+              "Two tubular structures are beginning to become distinguishable."
+            ],
+            "evidence_frame": 1980,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "Camera viewpoint changed from a close-up dissection view to a wider inspection view.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1980,
+              "mechanism": "The camera pulls back, revealing the broader anatomical context and the effect of the tool actions."
+            },
+            {
+              "delta": "The result of dissection becomes apparent, showing cleared tissue around the tubular structures.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2040,
+              "mechanism": "Tissue previously cleared by the hook now reveals two distinct underlying structures after the camera pulls back."
+            },
+            {
+              "delta": "Sustained lateral retraction on the gallbladder becomes the dominant visual element.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral",
+              "evidence_frame": 2010,
+              "mechanism": "The retraction, now visible, creates tension that separates the cystic duct and artery."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.6,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral",
+              "one_sentence": "The left grasper retracts the gallbladder laterally, creating tension in the hepatocystic triangle.",
+              "rationale": "This retraction separates the two tubular structures, making them distinct and countable, which directly addresses the criterion.",
+              "confidence": 1.0
+            },
+            {
+              "rank": 2,
+              "importance": 0.4,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right hook dissects connective tissue within the hepatocystic triangle.",
+              "rationale": "This dissection clears tissue from around the tubular structures, which is a prerequisite for their clear identification and separation.",
+              "confidence": 1.0
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A hook tool is actively dissecting in the hepatocystic triangle.\",\n      \"The view is cluttered with connective tissue and some blood.\",\n      \"The number and identity of tubular structures are ambiguous.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The dissection tool has been removed from the immediate view.\",\n      \"Two distinct, skeletonized tubular structures are clearly visible.\",\n      \"The hepatocystic triangle is significantly cleaner and less bloody.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"Connective tissue is progressively cleared from around the tubular structures.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The hook dissects and removes obscuring tissue, improving the definition and separation of the two structures.\"\n    },\n    {\n      \"delta\": \"The dissection tool is removed from the field of view.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"Removing the tool provides an unobstructed view of the now-clarified anatomy.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue in the hepatocystic triangle to expose underlying structures.\",\n      \"rationale\": \"This dissection clears away obscuring tissue, which isolates and reveals two distinct tubular structures, satisfying the criterion.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"clear scene\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A close-up view of the hepatocystic triangle.\",\n      \"A hook is actively dissecting tissue near vascular structures.\",\n      \"Tubular structures are present but obscured by blood and tissue.\",\n      \"It is difficult to count the number of structures.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A wider, stable view of the hepatocystic triangle.\",\n      \"A left-sided grasper is retracting the gallbladder neck laterally.\",\n      \"Two distinct, parallel tubular structures are clearly isolated.\",\n      \"The surrounding connective tissue has been cleared away.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The camera has pulled back from the initial close-up view.\",\n      \"The right-sided hook is no longer in the frame.\",\n      \"The left grasper's retraction of the gallbladder is now visible.\",\n      \"Two tubular structures are beginning to become distinguishable.\"\n    ],\n    \"evidence_frame\": 1980,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Camera viewpoint changed from a close-up dissection view to a wider inspection view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1980,\n      \"mechanism\": \"The camera pulls back, revealing the broader anatomical context and the effect of the tool actions.\"\n    },\n    {\n      \"delta\": \"The result of dissection becomes apparent, showing cleared tissue around the tubular structures.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2040,\n      \"mechanism\": \"Tissue previously cleared by the hook now reveals two distinct underlying structures after the camera pulls back.\"\n    },\n    {\n      \"delta\": \"Sustained lateral retraction on the gallbladder becomes the dominant visual element.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2010,\n      \"mechanism\": \"The retraction, now visible, creates tension that separates the cystic duct and artery.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder laterally, creating tension in the hepatocystic triangle.\",\n      \"rationale\": \"This retraction separates the two tubular structures, making them distinct and countable, which directly addresses the criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.4,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue within the hepatocystic triangle.\",\n      \"rationale\": \"This dissection clears tissue from around the tubular structures, which is a prerequisite for their clear identification and separation.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T01:40:47.210714+00:00"
+    }
+  }
+]

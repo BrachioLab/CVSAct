@@ -1,0 +1,332 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "e5bf7dc7-f08c-4db9-b2f8-eec184918820__C2__avg__c_001800_002250",
+    "video_id": "e5bf7dc7-f08c-4db9-b2f8-eec184918820",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1800,
+      "mid_frame": 2100,
+      "end_frame": 2250,
+      "video_id": "e5bf7dc7-f08c-4db9-b2f8-eec184918820",
+      "keyframes": {
+        "start": "test/e5bf7dc7-f08c-4db9-b2f8-eec184918820/frame_001800",
+        "mid": "test/e5bf7dc7-f08c-4db9-b2f8-eec184918820/frame_002100",
+        "end": "test/e5bf7dc7-f08c-4db9-b2f8-eec184918820/frame_002250"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          "right": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is partially obscured by connective tissue.",
+            "The left grasper retracts the gallbladder infundibulum laterally.",
+            "The right grasper manipulates tissue directly within the triangle.",
+            "Cystic structures are not yet clearly delineated."
+          ],
+          "confidence": 1.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is widely exposed.",
+            "The cystic duct and artery are clearly visible and skeletonized.",
+            "The right grasper retracts the gallbladder fundus cephalad (implied).",
+            "The left grasper maintains lateral retraction on the infundibulum."
+          ],
+          "confidence": 1.0
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "The right grasper has been repositioned to retract the gallbladder fundus.",
+            "This new cephalad retraction stretches the triangle open.",
+            "The posterior aspect of the hepatocystic triangle is now visible.",
+            "Cystic structures are under tension and much better defined."
+          ],
+          "evidence_frame": 2100,
+          "confidence": 1.0
+        },
+        "deltas": [
+          {
+            "delta": "The right grasper's role changed from manipulating tissue in the triangle to retracting the gallbladder fundus cephalad.",
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad",
+            "evidence_frame": 2100,
+            "mechanism": "The tool was repositioned to grasp the fundus and pull it over the liver, creating superior exposure."
+          },
+          {
+            "delta": "The hepatocystic triangle becomes significantly more exposed, revealing its posterior surface.",
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Hepatocystic triangle",
+            "direction": "cephalad",
+            "evidence_frame": 2100,
+            "mechanism": "The new fundal retraction stretched the triangle open, improving visibility of the key structures."
+          },
+          {
+            "delta": "The cystic duct and artery become clearly delineated and appear skeletonized.",
+            "actor_side": "unclear",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "Tissue was cleared from around the duct and artery, likely via dissection enabled by the improved retraction."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad",
+            "one_sentence": "The right grasper retracts the gallbladder fundus cephalad over the liver.",
+            "rationale": "This change in retraction strategy is the primary action that opened up the hepatocystic triangle, enabling its clearance.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.6,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "one_sentence": "The left grasper maintains lateral retraction on the gallbladder neck.",
+            "rationale": "This complementary retraction helps splay the cystic structures apart, contributing to the clear view.",
+            "confidence": 1.0
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Grasp",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          {
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "e5bf7dc7-f08c-4db9-b2f8-eec184918820__C2__avg__f_001950_002100",
+        "start_frame": 1950,
+        "end_frame": 2100,
+        "video_id": "e5bf7dc7-f08c-4db9-b2f8-eec184918820",
+        "keyframes": {
+          "start": "test/e5bf7dc7-f08c-4db9-b2f8-eec184918820/frame_001950",
+          "end": "test/e5bf7dc7-f08c-4db9-b2f8-eec184918820/frame_002100"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            },
+            "right": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder fundus/body",
+              "direction": "cephalad"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A left-side grasper holds the gallbladder infundibulum.",
+              "A right-side tool is positioned near the hepatocystic triangle.",
+              "The hepatocystic triangle is present but not fully tensioned.",
+              "Filmy connective tissue partially obscures the view between cystic structures."
+            ],
+            "confidence": 0.5
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The left grasper retracts the infundibulum laterally.",
+              "The right grasper retracts the gallbladder body cephalad.",
+              "The hepatocystic triangle is well-exposed under dual retraction.",
+              "Cystic duct and artery are stretched and clearly separated."
+            ],
+            "confidence": 0.9
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The right grasper is repositioned to retract the gallbladder body cephalad.",
+              "The left grasper adjusts its grip to pull the infundibulum laterally.",
+              "This new two-handed retraction begins to open the hepatocystic triangle.",
+              "The cystic structures start to stretch and separate."
+            ],
+            "evidence_frame": 2010,
+            "confidence": 0.95
+          },
+          "deltas": [
+            {
+              "delta": "A two-handed retraction strategy is established, with one tool pulling the infundibulum laterally and the other pulling the fundus cephalad.",
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2010,
+              "mechanism": "The coordinated pulling from two different directions stretches the tissue and opens up the space in the hepatocystic triangle."
+            },
+            {
+              "delta": "The space between the cystic duct and artery becomes clearly visible and appears free of significant tissue.",
+              "actor_side": "unclear",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2040,
+              "mechanism": "The tension created by the new retraction strategy separates the structures, creating a clear 'window'."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral",
+              "one_sentence": "The left grasper retracts the gallbladder infundibulum laterally, creating tension on the cystic structures.",
+              "rationale": "This lateral retraction is the primary force that separates the cystic duct and artery, exposing the hepatocystic triangle.",
+              "confidence": 1.0
+            },
+            {
+              "rank": 2,
+              "importance": 0.8,
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder fundus/body",
+              "direction": "cephalad",
+              "one_sentence": "The right grasper retracts the gallbladder body cephalad to improve overall exposure.",
+              "rationale": "This action works with the lateral retraction to fully stretch the gallbladder and provide a stable, clear view of the triangle.",
+              "confidence": 1.0
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder fundus/body",
+              "direction": "cephalad"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is partially obscured by connective tissue.\",\n      \"The left grasper retracts the gallbladder infundibulum laterally.\",\n      \"The right grasper manipulates tissue directly within the triangle.\",\n      \"Cystic structures are not yet clearly delineated.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is widely exposed.\",\n      \"The cystic duct and artery are clearly visible and skeletonized.\",\n      \"The right grasper retracts the gallbladder fundus cephalad (implied).\",\n      \"The left grasper maintains lateral retraction on the infundibulum.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right grasper has been repositioned to retract the gallbladder fundus.\",\n      \"This new cephalad retraction stretches the triangle open.\",\n      \"The posterior aspect of the hepatocystic triangle is now visible.\",\n      \"Cystic structures are under tension and much better defined.\"\n    ],\n    \"evidence_frame\": 2100,\n    \"confidence\": 1.0\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The right grasper's role changed from manipulating tissue in the triangle to retracting the gallbladder fundus cephalad.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The tool was repositioned to grasp the fundus and pull it over the liver, creating superior exposure.\"\n    },\n    {\n      \"delta\": \"The hepatocystic triangle becomes significantly more exposed, revealing its posterior surface.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"cephalad\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The new fundal retraction stretched the triangle open, improving visibility of the key structures.\"\n    },\n    {\n      \"delta\": \"The cystic duct and artery become clearly delineated and appear skeletonized.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"Tissue was cleared from around the duct and artery, likely via dissection enabled by the improved retraction.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\",\n      \"one_sentence\": \"The right grasper retracts the gallbladder fundus cephalad over the liver.\",\n      \"rationale\": \"This change in retraction strategy is the primary action that opened up the hepatocystic triangle, enabling its clearance.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper maintains lateral retraction on the gallbladder neck.\",\n      \"rationale\": \"This complementary retraction helps splay the cystic structures apart, contributing to the clear view.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A left-side grasper holds the gallbladder infundibulum.\",\n      \"A right-side tool is positioned near the hepatocystic triangle.\",\n      \"The hepatocystic triangle is present but not fully tensioned.\",\n      \"Filmy connective tissue partially obscures the view between cystic structures.\"\n    ],\n    \"confidence\": 0.5\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The left grasper retracts the infundibulum laterally.\",\n      \"The right grasper retracts the gallbladder body cephalad.\",\n      \"The hepatocystic triangle is well-exposed under dual retraction.\",\n      \"Cystic duct and artery are stretched and clearly separated.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right grasper is repositioned to retract the gallbladder body cephalad.\",\n      \"The left grasper adjusts its grip to pull the infundibulum laterally.\",\n      \"This new two-handed retraction begins to open the hepatocystic triangle.\",\n      \"The cystic structures start to stretch and separate.\"\n    ],\n    \"evidence_frame\": 2010,\n    \"confidence\": 0.95\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A two-handed retraction strategy is established, with one tool pulling the infundibulum laterally and the other pulling the fundus cephalad.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2010,\n      \"mechanism\": \"The coordinated pulling from two different directions stretches the tissue and opens up the space in the hepatocystic triangle.\"\n    },\n    {\n      \"delta\": \"The space between the cystic duct and artery becomes clearly visible and appears free of significant tissue.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2040,\n      \"mechanism\": \"The tension created by the new retraction strategy separates the structures, creating a clear 'window'.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder infundibulum laterally, creating tension on the cystic structures.\",\n      \"rationale\": \"This lateral retraction is the primary force that separates the cystic duct and artery, exposing the hepatocystic triangle.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.8,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\",\n      \"one_sentence\": \"The right grasper retracts the gallbladder body cephalad to improve overall exposure.\",\n      \"rationale\": \"This action works with the lateral retraction to fully stretch the gallbladder and provide a stable, clear view of the triangle.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T02:38:47.136649+00:00"
+    }
+  }
+]

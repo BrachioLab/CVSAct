@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "description": "Strict-to-normalized mapping for taxonomy v8 fields",
+    "taxonomy_version": "v8",
+    "created_at": "2026-02-24T19:01:22.680053",
+    "fields_with_mappings": [
+      "action_code",
+      "target_structure",
+      "intention"
+    ]
+  },
+  "normalization_map": {
+    "action_code": {
+      "RETRACT_MEDIAL_TO_LATERAL": "RETRACT_LATERAL",
+      "RETRACT_LATERAL_TO_MEDIAL": "RETRACT_MEDIAL",
+      "RETRACT_UPWARD_MEDIAL": "RETRACT_MEDIAL",
+      "CAMERA_ZOOM_OUT": "CAMERA_REPOSITION",
+      "CAMERA_ZOOM_IN": "CAMERA_REPOSITION"
+    },
+    "target_structure": {
+      "GallbladderNeck_Infundibulum": "Gallbladder",
+      "TissueNearCysticArtery": "CysticArtery",
+      "tissue between the cystic plate and the gallbladder": "CysticPlate"
+    },
+    "intention": {
+      "maintain exposure of the hepatocystic triangle": "expose the hepatocystic triangle",
+      "maintain exposure of the cystic plate": "expose the cystic plate",
+      "maintain exposure of the two tubular structures": "expose the two tubular structures",
+      "skeletonize the two tubular structures": "expose the two tubular structures",
+      "skeletonize the presumed cystic artery": "expose the two tubular structures",
+      "skeletonize the presumed cystic duct": "expose the two tubular structures",
+      "clear blood/fluid to improve visualization": "improve visualization of the surgical field"
+    }
+  }
+}

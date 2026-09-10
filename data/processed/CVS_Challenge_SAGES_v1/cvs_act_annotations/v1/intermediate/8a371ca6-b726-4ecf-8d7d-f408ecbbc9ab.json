@@ -1,0 +1,328 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab__C2__avg__c_001950_002250",
+    "video_id": "8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1950,
+      "mid_frame": 2100,
+      "end_frame": 2250,
+      "video_id": "8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab",
+      "keyframes": {
+        "start": "test/8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab/frame_001950",
+        "mid": "test/8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab/frame_002100",
+        "end": "test/8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab/frame_002250"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "A hook tool is actively dissecting in the hepatocystic triangle.",
+            "Significant fat and connective tissue obscure the cystic structures.",
+            "The posterior aspect of the triangle is not yet cleared."
+          ],
+          "confidence": 0.3
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is now cleared of obscuring tissue.",
+            "A clear window is visible behind the cystic duct and artery.",
+            "A left-hand grasper is seen retracting the gallbladder neck.",
+            "The dissection tool has been removed from the scene."
+          ],
+          "confidence": 0.9
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "The hook tool continues dissecting tissue posterior to the cystic structures.",
+            "A window is actively being created through the hepatocystic triangle.",
+            "More of the underlying anatomy is visible than at the start."
+          ],
+          "evidence_frame": 2100,
+          "confidence": 0.6
+        },
+        "deltas": [
+          {
+            "delta": "Progressive dissection of fat and connective tissue from the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "The hook tool clears tissue from around and behind the cystic structures, creating a window."
+          },
+          {
+            "delta": "Removal of the dissection tool and slight camera pullback to reveal the fully cleared triangle.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "The view changes from a close-up of the action to a wider, unobstructed view of the result."
+          },
+          {
+            "delta": "The left grasper holding the gallbladder neck becomes visible, confirming the source of retraction.",
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "evidence_frame": 2250,
+            "mechanism": "The grasper's position is revealed, showing how tension is maintained to expose the surgical field."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.6,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right hook dissects connective tissue and fat within the hepatocystic triangle.",
+            "rationale": "This dissection is the direct cause of clearing the tissue required to satisfy the C2 criterion.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.4,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "one_sentence": "The left grasper retracts the gallbladder neck laterally to expose the hepatocystic triangle.",
+            "rationale": "This retraction creates the necessary tension and exposure for the dissection to proceed and for the final cleared view to be confirmed.",
+            "confidence": 0.9
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab__C2__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab",
+        "keyframes": {
+          "start": "test/8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab/frame_002100",
+          "end": "test/8a371ca6-b726-4ecf-8d7d-f408ecbbc9ab/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A right-sided hook is actively dissecting tissue in the hepatocystic triangle.",
+              "The triangle is partially obscured by remaining fat and connective tissue.",
+              "The window behind the central structures is not yet fully cleared."
+            ],
+            "confidence": 0.33
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is well-exposed and clear of tissue.",
+              "A distinct window is visible behind the cystic duct and artery.",
+              "A left grasper retracts the gallbladder upward.",
+              "A right grasper holds tissue near the duct/artery junction."
+            ],
+            "confidence": 1.0
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The dissection tool has been removed from the scene.",
+              "The hepatocystic triangle is now clearly visible post-dissection.",
+              "The window behind the duct/artery is open and unobstructed."
+            ],
+            "evidence_frame": 2160,
+            "confidence": 0.8
+          },
+          "deltas": [
+            {
+              "delta": "Dissection of remaining connective tissue in the hepatocystic triangle.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2100,
+              "mechanism": "The hook removes the final layer of tissue, revealing the window behind the duct and artery."
+            },
+            {
+              "delta": "Left grasper grasps and retracts the gallbladder.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "evidence_frame": 2220,
+              "mechanism": "Applying upward tension on the gallbladder neck maintains the exposure of the now-cleared hepatocystic triangle."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.8,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right-sided hook dissects the final layer of connective tissue in the hepatocystic triangle.",
+              "rationale": "This dissection directly removes the remaining tissue obscuring the hepatocystic triangle, which is the primary requirement for satisfying C2.",
+              "confidence": 0.95
+            },
+            {
+              "rank": 2,
+              "importance": 0.6,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "one_sentence": "The left grasper retracts the gallbladder upward, maintaining exposure of the cleared hepatocystic triangle.",
+              "rationale": "This retraction sustains the clear view of the dissected area, allowing for confident confirmation that the triangle is free of tissue.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A hook tool is actively dissecting in the hepatocystic triangle.\",\n      \"Significant fat and connective tissue obscure the cystic structures.\",\n      \"The posterior aspect of the triangle is not yet cleared.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is now cleared of obscuring tissue.\",\n      \"A clear window is visible behind the cystic duct and artery.\",\n      \"A left-hand grasper is seen retracting the gallbladder neck.\",\n      \"The dissection tool has been removed from the scene.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The hook tool continues dissecting tissue posterior to the cystic structures.\",\n      \"A window is actively being created through the hepatocystic triangle.\",\n      \"More of the underlying anatomy is visible than at the start.\"\n    ],\n    \"evidence_frame\": 2100,\n    \"confidence\": 0.6\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Progressive dissection of fat and connective tissue from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The hook tool clears tissue from around and behind the cystic structures, creating a window.\"\n    },\n    {\n      \"delta\": \"Removal of the dissection tool and slight camera pullback to reveal the fully cleared triangle.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The view changes from a close-up of the action to a wider, unobstructed view of the result.\"\n    },\n    {\n      \"delta\": \"The left grasper holding the gallbladder neck becomes visible, confirming the source of retraction.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The grasper's position is revealed, showing how tension is maintained to expose the surgical field.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.6,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue and fat within the hepatocystic triangle.\",\n      \"rationale\": \"This dissection is the direct cause of clearing the tissue required to satisfy the C2 criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.4,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder neck laterally to expose the hepatocystic triangle.\",\n      \"rationale\": \"This retraction creates the necessary tension and exposure for the dissection to proceed and for the final cleared view to be confirmed.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A right-sided hook is actively dissecting tissue in the hepatocystic triangle.\",\n      \"The triangle is partially obscured by remaining fat and connective tissue.\",\n      \"The window behind the central structures is not yet fully cleared.\"\n    ],\n    \"confidence\": 0.33\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is well-exposed and clear of tissue.\",\n      \"A distinct window is visible behind the cystic duct and artery.\",\n      \"A left grasper retracts the gallbladder upward.\",\n      \"A right grasper holds tissue near the duct/artery junction.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The dissection tool has been removed from the scene.\",\n      \"The hepatocystic triangle is now clearly visible post-dissection.\",\n      \"The window behind the duct/artery is open and unobstructed.\"\n    ],\n    \"evidence_frame\": 2160,\n    \"confidence\": 0.8\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Dissection of remaining connective tissue in the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The hook removes the final layer of tissue, revealing the window behind the duct and artery.\"\n    },\n    {\n      \"delta\": \"Left grasper grasps and retracts the gallbladder.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"evidence_frame\": 2220,\n      \"mechanism\": \"Applying upward tension on the gallbladder neck maintains the exposure of the now-cleared hepatocystic triangle.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.8,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided hook dissects the final layer of connective tissue in the hepatocystic triangle.\",\n      \"rationale\": \"This dissection directly removes the remaining tissue obscuring the hepatocystic triangle, which is the primary requirement for satisfying C2.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder upward, maintaining exposure of the cleared hepatocystic triangle.\",\n      \"rationale\": \"This retraction sustains the clear view of the dissected area, allowing for confident confirmation that the triangle is free of tissue.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T22:12:51.886258+00:00"
+    }
+  }
+]

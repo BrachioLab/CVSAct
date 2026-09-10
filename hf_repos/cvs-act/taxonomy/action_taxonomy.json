@@ -1,0 +1,80 @@
+{
+  "dataset_name": "CVS-Act",
+  "taxonomy_version": "cvs_act_current_simple_v1",
+  "description": "Reduced current task taxonomy used by the left/right/camera simple-action setup for audit_v11, SurGent, and CoT evaluation.",
+  "derived_from": {
+    "internal_source_release": "audit_v11",
+    "base_taxonomy_path": "data/processed/CVS_Challenge_SAGES_v1/cvs_act_annotations/v1/taxonomy_v10.json",
+    "simple_gt_path": "notebooks/artifacts/audit_v11_simple_action_gt/audit_v11_simple_actions.json",
+    "current_taxonomy_notebook": "notebooks/qwen3.5_audit_v11_seg_extract_spec_eval/qwen3.5_audit_v11_current_taxonomy_latex.ipynb"
+  },
+  "actors": {
+    "left": {
+      "components": {
+        "retraction_direction_code": [
+          "KEEP_RETRACT_LATERAL",
+          "KEEP_RETRACT_MEDIAL",
+          "KEEP_RETRACT_UPWARD",
+          "RETRACT_LATERAL",
+          "RETRACT_MEDIAL",
+          "RETRACT_UPWARD",
+          "RETRACT_LATERAL_TO_MEDIAL",
+          "RETRACT_LATERAL_TO_UPWARD",
+          "RETRACT_MEDIAL_TO_LATERAL",
+          "RETRACT_MEDIAL_TO_UPWARD",
+          "RETRACT_UPWARD_TO_LATERAL",
+          "RETRACT_UPWARD_TO_MEDIAL"
+        ]
+      }
+    },
+    "right": {
+      "components": {
+        "tool_type": [
+          "Hook",
+          "Irrigator",
+          "Maryland",
+          "Scissors",
+          "clipper"
+        ],
+        "action_code": [
+          "CLIP",
+          "COAGULATE_HEMOSTASIS",
+          "COUNTERTRACTION_ASSIST",
+          "DISSECT",
+          "IRRIGATOR_ASPIRATE",
+          "RETRACT_DOWNWARD",
+          "SWEEPING",
+          "TOOL_WITHDRAW_UNBLOCKS_VIEW"
+        ],
+        "target_structure": [
+          "CysticArtery",
+          "CysticDuct",
+          "CysticPlate",
+          "GallbladderNeck_Infundibulum",
+          "HepatocysticTriangle"
+        ],
+        "target_context": [
+          "between presumed cystic duct and presumed cystic artery",
+          "between cystic artery and cystic plate",
+          "near the base of the hepatocystic triangle",
+          "close to the gallbladder neck",
+          "near the cystic duct",
+          "near the cystic plate",
+          "(not set)",
+          "on the outside of cystic duct"
+        ]
+      }
+    },
+    "camera": {
+      "components": {
+        "action_code": [
+          "CAMERA_NO_CHANGE",
+          "CAMERA_REPOSITION",
+          "CAMERA_UNCERTAIN",
+          "CAMERA_ZOOM_IN",
+          "CAMERA_ZOOM_OUT"
+        ]
+      }
+    }
+  }
+}

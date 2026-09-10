@@ -1,0 +1,592 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "794109cb-4635-414e-954c-2fb499c7036b__C2__avg__c_001950_002400",
+    "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1950,
+      "mid_frame": 2250,
+      "end_frame": 2400,
+      "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+      "keyframes": {
+        "start": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_001950",
+        "mid": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002250",
+        "end": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002400"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding",
+          "crowded",
+          "trocar/net"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "grasper",
+            "verb": "Grasp",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "A grasper holds the cystic duct while a clipper is positioned.",
+            "The hepatocystic triangle is heavily occluded by the tools.",
+            "The scene is bloody, obscuring clear visualization of tissue planes.",
+            "Gauze packing is visible to the left of the surgical site."
+          ],
+          "confidence": 0.1
+        },
+        "end_state": {
+          "what_is_visible": [
+            "Scissors are positioned to cut the now-clipped cystic duct.",
+            "The hepatocystic triangle remains clearly visible and free of tissue.",
+            "The clip on the cystic duct confirms its isolation.",
+            "The view confirms the dissection performed prior to this clip."
+          ],
+          "confidence": 0.9
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "Tools have been removed, revealing the hepatocystic triangle.",
+            "A clip is now present on the isolated cystic duct.",
+            "The space between the duct, liver, and gallbladder is visibly cleared.",
+            "This frame provides the first unobscured view of the cleared triangle."
+          ],
+          "evidence_frame": 2250,
+          "confidence": 0.8
+        },
+        "deltas": [
+          {
+            "delta": "The cystic duct is clipped, confirming its isolation.",
+            "actor_side": "left",
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "A clip is applied to the duct, which is a key step indicating the dissection phase for this structure is complete."
+          },
+          {
+            "delta": "Tools are removed from the field, revealing the cleared triangle.",
+            "actor_side": "unclear",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "After clipping, the instruments are withdrawn, un-occluding the view and allowing the annotator to confirm the cleared state of the region."
+          },
+          {
+            "delta": "Scissors are introduced to transect the clipped duct.",
+            "actor_side": "right",
+            "tool": "scissors",
+            "verb": "Cut",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2400,
+            "mechanism": "The appearance of scissors signals the intent to cut the duct, reinforcing that the preceding dissection and clipping steps are finished."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "left",
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The left-side clipper applies a clip to the cystic duct in the hepatocystic triangle.",
+            "rationale": "Clipping the duct is the definitive action confirming its isolation, which implies the surrounding triangle has been sufficiently cleared of tissue.",
+            "confidence": 0.95
+          },
+          {
+            "rank": 2,
+            "importance": 0.6,
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Grasp",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right-side grasper holds the cystic duct steady within the hepatocystic triangle.",
+            "rationale": "This stable grasp enables the precise application of the clip, which is the key event for confirming C2 satisfaction.",
+            "confidence": 0.9
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Grasp",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "left",
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "scissors",
+            "verb": "Null",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "794109cb-4635-414e-954c-2fb499c7036b__C2__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+        "keyframes": {
+          "start": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002100",
+          "end": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding",
+            "occlusion"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Cystic-artery",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A right-sided grasper is holding the cystic artery.",
+              "The tool's position partially occludes a full view of the triangle.",
+              "The hepatocystic triangle appears mostly dissected.",
+              "Gauze packing and blood are present on the left side of the scene."
+            ],
+            "confidence": 0.3
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The grasper has been removed from the hepatocystic triangle.",
+              "The cystic artery and cystic duct are clearly visible and isolated.",
+              "The view of the cleared hepatocystic triangle is now unobstructed.",
+              "Gauze packing remains on the left."
+            ],
+            "confidence": 0.8
+          },
+          "mid_state": null,
+          "deltas": [
+            {
+              "delta": "The right grasper releases the cystic artery and is withdrawn from the scene.",
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2220,
+              "mechanism": "The tool is pulled back and out of the frame, revealing the anatomy it was previously holding and occluding."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right grasper retracts from the hepatocystic triangle, ceasing its grasp on the cystic artery.",
+              "rationale": "Removing the tool eliminates occlusion, allowing for an unobstructed view that confirms the hepatocystic triangle is cleared of tissue.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Cystic-artery",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\",\n    \"trocar/net\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A grasper holds the cystic duct while a clipper is positioned.\",\n      \"The hepatocystic triangle is heavily occluded by the tools.\",\n      \"The scene is bloody, obscuring clear visualization of tissue planes.\",\n      \"Gauze packing is visible to the left of the surgical site.\"\n    ],\n    \"confidence\": 0.1\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"Scissors are positioned to cut the now-clipped cystic duct.\",\n      \"The hepatocystic triangle remains clearly visible and free of tissue.\",\n      \"The clip on the cystic duct confirms its isolation.\",\n      \"The view confirms the dissection performed prior to this clip.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"Tools have been removed, revealing the hepatocystic triangle.\",\n      \"A clip is now present on the isolated cystic duct.\",\n      \"The space between the duct, liver, and gallbladder is visibly cleared.\",\n      \"This frame provides the first unobscured view of the cleared triangle.\"\n    ],\n    \"evidence_frame\": 2250,\n    \"confidence\": 0.8\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The cystic duct is clipped, confirming its isolation.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"A clip is applied to the duct, which is a key step indicating the dissection phase for this structure is complete.\"\n    },\n    {\n      \"delta\": \"Tools are removed from the field, revealing the cleared triangle.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"After clipping, the instruments are withdrawn, un-occluding the view and allowing the annotator to confirm the cleared state of the region.\"\n    },\n    {\n      \"delta\": \"Scissors are introduced to transect the clipped duct.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"scissors\",\n      \"verb\": \"Cut\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2400,\n      \"mechanism\": \"The appearance of scissors signals the intent to cut the duct, reinforcing that the preceding dissection and clipping steps are finished.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The left-side clipper applies a clip to the cystic duct in the hepatocystic triangle.\",\n      \"rationale\": \"Clipping the duct is the definitive action confirming its isolation, which implies the surrounding triangle has been sufficiently cleared of tissue.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-side grasper holds the cystic duct steady within the hepatocystic triangle.\",\n      \"rationale\": \"This stable grasp enables the precise application of the clip, which is the key event for confirming C2 satisfaction.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"scissors\",\n      \"verb\": \"Null\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"occlusion\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-artery\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A right-sided grasper is holding the cystic artery.\",\n      \"The tool's position partially occludes a full view of the triangle.\",\n      \"The hepatocystic triangle appears mostly dissected.\",\n      \"Gauze packing and blood are present on the left side of the scene.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The grasper has been removed from the hepatocystic triangle.\",\n      \"The cystic artery and cystic duct are clearly visible and isolated.\",\n      \"The view of the cleared hepatocystic triangle is now unobstructed.\",\n      \"Gauze packing remains on the left.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"The right grasper releases the cystic artery and is withdrawn from the scene.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2220,\n      \"mechanism\": \"The tool is pulled back and out of the frame, revealing the anatomy it was previously holding and occluding.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right grasper retracts from the hepatocystic triangle, ceasing its grasp on the cystic artery.\",\n      \"rationale\": \"Removing the tool eliminates occlusion, allowing for an unobstructed view that confirms the hepatocystic triangle is cleared of tissue.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-artery\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T21:40:19.414926+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "794109cb-4635-414e-954c-2fb499c7036b__C3__avg__c_001950_002250",
+    "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1950,
+      "mid_frame": 2100,
+      "end_frame": 2250,
+      "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+      "keyframes": {
+        "start": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_001950",
+        "mid": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002100",
+        "end": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002250"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding",
+          "crowded"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The right bipolar tool is actively dissecting tissue near the gallbladder.",
+            "The view is crowded with tools, blood, and surgical packing material.",
+            "The interface between the gallbladder and liver bed is obscured.",
+            "The extent of gallbladder detachment cannot be assessed."
+          ],
+          "confidence": 0.1
+        },
+        "end_state": {
+          "what_is_visible": [
+            "Surgical tools have been withdrawn from the operative field.",
+            "The lower third of the gallbladder is now visibly detached from the liver bed.",
+            "The hepatocystic triangle is exposed, though it remains bloody.",
+            "Surgical packing material is visible on the left side of the scene."
+          ],
+          "confidence": 0.9
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "The right-hand tool dissects connective tissue at the gallbladder-liver junction.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1950,
+            "mechanism": "The tool applies energy to separate tissue planes, creating space between the gallbladder and liver."
+          },
+          {
+            "delta": "Surgical tools are withdrawn from the field of view, revealing the anatomy.",
+            "actor_side": "unclear",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "The surgeon pulls both instruments out of the camera's view, providing an unobstructed look at the dissection."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.7,
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right bipolar dissects connective tissue in the hepatocystic triangle to separate the gallbladder from the liver.",
+            "rationale": "This dissection physically creates the separation required by C3, and the result becomes visible at the end of the clip, causing the belief change.",
+            "confidence": 0.9
+          },
+          {
+            "rank": 2,
+            "importance": 0.3,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The left grasper retracts the gallbladder to create tension and expose the dissection plane.",
+            "rationale": "This retraction is a necessary supporting action that enables the dissection to proceed effectively.",
+            "confidence": 0.8
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "unclear",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "794109cb-4635-414e-954c-2fb499c7036b__C3__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "794109cb-4635-414e-954c-2fb499c7036b",
+        "keyframes": {
+          "start": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002100",
+          "end": "test/794109cb-4635-414e-954c-2fb499c7036b/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding",
+            "crowded"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "upward"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A right-side tool is grasping tissue in the hepatocystic triangle.",
+              "The interface between the gallbladder and liver bed is obscured.",
+              "The scene is crowded with tissue, blood, and packing gauze.",
+              "Detachment of the lower third of the gallbladder cannot be confirmed."
+            ],
+            "confidence": 0.0
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The gallbladder neck/infundibulum is held in an upwardly retracted position.",
+              "A clear space is now visible between the lower gallbladder and the liver bed.",
+              "The active tool has been removed from the immediate field of view.",
+              "The lower third of the gallbladder is visibly detached from the liver."
+            ],
+            "confidence": 0.67
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The right grasper is actively retracting the gallbladder upward.",
+              "This retraction starts to create and reveal the dissection plane.",
+              "The view of the gallbladder-liver interface is significantly improving."
+            ],
+            "evidence_frame": 2190,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "The gallbladder is retracted upward, exposing the space between it and the liver bed.",
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "upward",
+              "evidence_frame": 2190,
+              "mechanism": "The grasper pulls the gallbladder tissue, creating tension that separates it from the liver and reveals the already dissected plane."
+            },
+            {
+              "delta": "The right-side tool is removed from the field, providing an unobstructed view.",
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2220,
+              "mechanism": "Removing the tool from the foreground clarifies the view of the anatomy, confirming the retraction state."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "upward",
+              "one_sentence": "The right grasper retracts the gallbladder upward, away from the liver bed.",
+              "rationale": "This retraction was the key event that exposed the separation between the lower third of the gallbladder and the liver, satisfying the criterion.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "upward"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The right bipolar tool is actively dissecting tissue near the gallbladder.\",\n      \"The view is crowded with tools, blood, and surgical packing material.\",\n      \"The interface between the gallbladder and liver bed is obscured.\",\n      \"The extent of gallbladder detachment cannot be assessed.\"\n    ],\n    \"confidence\": 0.1\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"Surgical tools have been withdrawn from the operative field.\",\n      \"The lower third of the gallbladder is now visibly detached from the liver bed.\",\n      \"The hepatocystic triangle is exposed, though it remains bloody.\",\n      \"Surgical packing material is visible on the left side of the scene.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"The right-hand tool dissects connective tissue at the gallbladder-liver junction.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The tool applies energy to separate tissue planes, creating space between the gallbladder and liver.\"\n    },\n    {\n      \"delta\": \"Surgical tools are withdrawn from the field of view, revealing the anatomy.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The surgeon pulls both instruments out of the camera's view, providing an unobstructed look at the dissection.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.7,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar dissects connective tissue in the hepatocystic triangle to separate the gallbladder from the liver.\",\n      \"rationale\": \"This dissection physically creates the separation required by C3, and the result becomes visible at the end of the clip, causing the belief change.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.3,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder to create tension and expose the dissection plane.\",\n      \"rationale\": \"This retraction is a necessary supporting action that enables the dissection to proceed effectively.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"upward\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A right-side tool is grasping tissue in the hepatocystic triangle.\",\n      \"The interface between the gallbladder and liver bed is obscured.\",\n      \"The scene is crowded with tissue, blood, and packing gauze.\",\n      \"Detachment of the lower third of the gallbladder cannot be confirmed.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The gallbladder neck/infundibulum is held in an upwardly retracted position.\",\n      \"A clear space is now visible between the lower gallbladder and the liver bed.\",\n      \"The active tool has been removed from the immediate field of view.\",\n      \"The lower third of the gallbladder is visibly detached from the liver.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right grasper is actively retracting the gallbladder upward.\",\n      \"This retraction starts to create and reveal the dissection plane.\",\n      \"The view of the gallbladder-liver interface is significantly improving.\"\n    ],\n    \"evidence_frame\": 2190,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The gallbladder is retracted upward, exposing the space between it and the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"upward\",\n      \"evidence_frame\": 2190,\n      \"mechanism\": \"The grasper pulls the gallbladder tissue, creating tension that separates it from the liver and reveals the already dissected plane.\"\n    },\n    {\n      \"delta\": \"The right-side tool is removed from the field, providing an unobstructed view.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2220,\n      \"mechanism\": \"Removing the tool from the foreground clarifies the view of the anatomy, confirming the retraction state.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The right grasper retracts the gallbladder upward, away from the liver bed.\",\n      \"rationale\": \"This retraction was the key event that exposed the separation between the lower third of the gallbladder and the liver, satisfying the criterion.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"upward\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T21:42:16.158442+00:00"
+    }
+  }
+]

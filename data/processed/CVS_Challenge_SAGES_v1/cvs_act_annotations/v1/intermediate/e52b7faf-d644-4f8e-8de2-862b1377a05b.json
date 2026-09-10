@@ -1,0 +1,501 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b__C2__avg__c_001200_001500",
+    "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1200,
+      "mid_frame": 1350,
+      "end_frame": 1500,
+      "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+      "keyframes": {
+        "start": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001200",
+        "mid": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001350",
+        "end": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001500"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is partially dissected.",
+            "Two tubular structures (likely duct and artery) are visible.",
+            "Connective tissue still adheres to and bridges the structures.",
+            "No tools are visible in the frame."
+          ],
+          "confidence": 0.8
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is significantly more cleared.",
+            "A hook dissector is actively separating the two tubular structures.",
+            "The space between the duct and artery is now open.",
+            "The structures are better defined and skeletonized."
+          ],
+          "confidence": 0.95
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "A hook dissector enters from the right side.",
+            "It begins to dissect connective tissue in the hepatocystic triangle.",
+            "The dissection is focused on the area between the two structures."
+          ],
+          "evidence_frame": 1350,
+          "confidence": 0.9
+        },
+        "deltas": [
+          {
+            "delta": "A hook dissector enters and actively clears connective tissue from the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1350,
+            "mechanism": "The hook pulls and separates the fibrous tissue between the cystic duct and artery, improving their definition and separation."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 1.0,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right-sided hook dissects connective tissue within the hepatocystic triangle, separating the duct and artery.",
+            "rationale": "This dissection directly removes the remaining fibrous tissue from the hepatocystic triangle, which is the primary requirement for satisfying the C2 criterion.",
+            "confidence": 1.0
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b__C2__avg__f_001350_001500",
+        "start_frame": 1350,
+        "end_frame": 1500,
+        "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+        "keyframes": {
+          "start": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001350",
+          "end": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001500"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is obscured by connective tissue and blood.",
+              "A single tubular structure, likely the cystic duct, is partially visible.",
+              "A right-sided hook is actively dissecting tissue near this structure."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "A clear window has been created in the hepatocystic triangle.",
+              "Two distinct tubular structures (likely duct and artery) are separated.",
+              "The triangle is now largely cleared of intervening fibrous tissue."
+            ],
+            "confidence": 0.8
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The surface of the cystic duct has been mostly cleared of tissue.",
+              "The right hook is positioned above the duct, having completed some dissection.",
+              "A window between the duct and artery has not yet been fully created."
+            ],
+            "evidence_frame": 1440,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "A window is created between two tubular structures by clearing intervening tissue.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1500,
+              "mechanism": "The hook dissects and separates the final strands of connective tissue between the cystic duct and another vessel."
+            },
+            {
+              "delta": "The surface of the main tubular structure (cystic duct) is cleaned.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1410,
+              "mechanism": "The hook progressively scrapes and removes fibrous tissue from the duct's surface, improving its definition."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 1.0,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right hook dissects connective tissue in the hepatocystic triangle, creating a window.",
+              "rationale": "This dissection progressively clears tissue and ultimately creates a window between the cystic duct and artery, which is the key event for satisfying the C2 criterion.",
+              "confidence": 0.95
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is partially dissected.\",\n      \"Two tubular structures (likely duct and artery) are visible.\",\n      \"Connective tissue still adheres to and bridges the structures.\",\n      \"No tools are visible in the frame.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is significantly more cleared.\",\n      \"A hook dissector is actively separating the two tubular structures.\",\n      \"The space between the duct and artery is now open.\",\n      \"The structures are better defined and skeletonized.\"\n    ],\n    \"confidence\": 0.95\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"A hook dissector enters from the right side.\",\n      \"It begins to dissect connective tissue in the hepatocystic triangle.\",\n      \"The dissection is focused on the area between the two structures.\"\n    ],\n    \"evidence_frame\": 1350,\n    \"confidence\": 0.9\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A hook dissector enters and actively clears connective tissue from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1350,\n      \"mechanism\": \"The hook pulls and separates the fibrous tissue between the cystic duct and artery, improving their definition and separation.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 1.0,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided hook dissects connective tissue within the hepatocystic triangle, separating the duct and artery.\",\n      \"rationale\": \"This dissection directly removes the remaining fibrous tissue from the hepatocystic triangle, which is the primary requirement for satisfying the C2 criterion.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by connective tissue and blood.\",\n      \"A single tubular structure, likely the cystic duct, is partially visible.\",\n      \"A right-sided hook is actively dissecting tissue near this structure.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A clear window has been created in the hepatocystic triangle.\",\n      \"Two distinct tubular structures (likely duct and artery) are separated.\",\n      \"The triangle is now largely cleared of intervening fibrous tissue.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The surface of the cystic duct has been mostly cleared of tissue.\",\n      \"The right hook is positioned above the duct, having completed some dissection.\",\n      \"A window between the duct and artery has not yet been fully created.\"\n    ],\n    \"evidence_frame\": 1440,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A window is created between two tubular structures by clearing intervening tissue.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1500,\n      \"mechanism\": \"The hook dissects and separates the final strands of connective tissue between the cystic duct and another vessel.\"\n    },\n    {\n      \"delta\": \"The surface of the main tubular structure (cystic duct) is cleaned.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1410,\n      \"mechanism\": \"The hook progressively scrapes and removes fibrous tissue from the duct's surface, improving its definition.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 1.0,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue in the hepatocystic triangle, creating a window.\",\n      \"rationale\": \"This dissection progressively clears tissue and ultimately creates a window between the cystic duct and artery, which is the key event for satisfying the C2 criterion.\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T02:36:12.642568+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b__C2__avg__c_001800_002100",
+    "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1800,
+      "mid_frame": 1950,
+      "end_frame": 2100,
+      "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+      "keyframes": {
+        "start": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001800",
+        "mid": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001950",
+        "end": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_002100"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding",
+          "crowded"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is obscured by blood and connective tissue.",
+            "Tubular structures (likely cystic duct/artery) are poorly defined.",
+            "No surgical tools are visible in the frame."
+          ],
+          "confidence": 0.3
+        },
+        "end_state": {
+          "what_is_visible": [
+            "A hook continues to dissect tissue in the hepatocystic triangle.",
+            "The cystic duct and artery are more clearly defined and separated.",
+            "The hepatocystic triangle is significantly clearer than at the start."
+          ],
+          "confidence": 0.8
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "A hook tool appears on the right side of the frame.",
+            "The hook actively dissects connective tissue from around a vessel.",
+            "The tubular structures are becoming more skeletonized."
+          ],
+          "evidence_frame": 1950,
+          "confidence": 0.7
+        },
+        "deltas": [
+          {
+            "delta": "A hook tool enters the scene and begins dissecting connective tissue within the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1950,
+            "mechanism": "The hook scrapes and pulls away fibrous tissue, progressively skeletonizing the cystic duct and artery."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right-sided hook dissects connective tissue within the hepatocystic triangle.",
+            "rationale": "This dissection directly removes fibrous tissue from the triangle, skeletonizing the duct and artery and thus satisfying the criterion.",
+            "confidence": 0.9
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b__C2__avg__f_001800_001950",
+        "start_frame": 1800,
+        "end_frame": 1950,
+        "video_id": "e52b7faf-d644-4f8e-8de2-862b1377a05b",
+        "keyframes": {
+          "start": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001800",
+          "end": "test/e52b7faf-d644-4f8e-8de2-862b1377a05b/frame_001950"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding",
+            "reflection"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is visible but obscured by blood.",
+              "The cystic duct and artery are identifiable but not fully skeletonized.",
+              "Some connective tissue remains between the duct and artery.",
+              "No surgical tools are visible."
+            ],
+            "confidence": 0.1
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is significantly clearer of tissue.",
+              "The cystic duct and artery are well-defined and skeletonized.",
+              "The window between the two structures is now open and apparent.",
+              "A hook tool is visible on the right, having completed dissection."
+            ],
+            "confidence": 0.7
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "A hook tool appears on the right side of the screen.",
+              "The tool begins to dissect fine connective tissue in the triangle.",
+              "The view is still bloody and the structures are not yet fully cleared."
+            ],
+            "evidence_frame": 1890,
+            "confidence": 0.4
+          },
+          "deltas": [
+            {
+              "delta": "A hook tool appears and dissects the remaining connective tissue between the cystic duct and artery.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1920,
+              "mechanism": "The tool enters the scene and performs fine dissection, pulling away wispy tissue to better expose the two tubular structures."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right-sided hook dissects connective tissue within the hepatocystic triangle.",
+              "rationale": "This final clearing of tissue between the duct and artery is the direct action that leads to the satisfaction of the criterion.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by blood and connective tissue.\",\n      \"Tubular structures (likely cystic duct/artery) are poorly defined.\",\n      \"No surgical tools are visible in the frame.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A hook continues to dissect tissue in the hepatocystic triangle.\",\n      \"The cystic duct and artery are more clearly defined and separated.\",\n      \"The hepatocystic triangle is significantly clearer than at the start.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"A hook tool appears on the right side of the frame.\",\n      \"The hook actively dissects connective tissue from around a vessel.\",\n      \"The tubular structures are becoming more skeletonized.\"\n    ],\n    \"evidence_frame\": 1950,\n    \"confidence\": 0.7\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A hook tool enters the scene and begins dissecting connective tissue within the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The hook scrapes and pulls away fibrous tissue, progressively skeletonizing the cystic duct and artery.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided hook dissects connective tissue within the hepatocystic triangle.\",\n      \"rationale\": \"This dissection directly removes fibrous tissue from the triangle, skeletonizing the duct and artery and thus satisfying the criterion.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"reflection\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is visible but obscured by blood.\",\n      \"The cystic duct and artery are identifiable but not fully skeletonized.\",\n      \"Some connective tissue remains between the duct and artery.\",\n      \"No surgical tools are visible.\"\n    ],\n    \"confidence\": 0.1\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is significantly clearer of tissue.\",\n      \"The cystic duct and artery are well-defined and skeletonized.\",\n      \"The window between the two structures is now open and apparent.\",\n      \"A hook tool is visible on the right, having completed dissection.\"\n    ],\n    \"confidence\": 0.7\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"A hook tool appears on the right side of the screen.\",\n      \"The tool begins to dissect fine connective tissue in the triangle.\",\n      \"The view is still bloody and the structures are not yet fully cleared.\"\n    ],\n    \"evidence_frame\": 1890,\n    \"confidence\": 0.4\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A hook tool appears and dissects the remaining connective tissue between the cystic duct and artery.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1920,\n      \"mechanism\": \"The tool enters the scene and performs fine dissection, pulling away wispy tissue to better expose the two tubular structures.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided hook dissects connective tissue within the hepatocystic triangle.\",\n      \"rationale\": \"This final clearing of tissue between the duct and artery is the direct action that leads to the satisfaction of the criterion.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T02:37:11.280121+00:00"
+    }
+  }
+]

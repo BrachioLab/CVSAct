@@ -1,0 +1,1192 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C1__avg__c_001500_001800",
+    "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+    "criterion": "C1",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1500,
+      "mid_frame": 1650,
+      "end_frame": 1800,
+      "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+      "keyframes": {
+        "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001500",
+        "mid": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001650",
+        "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001800"
+      },
+      "annotation": {
+        "criterion": "C1",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "occlusion",
+          "crowded"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad"
+          },
+          "right": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "A close-up view of the gallbladder neck/infundibulum.",
+            "A single tool is dissecting tissue near the gallbladder.",
+            "The hepatocystic triangle is obscured by the gallbladder and connective tissue.",
+            "No distinct tubular structures are visible."
+          ],
+          "confidence": 0.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "A wide view showing the gallbladder, liver, and hepatocystic triangle.",
+            "The gallbladder is retracted cephalad and laterally by two graspers.",
+            "Two distinct tubular structures are isolated and clearly visible.",
+            "The junction of the structures with the gallbladder is well-defined."
+          ],
+          "confidence": 0.67
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "Camera pulls back significantly, changing from a close-up to a wide view.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear",
+            "evidence_frame": 1800,
+            "mechanism": "Reveals the overall anatomy and the effect of bimanual retraction."
+          },
+          {
+            "delta": "A left grasper retracts the gallbladder fundus/body cephalad.",
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad",
+            "evidence_frame": 1800,
+            "mechanism": "Lifts the gallbladder to expose the hepatocystic triangle."
+          },
+          {
+            "delta": "The right tool grasps and retracts the gallbladder infundibulum laterally.",
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "evidence_frame": 1800,
+            "mechanism": "Stretches the triangle to separate the two tubular structures."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.6,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad",
+            "one_sentence": "The left grasper retracts the gallbladder fundus cephalad, lifting it towards the liver.",
+            "rationale": "This primary retraction creates the initial exposure of the hepatocystic triangle necessary to identify the two structures.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.4,
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "one_sentence": "The right grasper retracts the gallbladder infundibulum laterally, stretching the attached tissues.",
+            "rationale": "This secondary retraction works with the cephalad pull to splay out and clearly separate the two tubular structures.",
+            "confidence": 1.0
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "cephalad"
+          },
+          {
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C1__avg__f_001650_001800",
+        "start_frame": 1650,
+        "end_frame": 1800,
+        "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+        "keyframes": {
+          "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001650",
+          "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001800"
+        },
+        "annotation": {
+          "criterion": "C1",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "blurring",
+            "crowded",
+            "clear scene"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "Close-up, blurry view of the gallbladder neck region.",
+              "A right-sided tool is dissecting tissue.",
+              "Tubular structures are completely obscured by tissue and the camera angle.",
+              "The hepatocystic triangle is not visible as a distinct space."
+            ],
+            "confidence": 0.0
+          },
+          "end_state": {
+            "what_is_visible": [
+              "A wide, clear view of the hepatocystic triangle is established.",
+              "Two distinct tubular structures are fully exposed.",
+              "The cystic duct and cystic artery are identifiable entering the gallbladder.",
+              "A left-sided grasper holds tissue near the duct-artery junction."
+            ],
+            "confidence": 0.67
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "Camera has pulled back, revealing the result of the dissection.",
+              "Two tubular structures are now clearly visible.",
+              "Gallbladder is retracted upward, creating a window in the triangle.",
+              "The dissecting tool is no longer visible."
+            ],
+            "evidence_frame": 1710,
+            "confidence": 0.67
+          },
+          "deltas": [
+            {
+              "delta": "Dissection of connective tissue and fat around the gallbladder neck.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1680,
+              "mechanism": "Clearing of overlying tissue exposes the underlying duct and artery."
+            },
+            {
+              "delta": "Camera pulls back significantly, widening the field of view.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1710,
+              "mechanism": "Changing from a close-up to a wide view reveals the anatomical context and the result of the dissection."
+            },
+            {
+              "delta": "Effective upward retraction of the gallbladder creates a clear window.",
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "evidence_frame": 1710,
+              "mechanism": "Tension on the gallbladder separates it from the liver and exposes the hepatocystic triangle."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right-sided tool dissects connective tissue in the hepatocystic triangle, exposing the underlying structures.",
+              "rationale": "This dissection is the primary action that clears tissue to make the two tubular structures identifiable.",
+              "confidence": 0.8
+            },
+            {
+              "rank": 2,
+              "importance": 0.7,
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "one_sentence": "An unseen grasper retracts the gallbladder upward, creating space to view the hepatocystic triangle.",
+              "rationale": "This retraction opens the hepatocystic triangle, making the results of the dissection clearly visible.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Grasp",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A close-up view of the gallbladder neck/infundibulum.\",\n      \"A single tool is dissecting tissue near the gallbladder.\",\n      \"The hepatocystic triangle is obscured by the gallbladder and connective tissue.\",\n      \"No distinct tubular structures are visible.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A wide view showing the gallbladder, liver, and hepatocystic triangle.\",\n      \"The gallbladder is retracted cephalad and laterally by two graspers.\",\n      \"Two distinct tubular structures are isolated and clearly visible.\",\n      \"The junction of the structures with the gallbladder is well-defined.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"Camera pulls back significantly, changing from a close-up to a wide view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1800,\n      \"mechanism\": \"Reveals the overall anatomy and the effect of bimanual retraction.\"\n    },\n    {\n      \"delta\": \"A left grasper retracts the gallbladder fundus/body cephalad.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\",\n      \"evidence_frame\": 1800,\n      \"mechanism\": \"Lifts the gallbladder to expose the hepatocystic triangle.\"\n    },\n    {\n      \"delta\": \"The right tool grasps and retracts the gallbladder infundibulum laterally.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 1800,\n      \"mechanism\": \"Stretches the triangle to separate the two tubular structures.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder fundus cephalad, lifting it towards the liver.\",\n      \"rationale\": \"This primary retraction creates the initial exposure of the hepatocystic triangle necessary to identify the two structures.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.4,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The right grasper retracts the gallbladder infundibulum laterally, stretching the attached tissues.\",\n      \"rationale\": \"This secondary retraction works with the cephalad pull to splay out and clearly separate the two tubular structures.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"cephalad\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"blurring\",\n    \"crowded\",\n    \"clear scene\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"Close-up, blurry view of the gallbladder neck region.\",\n      \"A right-sided tool is dissecting tissue.\",\n      \"Tubular structures are completely obscured by tissue and the camera angle.\",\n      \"The hepatocystic triangle is not visible as a distinct space.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A wide, clear view of the hepatocystic triangle is established.\",\n      \"Two distinct tubular structures are fully exposed.\",\n      \"The cystic duct and cystic artery are identifiable entering the gallbladder.\",\n      \"A left-sided grasper holds tissue near the duct-artery junction.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"Camera has pulled back, revealing the result of the dissection.\",\n      \"Two tubular structures are now clearly visible.\",\n      \"Gallbladder is retracted upward, creating a window in the triangle.\",\n      \"The dissecting tool is no longer visible.\"\n    ],\n    \"evidence_frame\": 1710,\n    \"confidence\": 0.67\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Dissection of connective tissue and fat around the gallbladder neck.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1680,\n      \"mechanism\": \"Clearing of overlying tissue exposes the underlying duct and artery.\"\n    },\n    {\n      \"delta\": \"Camera pulls back significantly, widening the field of view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1710,\n      \"mechanism\": \"Changing from a close-up to a wide view reveals the anatomical context and the result of the dissection.\"\n    },\n    {\n      \"delta\": \"Effective upward retraction of the gallbladder creates a clear window.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"evidence_frame\": 1710,\n      \"mechanism\": \"Tension on the gallbladder separates it from the liver and exposes the hepatocystic triangle.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided tool dissects connective tissue in the hepatocystic triangle, exposing the underlying structures.\",\n      \"rationale\": \"This dissection is the primary action that clears tissue to make the two tubular structures identifiable.\",\n      \"confidence\": 0.8\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"An unseen grasper retracts the gallbladder upward, creating space to view the hepatocystic triangle.\",\n      \"rationale\": \"This retraction opens the hepatocystic triangle, making the results of the dissection clearly visible.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:31:50.893494+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__c_000000_000600",
+    "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 0,
+      "mid_frame": 300,
+      "end_frame": 600,
+      "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+      "keyframes": {
+        "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000000",
+        "mid": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000300",
+        "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000600"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "occlusion"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          },
+          "right": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "A tool is actively dissecting tissue at the gallbladder-liver interface.",
+            "The view is very close and partially occluded by the tool.",
+            "The gallbladder is not retracted to expose the liver bed.",
+            "The extent of gallbladder detachment from the liver is unclear."
+          ],
+          "confidence": 0.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "A grasper retracts the gallbladder neck/infundibulum laterally.",
+            "A clear space is visible between the lower gallbladder and the liver bed.",
+            "The detachment of the lower third of the gallbladder is now evident."
+          ],
+          "confidence": 0.67
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "Tools have been removed from the immediate view.",
+            "The camera has pulled back, showing a wide view of the anatomy.",
+            "The gallbladder rests against the liver, obscuring the dissection plane.",
+            "This view provides context but does not demonstrate C3."
+          ],
+          "evidence_frame": 300,
+          "confidence": 0.0
+        },
+        "deltas": [
+          {
+            "delta": "A grasper is used to retract the gallbladder neck/infundibulum, exposing the liver bed.",
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "evidence_frame": 450,
+            "mechanism": "Pulling the gallbladder away from the liver reveals the space between them, demonstrating the detachment."
+          },
+          {
+            "delta": "Dissection of connective tissue between the gallbladder and liver occurred.",
+            "actor_side": "left",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 150,
+            "mechanism": "This prior dissection physically separated the gallbladder from the liver, which was then revealed by retraction."
+          },
+          {
+            "delta": "Camera pulls back for a wide view then returns to a close-up.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear",
+            "evidence_frame": 300,
+            "mechanism": "The viewpoint change separates the initial dissection phase from the final retraction and exposure phase."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral",
+            "one_sentence": "The left grasper retracts the gallbladder neck laterally away from the liver.",
+            "rationale": "This retraction creates a clear space, demonstrating the pre-existing detachment of the gallbladder from the liver bed and satisfying the criterion.",
+            "confidence": 0.95
+          },
+          {
+            "rank": 2,
+            "importance": 0.7,
+            "actor_side": "left",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "one_sentence": "The left bipolar tool dissects connective tissue at the liver bed.",
+            "rationale": "This dissection physically created the separation required for C3, which was subsequently made visible by retraction.",
+            "confidence": 0.85
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "lateral"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__f_000450_000600",
+        "start_frame": 450,
+        "end_frame": 600,
+        "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+        "keyframes": {
+          "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000450",
+          "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000600"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [],
+          "tool_roles": {
+            "left": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The gallbladder is retracted, exposing the hepatocystic triangle.",
+              "A bipolar tool is positioned near the gallbladder neck.",
+              "Connective tissue is visible attaching the lower gallbladder to the liver bed.",
+              "The degree of detachment between the gallbladder and liver is unclear."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The gallbladder remains retracted in a similar position.",
+              "The space between the lower gallbladder and the liver bed is wider.",
+              "Connective tissue has been visibly cleared from the dissection area.",
+              "The lower third of the gallbladder now appears detached from the liver."
+            ],
+            "confidence": 0.7
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The bipolar tool is actively grasping and dissecting connective tissue.",
+              "This action is creating separation between the gallbladder and liver."
+            ],
+            "evidence_frame": 540,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "Dissection of connective tissue between the gallbladder and liver bed.",
+              "actor_side": "left",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 540,
+              "mechanism": "The bipolar tool grasps and clears filmy tissue, increasing the visible separation between the gallbladder and liver."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "left",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The left bipolar dissects connective tissue in the hepatocystic triangle to separate the gallbladder from the liver.",
+              "rationale": "This dissection creates the necessary space between the lower gallbladder and the liver bed, directly leading to the satisfaction of C3.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "left",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A tool is actively dissecting tissue at the gallbladder-liver interface.\",\n      \"The view is very close and partially occluded by the tool.\",\n      \"The gallbladder is not retracted to expose the liver bed.\",\n      \"The extent of gallbladder detachment from the liver is unclear.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A grasper retracts the gallbladder neck/infundibulum laterally.\",\n      \"A clear space is visible between the lower gallbladder and the liver bed.\",\n      \"The detachment of the lower third of the gallbladder is now evident.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"Tools have been removed from the immediate view.\",\n      \"The camera has pulled back, showing a wide view of the anatomy.\",\n      \"The gallbladder rests against the liver, obscuring the dissection plane.\",\n      \"This view provides context but does not demonstrate C3.\"\n    ],\n    \"evidence_frame\": 300,\n    \"confidence\": 0.0\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A grasper is used to retract the gallbladder neck/infundibulum, exposing the liver bed.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 450,\n      \"mechanism\": \"Pulling the gallbladder away from the liver reveals the space between them, demonstrating the detachment.\"\n    },\n    {\n      \"delta\": \"Dissection of connective tissue between the gallbladder and liver occurred.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 150,\n      \"mechanism\": \"This prior dissection physically separated the gallbladder from the liver, which was then revealed by retraction.\"\n    },\n    {\n      \"delta\": \"Camera pulls back for a wide view then returns to a close-up.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 300,\n      \"mechanism\": \"The viewpoint change separates the initial dissection phase from the final retraction and exposure phase.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder neck laterally away from the liver.\",\n      \"rationale\": \"This retraction creates a clear space, demonstrating the pre-existing detachment of the gallbladder from the liver bed and satisfying the criterion.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The left bipolar tool dissects connective tissue at the liver bed.\",\n      \"rationale\": \"This dissection physically created the separation required for C3, which was subsequently made visible by retraction.\",\n      \"confidence\": 0.85\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The gallbladder is retracted, exposing the hepatocystic triangle.\",\n      \"A bipolar tool is positioned near the gallbladder neck.\",\n      \"Connective tissue is visible attaching the lower gallbladder to the liver bed.\",\n      \"The degree of detachment between the gallbladder and liver is unclear.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The gallbladder remains retracted in a similar position.\",\n      \"The space between the lower gallbladder and the liver bed is wider.\",\n      \"Connective tissue has been visibly cleared from the dissection area.\",\n      \"The lower third of the gallbladder now appears detached from the liver.\"\n    ],\n    \"confidence\": 0.7\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The bipolar tool is actively grasping and dissecting connective tissue.\",\n      \"This action is creating separation between the gallbladder and liver.\"\n    ],\n    \"evidence_frame\": 540,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Dissection of connective tissue between the gallbladder and liver bed.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 540,\n      \"mechanism\": \"The bipolar tool grasps and clears filmy tissue, increasing the visible separation between the gallbladder and liver.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The left bipolar dissects connective tissue in the hepatocystic triangle to separate the gallbladder from the liver.\",\n      \"rationale\": \"This dissection creates the necessary space between the lower gallbladder and the liver bed, directly leading to the satisfaction of C3.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:33:02.388037+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__c_000750_001200",
+    "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 750,
+      "mid_frame": 1050,
+      "end_frame": 1200,
+      "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+      "keyframes": {
+        "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000750",
+        "mid": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001050",
+        "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001200"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "occlusion",
+          "smoke"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is still attached to the liver bed.",
+            "A right-sided hook is positioned to dissect tissue at the junction.",
+            "A left-sided tool retracts the gallbladder upward, creating tension.",
+            "The dissection plane is not yet fully cleared."
+          ],
+          "confidence": 0.33
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is clearly detached from the liver bed.",
+            "A distinct space is visible between the gallbladder and the liver.",
+            "The dissection tool has been removed from the immediate view.",
+            "The exposed liver bed is visible."
+          ],
+          "confidence": 1.0
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "The right-sided hook is actively dissecting tissue in the liver bed.",
+            "Smoke is visible, indicating coagulation is occurring.",
+            "The view of the dissection plane is partially occluded by the active tool."
+          ],
+          "evidence_frame": 900,
+          "confidence": 0.6
+        },
+        "deltas": [
+          {
+            "delta": "Active dissection of connective tissue in the liver bed.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 900,
+            "mechanism": "The hook severs the remaining attachments between the gallbladder and the liver, creating separation."
+          },
+          {
+            "delta": "Improved visualization of the cleared liver bed.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 1050,
+            "mechanism": "After the dissection tool is removed, the completed separation is clearly visible."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "one_sentence": "The right hook dissects connective tissue to detach the lower gallbladder from the liver bed.",
+            "rationale": "This dissection directly creates the separation between the gallbladder and liver, satisfying the criterion.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.7,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward",
+            "one_sentence": "The left grasper retracts the gallbladder upward to expose the liver bed for dissection.",
+            "rationale": "This retraction creates the necessary exposure and tension for the dissection to be performed effectively.",
+            "confidence": 0.8
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__f_000900_001050",
+        "start_frame": 900,
+        "end_frame": 1050,
+        "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+        "keyframes": {
+          "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_000900",
+          "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_001050"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "occlusion",
+            "blurring"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A bipolar tool is actively dissecting tissue at the liver bed.",
+              "The view is extremely close and heavily occluded by the tool.",
+              "The full extent of gallbladder detachment from the liver is unclear."
+            ],
+            "confidence": 0.33
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The dissecting tool has been removed from the immediate view.",
+              "The camera has pulled back, providing a wide, clear view.",
+              "The lower third of the gallbladder is visibly detached from the liver bed.",
+              "The exposed liver bed is now visible."
+            ],
+            "confidence": 1.0
+          },
+          "mid_state": null,
+          "deltas": [
+            {
+              "delta": "The camera pulls back and the active tool is removed, revealing the surgical field.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "posterior",
+              "evidence_frame": 1020,
+              "mechanism": "The change from a close, occluded view to a wide, clear view allows for confident assessment of the anatomy."
+            },
+            {
+              "delta": "Dissection of connective tissue between the gallbladder and liver bed is completed.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear",
+              "evidence_frame": 990,
+              "mechanism": "The tool separates the final attachments, physically detaching the lower gallbladder from the liver."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear",
+              "one_sentence": "The right-hand bipolar dissects connective tissue to separate the lower third of the gallbladder from the liver bed.",
+              "rationale": "This dissection is the direct surgical action that achieves the state required by the criterion, which is then confirmed when the camera pulls back.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "posterior"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\",\n    \"smoke\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is still attached to the liver bed.\",\n      \"A right-sided hook is positioned to dissect tissue at the junction.\",\n      \"A left-sided tool retracts the gallbladder upward, creating tension.\",\n      \"The dissection plane is not yet fully cleared.\"\n    ],\n    \"confidence\": 0.33\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is clearly detached from the liver bed.\",\n      \"A distinct space is visible between the gallbladder and the liver.\",\n      \"The dissection tool has been removed from the immediate view.\",\n      \"The exposed liver bed is visible.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right-sided hook is actively dissecting tissue in the liver bed.\",\n      \"Smoke is visible, indicating coagulation is occurring.\",\n      \"The view of the dissection plane is partially occluded by the active tool.\"\n    ],\n    \"evidence_frame\": 900,\n    \"confidence\": 0.6\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Active dissection of connective tissue in the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 900,\n      \"mechanism\": \"The hook severs the remaining attachments between the gallbladder and the liver, creating separation.\"\n    },\n    {\n      \"delta\": \"Improved visualization of the cleared liver bed.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1050,\n      \"mechanism\": \"After the dissection tool is removed, the completed separation is clearly visible.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue to detach the lower gallbladder from the liver bed.\",\n      \"rationale\": \"This dissection directly creates the separation between the gallbladder and liver, satisfying the criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder upward to expose the liver bed for dissection.\",\n      \"rationale\": \"This retraction creates the necessary exposure and tension for the dissection to be performed effectively.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\",\n    \"blurring\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A bipolar tool is actively dissecting tissue at the liver bed.\",\n      \"The view is extremely close and heavily occluded by the tool.\",\n      \"The full extent of gallbladder detachment from the liver is unclear.\"\n    ],\n    \"confidence\": 0.33\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The dissecting tool has been removed from the immediate view.\",\n      \"The camera has pulled back, providing a wide, clear view.\",\n      \"The lower third of the gallbladder is visibly detached from the liver bed.\",\n      \"The exposed liver bed is now visible.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"The camera pulls back and the active tool is removed, revealing the surgical field.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"posterior\",\n      \"evidence_frame\": 1020,\n      \"mechanism\": \"The change from a close, occluded view to a wide, clear view allows for confident assessment of the anatomy.\"\n    },\n    {\n      \"delta\": \"Dissection of connective tissue between the gallbladder and liver bed is completed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 990,\n      \"mechanism\": \"The tool separates the final attachments, physically detaching the lower gallbladder from the liver.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-hand bipolar dissects connective tissue to separate the lower third of the gallbladder from the liver bed.\",\n      \"rationale\": \"This dissection is the direct surgical action that achieves the state required by the criterion, which is then confirmed when the camera pulls back.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"posterior\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:34:27.422927+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__c_002100_002250",
+    "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 2100,
+      "mid_frame": 2250,
+      "end_frame": 2250,
+      "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+      "keyframes": {
+        "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_002100",
+        "mid": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_002250",
+        "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_002250"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "reflection"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Peritoneum",
+            "region": "Hepatocystic triangle",
+            "direction": "lateral"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The lower part of the gallbladder is attached to the liver bed.",
+            "A left grasper retracts tissue near the gallbladder neck.",
+            "A right hook is positioned at the junction of the gallbladder and liver.",
+            "The dissection plane between the gallbladder and liver is not yet established."
+          ],
+          "confidence": 0.2
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The right hook has dissected tissue, creating a visible space.",
+            "The lower third of the gallbladder is now clearly separated from the liver bed.",
+            "The left grasper maintains retraction, exposing the dissected area.",
+            "The liver surface under the gallbladder is more visible."
+          ],
+          "confidence": 0.7
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "The right hook dissects the connective tissue attaching the gallbladder to the liver bed.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "The hook actively separates the peritoneal attachment, creating a visible gap between the gallbladder and the liver."
+          },
+          {
+            "delta": "The left grasper maintains lateral retraction on the peritoneum near the gallbladder neck.",
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Peritoneum",
+            "region": "Hepatocystic triangle",
+            "direction": "lateral",
+            "evidence_frame": 2250,
+            "mechanism": "This sustained retraction keeps the dissection plane exposed for the right-hand tool."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "one_sentence": "The right hook dissects connective tissue from the liver bed, separating the gallbladder.",
+            "rationale": "This dissection directly creates the separation between the gallbladder and liver bed required by criterion C3.",
+            "confidence": 0.95
+          },
+          {
+            "rank": 2,
+            "importance": 0.6,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Peritoneum",
+            "region": "Hepatocystic triangle",
+            "direction": "lateral",
+            "one_sentence": "The left grasper retracts peritoneum near the gallbladder neck laterally to expose the dissection plane.",
+            "rationale": "This retraction is an enabling action that provides the exposure necessary for the dissection to proceed.",
+            "confidence": 0.9
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Peritoneum",
+            "region": "Hepatocystic triangle",
+            "direction": "lateral"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "f68bc1bd-da70-4b1b-b849-c954e644c209__C3__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "f68bc1bd-da70-4b1b-b849-c954e644c209",
+        "keyframes": {
+          "start": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_002100",
+          "end": "test/f68bc1bd-da70-4b1b-b849-c954e644c209/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "crowded"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral"
+            },
+            "right": {
+              "tool": "clipper",
+              "verb": "Grasp",
+              "item": "Cystic-duct",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The view is focused on the hepatocystic triangle.",
+              "The lower part of the gallbladder is mostly attached to the liver bed.",
+              "The separation plane between the gallbladder and liver is not visible.",
+              "A clipper on the right holds the already-clipped cystic duct."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The lower third of the gallbladder is clearly lifted off the liver bed.",
+              "A significant gap exists between the gallbladder and the liver.",
+              "The left grasper maintains strong lateral retraction on the gallbladder.",
+              "The camera view is wider, showing the extent of the separation."
+            ],
+            "confidence": 0.8
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The camera has pulled back, providing a wider view of the anatomy.",
+              "The left grasper's retraction starts to create a visible gap.",
+              "The plane between the gallbladder and liver begins to open up.",
+              "The clipper on the right maintains its hold on the ductal structures."
+            ],
+            "evidence_frame": 2160,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "Increased lateral retraction on the gallbladder/infundibulum.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral",
+              "evidence_frame": 2190,
+              "mechanism": "Pulls the gallbladder away from the liver, creating a visible separation and exposing the liver bed."
+            },
+            {
+              "delta": "Camera pulls back, widening the field of view.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear",
+              "evidence_frame": 2160,
+              "mechanism": "Reveals more of the surrounding anatomy, making the extent of the gallbladder-liver separation easier to assess."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral",
+              "one_sentence": "The left grasper retracts the gallbladder laterally, lifting it away from the liver bed.",
+              "rationale": "This retraction is the primary action that creates the physical separation between the lower gallbladder and the liver, satisfying the criterion.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "clipper",
+              "verb": "Grasp",
+              "item": "Cystic-duct",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Hepatocystic triangle",
+              "direction": "lateral"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"reflection\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Peritoneum\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The lower part of the gallbladder is attached to the liver bed.\",\n      \"A left grasper retracts tissue near the gallbladder neck.\",\n      \"A right hook is positioned at the junction of the gallbladder and liver.\",\n      \"The dissection plane between the gallbladder and liver is not yet established.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The right hook has dissected tissue, creating a visible space.\",\n      \"The lower third of the gallbladder is now clearly separated from the liver bed.\",\n      \"The left grasper maintains retraction, exposing the dissected area.\",\n      \"The liver surface under the gallbladder is more visible.\"\n    ],\n    \"confidence\": 0.7\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"The right hook dissects the connective tissue attaching the gallbladder to the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"The hook actively separates the peritoneal attachment, creating a visible gap between the gallbladder and the liver.\"\n    },\n    {\n      \"delta\": \"The left grasper maintains lateral retraction on the peritoneum near the gallbladder neck.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Peritoneum\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"This sustained retraction keeps the dissection plane exposed for the right-hand tool.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue from the liver bed, separating the gallbladder.\",\n      \"rationale\": \"This dissection directly creates the separation between the gallbladder and liver bed required by criterion C3.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Peritoneum\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts peritoneum near the gallbladder neck laterally to expose the dissection plane.\",\n      \"rationale\": \"This retraction is an enabling action that provides the exposure necessary for the dissection to proceed.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Peritoneum\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    },\n    \"right\": {\n      \"tool\": \"clipper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The view is focused on the hepatocystic triangle.\",\n      \"The lower part of the gallbladder is mostly attached to the liver bed.\",\n      \"The separation plane between the gallbladder and liver is not visible.\",\n      \"A clipper on the right holds the already-clipped cystic duct.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is clearly lifted off the liver bed.\",\n      \"A significant gap exists between the gallbladder and the liver.\",\n      \"The left grasper maintains strong lateral retraction on the gallbladder.\",\n      \"The camera view is wider, showing the extent of the separation.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The camera has pulled back, providing a wider view of the anatomy.\",\n      \"The left grasper's retraction starts to create a visible gap.\",\n      \"The plane between the gallbladder and liver begins to open up.\",\n      \"The clipper on the right maintains its hold on the ductal structures.\"\n    ],\n    \"evidence_frame\": 2160,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Increased lateral retraction on the gallbladder/infundibulum.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2190,\n      \"mechanism\": \"Pulls the gallbladder away from the liver, creating a visible separation and exposing the liver bed.\"\n    },\n    {\n      \"delta\": \"Camera pulls back, widening the field of view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2160,\n      \"mechanism\": \"Reveals more of the surrounding anatomy, making the extent of the gallbladder-liver separation easier to assess.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The left grasper retracts the gallbladder laterally, lifting it away from the liver bed.\",\n      \"rationale\": \"This retraction is the primary action that creates the physical separation between the lower gallbladder and the liver, satisfying the criterion.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"lateral\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:35:33.892814+00:00"
+    }
+  }
+]

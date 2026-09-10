@@ -1,0 +1,580 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a__C2__avg__c_000000_000450",
+    "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 0,
+      "mid_frame": 300,
+      "end_frame": 450,
+      "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+      "keyframes": {
+        "start": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000000",
+        "mid": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000300",
+        "end": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000450"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding",
+          "crowded"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Blood",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is obscured by a significant amount of blood.",
+            "A dissection tool is active within the bloody field.",
+            "The state of tissue clearance cannot be assessed due to blood.",
+            "A large organ, likely the gallbladder, is retracted on the right."
+          ],
+          "confidence": 1.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "Blood has been aspirated from the hepatocystic triangle.",
+            "The underlying dissected structures are now clearly visible.",
+            "The view is unobstructed, allowing for assessment of the triangle.",
+            "The area now appears sufficiently cleared of fat and fibrous tissue."
+          ],
+          "confidence": 1.0
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "An irrigator/aspirator tool is actively removing blood from the triangle.",
+            "The amount of pooled blood in the surgical field is decreasing.",
+            "Anatomy is becoming progressively more visible as blood is cleared."
+          ],
+          "evidence_frame": 300,
+          "confidence": 1.0
+        },
+        "deltas": [
+          {
+            "delta": "Blood is aspirated from the hepatocystic triangle, clearing the view.",
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Blood",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 300,
+            "mechanism": "An irrigator/aspirator tip is placed into the pooled blood and removes it from the field."
+          },
+          {
+            "delta": "The active tool is withdrawn from the field, providing an unobstructed view.",
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 450,
+            "mechanism": "The tool is pulled back out of the frame after aspirating the blood."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Blood",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right irrigator aspirates blood from the hepatocystic triangle.",
+            "rationale": "This action clears the surgical field, allowing the previously obscured but sufficiently dissected anatomy to be seen, satisfying the criterion.",
+            "confidence": 1.0,
+            "actor_role": "right_instrument",
+            "tool_type": "Irrigator",
+            "action_code": "IRRIGATOR_ASPIRATE",
+            "target_structure": "HepatocysticTriangle",
+            "target_context_1": "between presumed cystic duct and presumed cystic artery",
+            "target_context_2": "(not set)",
+            "intention": "clear blood/fluid to improve visualization",
+            "extra_info": "",
+            "original_sentence": "The right irrigator aspirates blood from the hepatocystic triangle.",
+            "generated_sentence": "The right instrument (irrigator) aspirates the hepatocystic triangle (between cystic duct and cystic artery), to clear blood/fluid to improve visualization.",
+            "v3_surgeon_review": false,
+            "v3_surgeon_comment": "",
+            "target_context_1_v7": "between cystic duct and cystic artery"
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "irrigator",
+            "verb": "Aspirate",
+            "item": "Blood",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a__C2__avg__f_000150_000300",
+        "start_frame": 150,
+        "end_frame": 300,
+        "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+        "keyframes": {
+          "start": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000150",
+          "end": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000300"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is visible but partially obscured by blood.",
+              "Some fine connective tissue remains within the triangle.",
+              "The right grasper is retracting the gallbladder infundibulum laterally.",
+              "The view is not yet sufficiently clear to satisfy the criterion."
+            ],
+            "confidence": 0.4
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The left grasper is actively dissecting fine connective tissue.",
+              "The hepatocystic triangle is now clearer, exposing underlying structures.",
+              "The right grasper maintains stable retraction of the gallbladder.",
+              "The dissection has sufficiently cleared the triangle to satisfy the criterion."
+            ],
+            "confidence": 0.9
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "A grasper (left tool) enters the scene from the top left.",
+              "The tool is positioned to begin working in the hepatocystic triangle.",
+              "The state of tissue clearance is unchanged from the start.",
+              "The right grasper's retraction remains stable."
+            ],
+            "evidence_frame": 240,
+            "confidence": 0.7
+          },
+          "deltas": [
+            {
+              "delta": "A grasper enters from the left and begins dissecting fine connective tissue within the hepatocystic triangle.",
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 270,
+              "mechanism": "The tool grasps and pulls away the remaining wispy tissue, improving the clarity of the structures within the triangle."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right irrigator aspirates blood from the hepatocystic triangle between the two tubular structures.",
+              "rationale": "This final clearing of tissue directly addresses the C2 criterion, improving the view of the triangle's contents and leading to annotator satisfaction.",
+              "confidence": 0.95,
+              "actor_role": "right_instrument",
+              "tool_type": "Irrigator",
+              "action_code": "IRRIGATOR_ASPIRATE",
+              "target_structure": "HepatocysticTriangle",
+              "target_context_1": "between presumed cystic duct and presumed cystic artery",
+              "target_context_2": "(not set)",
+              "intention": "clear blood/fluid to improve visualization",
+              "extra_info": "",
+              "original_sentence": "The right irrigator aspirates blood from the hepatocystic triangle between the two tubular structures.",
+              "generated_sentence": "The right instrument (irrigator) aspirates the hepatocystic triangle (between cystic duct and cystic artery), to clear blood/fluid to improve visualization.",
+              "v3_surgeon_review": false,
+              "v3_surgeon_comment": "",
+              "target_context_1_v7": "between cystic duct and cystic artery"
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "lateral"
+            },
+            {
+              "actor_side": "left",
+              "tool": "grasper",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"crowded\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by a significant amount of blood.\",\n      \"A dissection tool is active within the bloody field.\",\n      \"The state of tissue clearance cannot be assessed due to blood.\",\n      \"A large organ, likely the gallbladder, is retracted on the right.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"Blood has been aspirated from the hepatocystic triangle.\",\n      \"The underlying dissected structures are now clearly visible.\",\n      \"The view is unobstructed, allowing for assessment of the triangle.\",\n      \"The area now appears sufficiently cleared of fat and fibrous tissue.\"\n    ],\n    \"confidence\": 1.0\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"An irrigator/aspirator tool is actively removing blood from the triangle.\",\n      \"The amount of pooled blood in the surgical field is decreasing.\",\n      \"Anatomy is becoming progressively more visible as blood is cleared.\"\n    ],\n    \"evidence_frame\": 300,\n    \"confidence\": 1.0\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Blood is aspirated from the hepatocystic triangle, clearing the view.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 300,\n      \"mechanism\": \"An irrigator/aspirator tip is placed into the pooled blood and removes it from the field.\"\n    },\n    {\n      \"delta\": \"The active tool is withdrawn from the field, providing an unobstructed view.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 450,\n      \"mechanism\": \"The tool is pulled back out of the frame after aspirating the blood.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right irrigator aspirates blood from the hepatocystic triangle.\",\n      \"rationale\": \"This action clears the surgical field, allowing the previously obscured but sufficiently dissected anatomy to be seen, satisfying the criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"A grasper retracts the gallbladder upward, maintaining exposure of the hepatocystic triangle.\",\n      \"rationale\": \"This stable retraction is a necessary precondition that creates the space for both dissection and subsequent clearing of the triangle.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is visible but partially obscured by blood.\",\n      \"Some fine connective tissue remains within the triangle.\",\n      \"The right grasper is retracting the gallbladder infundibulum laterally.\",\n      \"The view is not yet sufficiently clear to satisfy the criterion.\"\n    ],\n    \"confidence\": 0.4\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The left grasper is actively dissecting fine connective tissue.\",\n      \"The hepatocystic triangle is now clearer, exposing underlying structures.\",\n      \"The right grasper maintains stable retraction of the gallbladder.\",\n      \"The dissection has sufficiently cleared the triangle to satisfy the criterion.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"A grasper (left tool) enters the scene from the top left.\",\n      \"The tool is positioned to begin working in the hepatocystic triangle.\",\n      \"The state of tissue clearance is unchanged from the start.\",\n      \"The right grasper's retraction remains stable.\"\n    ],\n    \"evidence_frame\": 240,\n    \"confidence\": 0.7\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"A grasper enters from the left and begins dissecting fine connective tissue within the hepatocystic triangle.\",\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 270,\n      \"mechanism\": \"The tool grasps and pulls away the remaining wispy tissue, improving the clarity of the structures within the triangle.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The left grasper dissects remaining connective tissue from the hepatocystic triangle.\",\n      \"rationale\": \"This final clearing of tissue directly addresses the C2 criterion, improving the view of the triangle's contents and leading to annotator satisfaction.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The right grasper maintains stable lateral retraction on the gallbladder infundibulum.\",\n      \"rationale\": \"This stable retraction is a necessary enabling action, providing the exposure required for the dissection and subsequent assessment of the triangle.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"lateral\"\n    },\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T18:48:53.662400+00:00"
+    },
+    "audit": {
+      "review_started_at": "2026-02-18T05:21:18.732658+00:00",
+      "audited_at": "2026-02-18T05:25:05.890909+00:00",
+      "auditor": "manual",
+      "review_duration_seconds": 227.2,
+      "version": "v7",
+      "v5_created_at": "2026-02-21T05:34:40.477356",
+      "v5_source": "v3",
+      "v6_created_at": "2026-02-21T05:53:01.183463",
+      "v6_source": "v5",
+      "v7_created_at": "2026-02-21T18:35:08.007121",
+      "v7_source": "v6"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a__C2__avg__c_000750_001050",
+    "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 750,
+      "mid_frame": 900,
+      "end_frame": 1050,
+      "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+      "keyframes": {
+        "start": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000750",
+        "mid": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000900",
+        "end": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_001050"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "grasper",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is visible but obscured by blood.",
+            "Connective tissue is present, but key structures are not clearly delineated.",
+            "No surgical tools are visible in the frame.",
+            "The liver surface is seen at the bottom."
+          ],
+          "confidence": 0.3
+        },
+        "end_state": {
+          "what_is_visible": [
+            "A right-sided grasper actively dissects tissue in the hepatocystic triangle.",
+            "The tool's action demonstrates the separation between two tubular structures.",
+            "The scene remains bloody, but the anatomy is functionally clarified.",
+            "The dissection confirms the structures are free from surrounding tissue."
+          ],
+          "confidence": 0.9
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "A right-sided tool enters the field and actively dissects connective tissue in the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1050,
+            "mechanism": "The tool tip probes and separates the remaining tissue between the cystic duct and artery, proving their isolation."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "one_sentence": "The camera zooms out and tilts upward, providing a broader view of the hepatocystic triangle.",
+            "actor_side": "unknown",
+            "tool": "unknown",
+            "verb": "unknown",
+            "importance": "unknown",
+            "confidence": "unknown",
+            "rationale": "manually added during audit",
+            "rank": 1,
+            "actor_role": "camera",
+            "tool_type": "camera",
+            "action_code": "CAMERA_ZOOM_OUT",
+            "target_structure": "HepatocysticTriangle",
+            "target_context_1": "(not set)",
+            "target_context_2": "(not set)",
+            "intention": "obtain a contextualized view",
+            "extra_info": "",
+            "original_sentence": "The camera zooms out and tilts upward, providing a broader view of the hepatocystic triangle.",
+            "generated_sentence": "The camera zooms out from the hepatocystic triangle, to get a wider contextual view.",
+            "v3_surgeon_review": false,
+            "v3_surgeon_comment": "",
+            "intention_v3": "get a wider contextual view",
+            "tool_type_v6": "Unknown",
+            "intention_v7": "improve visualization of the surgical field"
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "grasper",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a__C2__avg__f_000750_000900",
+        "start_frame": 750,
+        "end_frame": 900,
+        "video_id": "1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a",
+        "keyframes": {
+          "start": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000750",
+          "end": "test/1ecfaf41-7ed8-4d2b-80f3-b370ea1ff55a/frame_000900"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding",
+            "reflection"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "irrigator",
+              "verb": "Aspirate",
+              "item": "Blood",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is heavily obscured by blood.",
+              "Underlying structures like the cystic artery are not discernible.",
+              "The liver surface is visible at the bottom of the frame."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "Blood has been cleared from the hepatocystic triangle.",
+              "The cystic artery and surrounding connective tissue are now visible.",
+              "The region appears sufficiently cleared of tissue to identify structures."
+            ],
+            "confidence": 0.9
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "An aspirator tool is actively removing blood from the surgical field.",
+              "The tool is positioned over the central structures in the triangle.",
+              "Underlying anatomy is beginning to be revealed as blood is cleared."
+            ],
+            "evidence_frame": 810,
+            "confidence": 0.6
+          },
+          "deltas": [
+            {
+              "delta": "Aspiration of blood from the hepatocystic triangle.",
+              "actor_side": "unclear",
+              "tool": "irrigator",
+              "verb": "Aspirate",
+              "item": "Blood",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 810,
+              "mechanism": "A suction tool removes pooled blood, uncovering the previously dissected structures and improving visibility."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "one_sentence": "The camera zooms out and tilts upward, providing a broader view of the hepatocystic triangle.",
+              "actor_side": "unknown",
+              "tool": "unknown",
+              "verb": "unknown",
+              "importance": "unknown",
+              "confidence": "unknown",
+              "rationale": "manually added during audit",
+              "rank": 1,
+              "actor_role": "camera",
+              "tool_type": "camera",
+              "action_code": "CAMERA_ZOOM_OUT",
+              "target_structure": "HepatocysticTriangle",
+              "target_context_1": "(not set)",
+              "target_context_2": "(not set)",
+              "intention": "obtain a contextualized view",
+              "extra_info": "",
+              "original_sentence": "The camera zooms out and tilts upward, providing a broader view of the hepatocystic triangle.",
+              "generated_sentence": "The camera zooms out from the hepatocystic triangle, to get a wider contextual view.",
+              "v3_surgeon_review": false,
+              "v3_surgeon_comment": "",
+              "intention_v3": "get a wider contextual view",
+              "tool_type_v6": "(not set)",
+              "intention_v7": "improve visualization of the surgical field"
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "unclear",
+              "tool": "irrigator",
+              "verb": "Aspirate",
+              "item": "Blood",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is visible but obscured by blood.\",\n      \"Connective tissue is present, but key structures are not clearly delineated.\",\n      \"No surgical tools are visible in the frame.\",\n      \"The liver surface is seen at the bottom.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"A right-sided grasper actively dissects tissue in the hepatocystic triangle.\",\n      \"The tool's action demonstrates the separation between two tubular structures.\",\n      \"The scene remains bloody, but the anatomy is functionally clarified.\",\n      \"The dissection confirms the structures are free from surrounding tissue.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"A right-sided tool enters the field and actively dissects connective tissue in the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1050,\n      \"mechanism\": \"The tool tip probes and separates the remaining tissue between the cystic duct and artery, proving their isolation.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 1.0,\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right grasper dissects connective tissue in the hepatocystic triangle, separating the tubular structures.\",\n      \"rationale\": \"This dissection provides active proof that the triangle is cleared of adherent tissue, satisfying the criterion despite the bloody field.\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\",\n    \"reflection\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is heavily obscured by blood.\",\n      \"Underlying structures like the cystic artery are not discernible.\",\n      \"The liver surface is visible at the bottom of the frame.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"Blood has been cleared from the hepatocystic triangle.\",\n      \"The cystic artery and surrounding connective tissue are now visible.\",\n      \"The region appears sufficiently cleared of tissue to identify structures.\"\n    ],\n    \"confidence\": 0.9\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"An aspirator tool is actively removing blood from the surgical field.\",\n      \"The tool is positioned over the central structures in the triangle.\",\n      \"Underlying anatomy is beginning to be revealed as blood is cleared.\"\n    ],\n    \"evidence_frame\": 810,\n    \"confidence\": 0.6\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Aspiration of blood from the hepatocystic triangle.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 810,\n      \"mechanism\": \"A suction tool removes pooled blood, uncovering the previously dissected structures and improving visibility.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.95,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"An aspirator tool removes blood from the hepatocystic triangle, revealing the underlying cleared anatomy.\",\n      \"rationale\": \"This action directly addressed the visual obstruction, allowing the annotator to confirm that the hepatocystic triangle was already cleared of tissue.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"irrigator\",\n      \"verb\": \"Aspirate\",\n      \"item\": \"Blood\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-14T18:50:09.280061+00:00"
+    },
+    "audit": {
+      "review_started_at": "2026-02-18T05:21:18.732658+00:00",
+      "audited_at": "2026-02-18T05:25:05.891307+00:00",
+      "auditor": "manual",
+      "review_duration_seconds": 227.2,
+      "version": "v7",
+      "v5_created_at": "2026-02-21T05:34:40.477639",
+      "v5_source": "v3",
+      "v6_created_at": "2026-02-21T05:53:01.183650",
+      "v6_source": "v5",
+      "v7_created_at": "2026-02-21T18:35:08.007356",
+      "v7_source": "v6"
+    }
+  }
+]

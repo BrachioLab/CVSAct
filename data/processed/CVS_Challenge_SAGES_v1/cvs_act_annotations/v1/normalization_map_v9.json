@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "description": "Strict-to-normalized mapping for taxonomy v9 fields",
+    "taxonomy_version": "v9",
+    "created_at": "2026-02-26T00:00:00",
+    "fields_with_mappings": [
+      "action_code",
+      "target_structure",
+      "intention"
+    ],
+    "note": "Removed maintain->expose intention mappings (maintain intentions no longer exist in v9)"
+  },
+  "normalization_map": {
+    "action_code": {
+      "RETRACT_MEDIAL_TO_LATERAL": "RETRACT_LATERAL",
+      "RETRACT_LATERAL_TO_MEDIAL": "RETRACT_MEDIAL",
+      "RETRACT_UPWARD_MEDIAL": "RETRACT_MEDIAL",
+      "CAMERA_ZOOM_OUT": "CAMERA_REPOSITION",
+      "CAMERA_ZOOM_IN": "CAMERA_REPOSITION"
+    },
+    "target_structure": {
+      "GallbladderNeck_Infundibulum": "Gallbladder",
+      "TissueNearCysticArtery": "CysticArtery",
+      "tissue between the cystic plate and the gallbladder": "CysticPlate"
+    },
+    "intention": {
+      "skeletonize the two tubular structures": "expose the two tubular structures",
+      "skeletonize the presumed cystic artery": "expose the two tubular structures",
+      "skeletonize the presumed cystic duct": "expose the two tubular structures",
+      "clear blood/fluid to improve visualization": "improve visualization of the surgical field"
+    }
+  }
+}

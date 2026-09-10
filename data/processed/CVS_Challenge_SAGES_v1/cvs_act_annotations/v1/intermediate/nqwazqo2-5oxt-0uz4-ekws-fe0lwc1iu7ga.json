@@ -1,0 +1,754 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga__C2__avg__c_001650_002400",
+    "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+    "criterion": "C2",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1650,
+      "mid_frame": 2100,
+      "end_frame": 2400,
+      "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+      "keyframes": {
+        "start": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001650",
+        "mid": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_002100",
+        "end": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_002400"
+      },
+      "annotation": {
+        "criterion": "C2",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [],
+        "tool_roles": {
+          "left": {
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward"
+          },
+          "right": {
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is obscured by fat and connective tissue.",
+            "A bipolar tool is actively dissecting tissue near the gallbladder neck.",
+            "The cystic duct and artery are not yet clearly delineated."
+          ],
+          "confidence": 0.2
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is now cleared of overlying tissue.",
+            "The cystic duct and a vessel (likely cystic artery) are well-defined.",
+            "The dissecting tool has been withdrawn, providing an unobstructed view."
+          ],
+          "confidence": 0.8
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "The bipolar tool is actively grasping and separating a band of tissue.",
+            "This dissection is creating the space between the cystic structures and liver.",
+            "The view of the triangle is progressively improving."
+          ],
+          "evidence_frame": 2100,
+          "confidence": 0.6
+        },
+        "deltas": [
+          {
+            "delta": "Connective tissue is actively dissected and cleared from the hepatocystic triangle.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2100,
+            "mechanism": "The tool grasps, coagulates, and separates tissue, revealing the underlying cystic duct and artery."
+          },
+          {
+            "delta": "The active tool is withdrawn, revealing the result of the dissection.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 2250,
+            "mechanism": "Moving the tool out of the way provides an unobstructed view for assessing the cleared anatomy."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "The right bipolar tool dissects connective tissue in the hepatocystic triangle to expose key structures.",
+            "rationale": "This action directly removes the fat and fibrous tissue obscuring the anatomy, which is the definition of satisfying C2.",
+            "confidence": 0.95
+          },
+          {
+            "rank": 2,
+            "importance": 0.7,
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward",
+            "one_sentence": "The left grasper (inferred) retracts the gallbladder upward, maintaining exposure of the hepatocystic triangle.",
+            "rationale": "This stable retraction creates the necessary tension and space for the dissection to be performed effectively.",
+            "confidence": 0.8
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "left",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder neck/infundibulum",
+            "direction": "upward"
+          },
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga__C2__avg__f_001800_001950",
+        "start_frame": 1800,
+        "end_frame": 1950,
+        "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+        "keyframes": {
+          "start": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001800",
+          "end": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001950"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The right bipolar tool is positioned over tissue in the hepatocystic triangle.",
+              "Fat and connective tissue obscure the posterior aspect of the triangle.",
+              "The view is stable due to presumed off-screen gallbladder retraction."
+            ],
+            "confidence": 0.3
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The right bipolar tool has dissected and coagulated tissue.",
+              "The hepatocystic triangle is visibly clearer, especially posteriorly.",
+              "Structures within the triangle are better delineated."
+            ],
+            "confidence": 0.7
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The bipolar tool has just completed a coagulation/dissection cycle.",
+              "Its jaws are open, preparing for the next grasp.",
+              "The immediate area of action is clearer than at the start."
+            ],
+            "evidence_frame": 1860,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "Right tool dissects tissue from the posterior aspect of the triangle.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1860,
+              "mechanism": "The tool grasps, coagulates, and pulls away small pieces of tissue."
+            },
+            {
+              "delta": "Right tool coagulates tissue to aid dissection.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Coagulate",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1830,
+              "mechanism": "The tool jaws close on tissue, likely applying energy to shrink it."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right bipolar tool dissects fat and connective tissue from within the hepatocystic triangle.",
+              "rationale": "This direct removal of obscuring tissue is the primary reason the hepatocystic triangle becomes clearer, satisfying the C2 criterion.",
+              "confidence": 1.0
+            },
+            {
+              "rank": 2,
+              "importance": 0.6,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Coagulate",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right bipolar tool coagulates connective tissue in the hepatocystic triangle before dissection.",
+              "rationale": "Coagulation is an enabling action that prepares the tissue for safe removal and improves the clarity of the dissection.",
+              "confidence": 1.0
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Grasp",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Coagulate",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      },
+      {
+        "fine_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga__C2__avg__f_002100_002250",
+        "start_frame": 2100,
+        "end_frame": 2250,
+        "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+        "keyframes": {
+          "start": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_002100",
+          "end": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_002250"
+        },
+        "annotation": {
+          "criterion": "C2",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "smoke"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Pack",
+              "item": "Other:gauze",
+              "region": "Liver bed",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "A bipolar tool is actively dissecting tissue in the hepatocystic triangle.",
+              "The triangle is not yet fully cleared of fat and connective tissue.",
+              "A window behind the cystic structures is partially visible.",
+              "The view of the target anatomy is partially occluded by the tool."
+            ],
+            "confidence": 0.8
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The hepatocystic triangle is now fully cleared and well-exposed.",
+              "The bipolar tool is present but used for probing/pointing.",
+              "A grasper holding gauze is visible packing the liver superiorly.",
+              "Charring is visible on the liver bed from the dissection."
+            ],
+            "confidence": 0.95
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The dissecting tool has been temporarily removed from the field.",
+              "The hepatocystic triangle is now clearly visible and appears cleared.",
+              "Cystic structures are skeletonized against the liver bed.",
+              "The result of the dissection is unobscured."
+            ],
+            "evidence_frame": 2190,
+            "confidence": 1.0
+          },
+          "deltas": [
+            {
+              "delta": "Dissection of remaining tissue in the hepatocystic triangle.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2130,
+              "mechanism": "The bipolar tool grasps, coagulates, and divides the remaining fat and fibrous tissue."
+            },
+            {
+              "delta": "The active tool is removed from the field of view.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Retract",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 2190,
+              "mechanism": "The tool is pulled back, revealing the fully cleared hepatocystic triangle and allowing for assessment."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 1.0,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right bipolar tool dissects connective tissue and fat within the hepatocystic triangle.",
+              "rationale": "This action directly removes the tissue obscuring the hepatocystic triangle, which is the definition of satisfying criterion C2.",
+              "confidence": 1.0
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Abdominal-wall or cavity",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by fat and connective tissue.\",\n      \"A bipolar tool is actively dissecting tissue near the gallbladder neck.\",\n      \"The cystic duct and artery are not yet clearly delineated.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is now cleared of overlying tissue.\",\n      \"The cystic duct and a vessel (likely cystic artery) are well-defined.\",\n      \"The dissecting tool has been withdrawn, providing an unobstructed view.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The bipolar tool is actively grasping and separating a band of tissue.\",\n      \"This dissection is creating the space between the cystic structures and liver.\",\n      \"The view of the triangle is progressively improving.\"\n    ],\n    \"evidence_frame\": 2100,\n    \"confidence\": 0.6\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Connective tissue is actively dissected and cleared from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"The tool grasps, coagulates, and separates tissue, revealing the underlying cystic duct and artery.\"\n    },\n    {\n      \"delta\": \"The active tool is withdrawn, revealing the result of the dissection.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2250,\n      \"mechanism\": \"Moving the tool out of the way provides an unobstructed view for assessing the cleared anatomy.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects connective tissue in the hepatocystic triangle to expose key structures.\",\n      \"rationale\": \"This action directly removes the fat and fibrous tissue obscuring the anatomy, which is the definition of satisfying C2.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"The left grasper (inferred) retracts the gallbladder upward, maintaining exposure of the hepatocystic triangle.\",\n      \"rationale\": \"This stable retraction creates the necessary tension and space for the dissection to be performed effectively.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"left\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The right bipolar tool is positioned over tissue in the hepatocystic triangle.\",\n      \"Fat and connective tissue obscure the posterior aspect of the triangle.\",\n      \"The view is stable due to presumed off-screen gallbladder retraction.\"\n    ],\n    \"confidence\": 0.3\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The right bipolar tool has dissected and coagulated tissue.\",\n      \"The hepatocystic triangle is visibly clearer, especially posteriorly.\",\n      \"Structures within the triangle are better delineated.\"\n    ],\n    \"confidence\": 0.7\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The bipolar tool has just completed a coagulation/dissection cycle.\",\n      \"Its jaws are open, preparing for the next grasp.\",\n      \"The immediate area of action is clearer than at the start.\"\n    ],\n    \"evidence_frame\": 1860,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Right tool dissects tissue from the posterior aspect of the triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1860,\n      \"mechanism\": \"The tool grasps, coagulates, and pulls away small pieces of tissue.\"\n    },\n    {\n      \"delta\": \"Right tool coagulates tissue to aid dissection.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Coagulate\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1830,\n      \"mechanism\": \"The tool jaws close on tissue, likely applying energy to shrink it.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects fat and connective tissue from within the hepatocystic triangle.\",\n      \"rationale\": \"This direct removal of obscuring tissue is the primary reason the hepatocystic triangle becomes clearer, satisfying the C2 criterion.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Coagulate\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool coagulates connective tissue in the hepatocystic triangle before dissection.\",\n      \"rationale\": \"Coagulation is an enabling action that prepares the tissue for safe removal and improves the clarity of the dissection.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Coagulate\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+        "```json\n{\n  \"criterion\": \"C2\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"smoke\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Pack\",\n      \"item\": \"Other:gauze\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"A bipolar tool is actively dissecting tissue in the hepatocystic triangle.\",\n      \"The triangle is not yet fully cleared of fat and connective tissue.\",\n      \"A window behind the cystic structures is partially visible.\",\n      \"The view of the target anatomy is partially occluded by the tool.\"\n    ],\n    \"confidence\": 0.8\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is now fully cleared and well-exposed.\",\n      \"The bipolar tool is present but used for probing/pointing.\",\n      \"A grasper holding gauze is visible packing the liver superiorly.\",\n      \"Charring is visible on the liver bed from the dissection.\"\n    ],\n    \"confidence\": 0.95\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The dissecting tool has been temporarily removed from the field.\",\n      \"The hepatocystic triangle is now clearly visible and appears cleared.\",\n      \"Cystic structures are skeletonized against the liver bed.\",\n      \"The result of the dissection is unobscured.\"\n    ],\n    \"evidence_frame\": 2190,\n    \"confidence\": 1.0\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Dissection of remaining tissue in the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2130,\n      \"mechanism\": \"The bipolar tool grasps, coagulates, and divides the remaining fat and fibrous tissue.\"\n    },\n    {\n      \"delta\": \"The active tool is removed from the field of view.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Retract\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 2190,\n      \"mechanism\": \"The tool is pulled back, revealing the fully cleared hepatocystic triangle and allowing for assessment.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 1.0,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects connective tissue and fat within the hepatocystic triangle.\",\n      \"rationale\": \"This action directly removes the tissue obscuring the hepatocystic triangle, which is the definition of satisfying criterion C2.\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Abdominal-wall or cavity\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true,
+          true
+        ],
+        "fine_parse_errors": [
+          null,
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:53:48.423900+00:00"
+    }
+  },
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga__C3__avg__c_001650_002100",
+    "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1650,
+      "mid_frame": 1950,
+      "end_frame": 2100,
+      "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+      "keyframes": {
+        "start": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001650",
+        "mid": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001950",
+        "end": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_002100"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is attached to the liver bed.",
+            "A bipolar tool is positioned to dissect tissue at the gallbladder-liver interface.",
+            "The dissection plane between the gallbladder and liver is not yet established."
+          ],
+          "confidence": 0.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is clearly detached from the liver bed.",
+            "A significant space now exists between the gallbladder and the liver.",
+            "Dissection has progressed, revealing the posterior aspect of the gallbladder."
+          ],
+          "confidence": 0.67
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "Progressive dissection of connective tissue between the gallbladder and liver bed.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 1950,
+            "mechanism": "The bipolar tool coagulates and mechanically separates the tissue attachments."
+          },
+          {
+            "delta": "Increased separation and space created between the gallbladder and liver.",
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Liver bed",
+            "direction": "lateral",
+            "evidence_frame": 2100,
+            "mechanism": "As tissue is cleared, the gallbladder is pushed/lifted away from the liver, widening the gap."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "one_sentence": "The right bipolar tool dissects connective tissue in the liver bed, separating the gallbladder.",
+            "rationale": "This dissection directly creates the physical separation between the gallbladder and liver bed, which is the definition of criterion C3.",
+            "confidence": 1.0
+          },
+          {
+            "rank": 2,
+            "importance": 0.6,
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Liver bed",
+            "direction": "lateral",
+            "one_sentence": "The right bipolar tool retracts the gallbladder laterally while dissecting it from the liver bed.",
+            "rationale": "This retraction, performed by the active tool, helps expose the dissection plane and makes the created separation more evident.",
+            "confidence": 0.8
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "right",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga__C3__avg__f_001800_001950",
+        "start_frame": 1800,
+        "end_frame": 1950,
+        "video_id": "nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga",
+        "keyframes": {
+          "start": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001800",
+          "end": "test/nqwazqo2-5oxt-0uz4-ekws-fe0lwc1iu7ga/frame_001950"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "occlusion",
+            "bleeding"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The lower third of the gallbladder is attached to the liver bed.",
+              "A band of connective tissue connects the gallbladder to the liver.",
+              "The right bipolar tool is positioned to grasp this tissue.",
+              "The gallbladder is retracted upward, creating tension."
+            ],
+            "confidence": 0.0
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The lower third of the gallbladder is visibly separated from the liver bed.",
+              "The connective tissue has been coagulated and dissected away.",
+              "A clear space now exists between the gallbladder and the liver.",
+              "The right bipolar tool is pushing away the remaining attachments."
+            ],
+            "confidence": 0.67
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The bipolar tool has just opened after coagulating the tissue.",
+              "The tissue is visibly charred and weakened.",
+              "Separation between the gallbladder and liver bed has begun.",
+              "The dissection plane is becoming more defined."
+            ],
+            "evidence_frame": 1890,
+            "confidence": 0.33
+          },
+          "deltas": [
+            {
+              "delta": "The right tool dissects the coagulated tissue to separate the gallbladder from the liver bed.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1950,
+              "mechanism": "The tool's jaws are used to push and divide the weakened tissue, creating a visible gap."
+            },
+            {
+              "delta": "The right tool coagulates the band of tissue connecting the gallbladder to the liver.",
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Coagulate",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1860,
+              "mechanism": "Energy is applied to the tissue, causing it to char and weaken in preparation for division."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "one_sentence": "The right bipolar tool dissects connective tissue in the hepatocystic triangle.",
+              "rationale": "This action directly creates the separation between the lower gallbladder and the liver bed, satisfying the criterion.",
+              "confidence": 0.95
+            },
+            {
+              "rank": 2,
+              "importance": 0.7,
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward",
+              "one_sentence": "An unseen grasper retracts the gallbladder upward to expose the dissection plane.",
+              "rationale": "This stable retraction creates the necessary tension and exposure for the dissection to proceed and reveal the separation.",
+              "confidence": 0.8
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "unclear",
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Grasp",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Coagulate",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "right",
+              "tool": "bipolar",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is attached to the liver bed.\",\n      \"A bipolar tool is positioned to dissect tissue at the gallbladder-liver interface.\",\n      \"The dissection plane between the gallbladder and liver is not yet established.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is clearly detached from the liver bed.\",\n      \"A significant space now exists between the gallbladder and the liver.\",\n      \"Dissection has progressed, revealing the posterior aspect of the gallbladder.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"Progressive dissection of connective tissue between the gallbladder and liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The bipolar tool coagulates and mechanically separates the tissue attachments.\"\n    },\n    {\n      \"delta\": \"Increased separation and space created between the gallbladder and liver.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"lateral\",\n      \"evidence_frame\": 2100,\n      \"mechanism\": \"As tissue is cleared, the gallbladder is pushed/lifted away from the liver, widening the gap.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects connective tissue in the liver bed, separating the gallbladder.\",\n      \"rationale\": \"This dissection directly creates the physical separation between the gallbladder and liver bed, which is the definition of criterion C3.\",\n      \"confidence\": 1.0\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.6,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"lateral\",\n      \"one_sentence\": \"The right bipolar tool retracts the gallbladder laterally while dissecting it from the liver bed.\",\n      \"rationale\": \"This retraction, performed by the active tool, helps expose the dissection plane and makes the created separation more evident.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\",\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is attached to the liver bed.\",\n      \"A band of connective tissue connects the gallbladder to the liver.\",\n      \"The right bipolar tool is positioned to grasp this tissue.\",\n      \"The gallbladder is retracted upward, creating tension.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is visibly separated from the liver bed.\",\n      \"The connective tissue has been coagulated and dissected away.\",\n      \"A clear space now exists between the gallbladder and the liver.\",\n      \"The right bipolar tool is pushing away the remaining attachments.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The bipolar tool has just opened after coagulating the tissue.\",\n      \"The tissue is visibly charred and weakened.\",\n      \"Separation between the gallbladder and liver bed has begun.\",\n      \"The dissection plane is becoming more defined.\"\n    ],\n    \"evidence_frame\": 1890,\n    \"confidence\": 0.33\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The right tool dissects the coagulated tissue to separate the gallbladder from the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1950,\n      \"mechanism\": \"The tool's jaws are used to push and divide the weakened tissue, creating a visible gap.\"\n    },\n    {\n      \"delta\": \"The right tool coagulates the band of tissue connecting the gallbladder to the liver.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Coagulate\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1860,\n      \"mechanism\": \"Energy is applied to the tissue, causing it to char and weaken in preparation for division.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right bipolar tool dissects connective tissue in the hepatocystic triangle.\",\n      \"rationale\": \"This action directly creates the separation between the lower gallbladder and the liver bed, satisfying the criterion.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"An unseen grasper retracts the gallbladder upward to expose the dissection plane.\",\n      \"rationale\": \"This stable retraction creates the necessary tension and exposure for the dissection to proceed and reveal the separation.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Grasp\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Coagulate\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T03:55:13.734377+00:00"
+    }
+  }
+]

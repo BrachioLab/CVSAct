@@ -1,0 +1,901 @@
+{
+  "_meta": {
+    "version": "v10",
+    "description": "CVS-ACT taxonomy v10: add per-field annotation guidelines (event-based actions; no annotation for continued holding), plus general notes for each field.",
+    "created_at": "2026-03-02T21:47:47.986569",
+    "base_version": "v9"
+  },
+  "fields": {
+    "actor_role": [
+      {
+        "label": "right_instrument",
+        "value": "right_instrument",
+        "count": 171,
+        "annotation_description": "The instrument is in the right hand of the surgeon, typically one of these: Hook (cautery hook): thin L-shaped tip; Maryland (Maryland dissector): long, thin, curved jaw tips; Scissors: two blades; Irrigator: tube-like.",
+        "recommendation_description": "Use for recommendations involving dissecting/coagulating/cutting or fine manipulation typically done with the right-hand instrument."
+      },
+      {
+        "label": "left_instrument",
+        "value": "left_instrument",
+        "count": 99,
+        "annotation_description": "LEFT instrument (almost always a Grasper for retraction/exposure):",
+        "recommendation_description": "Use for recommendations involving traction/retraction and regrasping typically done with the left-hand grasper."
+      },
+      {
+        "label": "camera",
+        "value": "camera",
+        "count": 91,
+        "annotation_description": "The camera is the viewpoint of the operation, controlled by the assistant. If the field of view is too far or structures appear small, recommend ZOOM_IN. If the view is too close or you cannot see the whole operative field, recommend ZOOM_OUT. If the hepatocystic triangle is not centered or not visible, recommend REPOSITION camera.",
+        "recommendation_description": "Use for recommendations to adjust zoom or viewing angle."
+      },
+      {
+        "label": "top_instrument",
+        "value": "top_instrument",
+        "count": 4,
+        "annotation_description": "This label is used when there is a third (extra) instrument visible at the top of the surgical view—this is not typical and usually, there are only two instruments. The top instrument may be performing retraction (e.g., a grasper on the gallbladder fundus) or may be an additional tool such as an irrigator used to help clear the surgical field.",
+        "recommendation_description": "Use when a third instrument is visible/available and is best positioned to provide retraction or field assistance."
+      },
+      {
+        "label": "offscreen",
+        "value": "offscreen",
+        "count": 1,
+        "annotation_description": "Label for when you can infer that there is an instrument present, but it is not visible in the camera view because it is offscreen. Use this label only if you cannot determine the specific instrument or hand (right/left) from context. If you know, for example, that the regular grasper on the left is present but just offscreen, choose 'left_instrument' and 'Grasper' instead.",
+        "recommendation_description": "Use only if you must recommend an instrument action but the acting instrument is not visible; otherwise choose left/right/top when known."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 6,
+        "annotation_description": "Use this when the actor/hand side cannot be determined from the image.",
+        "recommendation_description": "Avoid recommending an unspecified actor; choose camera/left/right/top when possible."
+      }
+    ],
+    "tool_type": [
+      {
+        "label": "Hook",
+        "value": "Hook",
+        "count": 109,
+        "annotation_description": "Electrocautery hook (thin L-shaped tip) used primarily for sharp/energy-based dissection and coagulation during clearance of the hepatocystic triangle or isolation of biliary structures.",
+        "recommendation_description": "Prefer when recommending energy-based dissection/coagulation is appropriate; avoid aggressive use near uncertain anatomy."
+      },
+      {
+        "label": "Grasper",
+        "value": "Grasper",
+        "count": 103,
+        "annotation_description": "Atraumatic grasper used mainly for traction/retraction (lateral, medial, upward, downward) to tension tissue planes and improve exposure; may also regrasp to change traction vector.",
+        "recommendation_description": "Prefer for recommending traction/retraction maneuvers and regrasping to change traction vectors."
+      },
+      {
+        "label": "camera",
+        "value": "camera",
+        "count": 77,
+        "annotation_description": "Laparoscopic camera controlled by the assistant. Used for zooming in/out and repositioning to optimize visualization, centering, and viewing angle.",
+        "recommendation_description": "Use to recommend zoom/reposition actions that improve visualization."
+      },
+      {
+        "label": "Maryland",
+        "value": "Maryland",
+        "count": 40,
+        "annotation_description": "Maryland dissector (long, thin curved jaws) used for blunt dissection, spreading, and precise tissue handling around the cystic duct/artery.",
+        "recommendation_description": "Prefer for recommending fine blunt dissection/spreading around duct/artery when precision is needed."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 19,
+        "annotation_description": "Use when the instrument type cannot be confidently determined from the clip/frame.",
+        "recommendation_description": "Avoid recommending an unspecified tool; choose the most likely tool type given the maneuver, or leave tool_type unspecified if allowed."
+      },
+      {
+        "label": "Irrigator",
+        "value": "Irrigator",
+        "count": 12,
+        "annotation_description": "Irrigation–suction device used to aspirate blood/fluid/smoke, irrigate debris, and occasionally provide gentle countertraction or tissue manipulation.",
+        "recommendation_description": "Prefer for recommending field clearing (aspiration/irrigation) or gentle countertraction."
+      },
+      {
+        "label": "Scissors",
+        "value": "Scissors",
+        "count": 2,
+        "annotation_description": "Laparoscopic scissors used for cutting tissue after adequate exposure, and occasionally for blunt spreading when closed.",
+        "recommendation_description": "Prefer for recommending cutting when planes are well-defined and exposure is adequate."
+      }
+    ],
+    "action_code": [
+      {
+        "label": "DISSECT",
+        "value": "DISSECT",
+        "count": 131,
+        "annotation_description": "Actively dissect tissue/fat/fibrous bands around the target structure (sharp/blunt/energy) to clear planes, separate tissue, or skeletonize the duct/artery.",
+        "recommendation_description": "Recommend when the next step is to clear fat/fibrous tissue or open a dissection plane to improve CVS progress (e.g., improve exposure/skeletonization). Prioritize safe, superficial dissection until anatomy is well-visualized."
+      },
+      {
+        "label": "RETRACT_LATERAL",
+        "value": "RETRACT_LATERAL",
+        "count": 63,
+        "annotation_description": "Initiate or significantly increase lateral traction (from neutral or insufficient traction) to tension tissue planes and improve exposure.",
+        "recommendation_description": "Recommend when HCT exposure is insufficient and lateral traction would tension the triangle (often via grasper on GB neck/infundibulum). Do not recommend if adequate lateral traction is already being held."
+      },
+      {
+        "label": "CAMERA_ZOOM_OUT",
+        "value": "CAMERA_ZOOM_OUT",
+        "count": 42,
+        "annotation_description": "Zoom out to obtain a wider contextual view of the surgical field (more anatomy visible; structures appear smaller).",
+        "recommendation_description": "Recommend when global context is missing (need to see broader field, orientation, instrument positions) or the view is too tight."
+      },
+      {
+        "label": "CAMERA_REPOSITION",
+        "value": "CAMERA_REPOSITION",
+        "count": 25,
+        "annotation_description": "Change camera position/angle (without a zoom change) to improve alignment, centering, or perspective on the target anatomy.",
+        "recommendation_description": "Recommend when target anatomy is off-center, partially occluded, or the viewing angle is suboptimal; aim to obtain a safer, more informative perspective."
+      },
+      {
+        "label": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+        "value": "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+        "count": 25,
+        "annotation_description": "Withdraw an instrument (partially or fully) because it obstructs the camera view or key anatomy; intended to improve visualization.",
+        "recommendation_description": "Recommend when an instrument is blocking key anatomy or camera view; withdrawing improves visualization before proceeding."
+      },
+      {
+        "label": "CAMERA_ZOOM_IN",
+        "value": "CAMERA_ZOOM_IN",
+        "count": 24,
+        "annotation_description": "Zoom in to obtain a close-up focused view of the area of interest (structures appear larger; less global context).",
+        "recommendation_description": "Recommend when fine detail is needed (structures too small / uncertainty about duct/artery) and a close-up would improve assessment."
+      },
+      {
+        "label": "RETRACT_MEDIAL_TO_LATERAL",
+        "value": "RETRACT_MEDIAL_TO_LATERAL",
+        "count": 15,
+        "annotation_description": "Deliberately rotate or shift the traction vector from medial → lateral (while maintaining traction) to open a different tissue plane or expose a different aspect of the hepatocystic triangle.",
+        "recommendation_description": "Recommend when traction is already applied medially but changing the vector to lateral would open a new plane or improve visibility (e.g., shift from posterior to anterior exposure)."
+      },
+      {
+        "label": "RETRACT_UPWARD",
+        "value": "RETRACT_UPWARD",
+        "count": 13,
+        "annotation_description": "Initiate or significantly increase upward traction (from neutral or insufficient traction) to lift tissue/gallbladder and tension dissection planes.",
+        "recommendation_description": "Recommend when lifting the gallbladder/tissue upward would improve exposure (often for cystic plate/liver bed interface or to deepen the view). Do not recommend if adequate upward lift is already held."
+      },
+      {
+        "label": "IRRIGATOR_ASPIRATE",
+        "value": "IRRIGATOR_ASPIRATE",
+        "count": 9,
+        "annotation_description": "Aspirate blood/fluid/smoke/debris (with suction ± brief irrigation) to clear the field and improve visualization.",
+        "recommendation_description": "Recommend when blood/fluid/smoke obscures the field and suction/irrigation would restore visibility."
+      },
+      {
+        "label": "RETRACT_MEDIAL",
+        "value": "RETRACT_MEDIAL",
+        "count": 6,
+        "annotation_description": "Initiate or significantly increase medial traction (from neutral or insufficient traction) to modify tissue tension and exposure.",
+        "recommendation_description": "Recommend when medial traction is needed to tension an alternative plane or correct over-lateral traction. Do not recommend if adequate medial traction is already being held."
+      },
+      {
+        "label": "RETRACT_LATERAL_TO_MEDIAL",
+        "value": "RETRACT_LATERAL_TO_MEDIAL",
+        "count": 6,
+        "annotation_description": "Deliberately rotate or shift the traction vector from lateral → medial (while maintaining traction) to open an alternative view or dissection plane.",
+        "recommendation_description": "Recommend when traction is already applied laterally but changing the vector to medial would open an alternative plane or improve visibility (e.g., better posterior exposure)."
+      },
+      {
+        "label": "ICG_SWITCH",
+        "value": "ICG_SWITCH",
+        "count": 5,
+        "annotation_description": "Switch imaging modality to ICG fluorescence (or equivalent) to improve visualization and help confirm biliary structure identity.",
+        "recommendation_description": "Recommend when structure identity is uncertain and ICG fluorescence (or equivalent) is available to help confirm biliary anatomy."
+      },
+      {
+        "label": "IRRIGATOR_COUNTERTRACTION_ASSIST",
+        "value": "IRRIGATOR_COUNTERTRACTION_ASSIST",
+        "count": 3,
+        "annotation_description": "Use the irrigator tip to provide temporary countertraction/pushing to assist exposure or enable regrasping (not primarily for suction/irrigation).",
+        "recommendation_description": "Recommend when brief countertraction/pushing is needed to assist regrasping or maintain exposure while another maneuver is set up."
+      },
+      {
+        "label": "COAGULATE_HEMOSTASIS",
+        "value": "COAGULATE_HEMOSTASIS",
+        "count": 2,
+        "annotation_description": "Apply coagulation energy to a focal bleeding site to achieve hemostasis.",
+        "recommendation_description": "Recommend when there is active bleeding that obscures the field or poses risk; achieve hemostasis before continuing dissection."
+      },
+      {
+        "label": "RETRACT_DOWNWARD",
+        "value": "RETRACT_DOWNWARD",
+        "count": 1,
+        "annotation_description": "Initiate or significantly increase downward traction (from neutral or insufficient traction) to pull tissue inferiorly and alter exposure.",
+        "recommendation_description": "Recommend when pulling tissue inferiorly would improve the working space or reveal anatomy (less common). Do not recommend if the same traction state is already held."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 0,
+        "annotation_description": "No specific action can be determined from the clip/frame, or the surgeon is only holding a previously established state without meaningful change.",
+        "recommendation_description": "Do not recommend '(not set)'. Use only as a fallback when an actionable maneuver cannot be determined or no change is needed."
+      }
+    ],
+    "target_structure": [
+      {
+        "label": "HepatocysticTriangle",
+        "value": "HepatocysticTriangle",
+        "count": 180,
+        "annotation_description": "Choose this when the tool should work in the hepatocystic triangle region, but there is still a lot of fat and fibrous tissue present, making it difficult to specify exactly which structure within the triangle is being targeted.",
+        "recommendation_description": "Recommend as target when the goal is broad clearance/exposure of the HCT and specific duct/artery targets are not yet well-defined."
+      },
+      {
+        "label": "GallbladderNeck_Infundibulum",
+        "value": "GallbladderNeck_Infundibulum",
+        "count": 101,
+        "annotation_description": "The gallbladder neck/infundibulum near the cystic duct junction; common grasp/retraction point to expose the HCT.",
+        "recommendation_description": "Recommend as target for traction when using the neck/infundibulum as the anchor point to tension the HCT."
+      },
+      {
+        "label": "CysticPlate",
+        "value": "CysticPlate",
+        "count": 24,
+        "annotation_description": "The gallbladder–liver bed interface (cystic plate plane) that must be exposed by separating the lower gallbladder from the liver bed for CVS.",
+        "recommendation_description": "Recommend as target when separating the gallbladder from the liver bed to expose the cystic plate plane."
+      },
+      {
+        "label": "CysticArtery",
+        "value": "CysticArtery",
+        "count": 19,
+        "annotation_description": "Choose this if the target is in the area of the presumed cystic artery—even if it isn’t clearly or exactly delineated, it should be dissection around where you think the cystic artery is located.",
+        "recommendation_description": "Recommend as target when focusing dissection/skeletonization on the presumed cystic artery (or its immediate surrounding tissue)."
+      },
+      {
+        "label": "CysticDuct",
+        "value": "CysticDuct",
+        "count": 12,
+        "annotation_description": "Choose this if the target is in the area of the presumed cystic duct—even if it isn’t clearly or exactly delineated, it should be dissection around where you think the cystic duct is located.",
+        "recommendation_description": "Recommend as target when focusing dissection/skeletonization on the presumed cystic duct (or its immediate surrounding tissue)."
+      },
+      {
+        "label": "TwoTubularStructures",
+        "value": "TwoTubularStructures",
+        "count": 12,
+        "annotation_description": "Choose this when there are approximately two tubular structures visible (even if they are not clearly or perfectly delineated) and the work is centered around or between them—this label is used when the area of interest is the region of the presumed cystic duct and artery as a pair, rather than focusing on one or the other individually.",
+        "recommendation_description": "Recommend as target when working on the region between/around the two tubular structures as a pair (e.g., to expose/skeletonize both together)."
+      },
+      {
+        "label": "Gallbladder",
+        "value": "Gallbladder",
+        "count": 9,
+        "annotation_description": "The gallbladder body/fundus (or gallbladder more generally) as a retraction or manipulation target.",
+        "recommendation_description": "Recommend as target for broader gallbladder manipulation/retraction not specifically at the neck/infundibulum."
+      },
+      {
+        "label": "BloodOrFluid",
+        "value": "BloodOrFluid",
+        "count": 6,
+        "annotation_description": "Blood, bile, irrigation fluid, smoke, or other obscuring material that reduces visualization and may require suction/irrigation.",
+        "recommendation_description": "Recommend as target when clearing obscuring blood/fluid is needed before further maneuvers."
+      },
+      {
+        "label": "tissue between the cystic plate and the gallbladder",
+        "value": "tissue between the cystic plate and the gallbladder",
+        "count": 4,
+        "annotation_description": "Soft tissue/areolar plane between the cystic plate and gallbladder during separation off the liver bed (cystic plate exposure).",
+        "recommendation_description": "Recommend as target when working specifically in the separation plane off the liver bed to improve cystic plate exposure."
+      },
+      {
+        "label": "TissueNearCysticArtery",
+        "value": "TissueNearCysticArtery",
+        "count": 3,
+        "annotation_description": "Fibrofatty/connective tissue surrounding the presumed cystic artery targeted for clearance to improve visualization/identity.",
+        "recommendation_description": "Recommend as target when focusing on perivascular tissue to improve cystic artery visualization/identity (can often be treated as artery-side dissection)."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 0,
+        "annotation_description": "Target structure cannot be determined from the clip/frame.",
+        "recommendation_description": "Avoid recommending an unspecified target; choose the closest anatomical focus or omit target if not needed."
+      }
+    ],
+    "target_context": [
+      {
+        "label": "between presumed cystic duct and presumed cystic artery",
+        "value": "between presumed cystic duct and presumed cystic artery",
+        "count": 58,
+        "annotation_description": "Focused in the central HCT between the two tubular structures (between presumed duct and artery).",
+        "recommendation_description": "Use to specify the working plane centered between the two tubular structures (central HCT) when recommending dissection there."
+      },
+      {
+        "label": "between cystic artery and cystic plate",
+        "value": "between cystic artery and cystic plate",
+        "count": 35,
+        "annotation_description": "Focused in the plane between the presumed cystic artery and cystic plate/liver bed interface.",
+        "recommendation_description": "Use to specify that the working plane is on the artery-side vs plate-side interface; typically paired with target_structure=CysticArtery or CysticPlate to indicate which side to work on."
+      },
+      {
+        "label": "near the base of the hepatocystic triangle",
+        "value": "near the base of the hepatocystic triangle",
+        "count": 18,
+        "annotation_description": "Focused at the inferior/base portion of the HCT near its lower boundary.",
+        "recommendation_description": "Use to specify the inferior/base region of HCT when recommending clearance there."
+      },
+      {
+        "label": "between cystic artery and liver bed",
+        "value": "between cystic artery and liver bed",
+        "count": 7,
+        "annotation_description": "Focused in the plane between the presumed cystic artery and the liver bed.",
+        "recommendation_description": "Use to specify the artery–liver bed interface plane when recommending dissection in that location."
+      },
+      {
+        "label": "moving from a posterior view to an anterior view",
+        "value": "moving from a posterior view to an anterior view",
+        "count": 7,
+        "annotation_description": "The maneuver accompanies a view/perspective change from posterior → anterior orientation of the HCT.",
+        "recommendation_description": "Use when recommending a maneuver that shifts exposure from posterior to anterior orientation (often via traction vector change or camera reposition)."
+      },
+      {
+        "label": "close to the gallbladder neck",
+        "value": "close to the gallbladder neck",
+        "count": 7,
+        "annotation_description": "Focused near the gallbladder neck/infundibulum region.",
+        "recommendation_description": "Use to specify a maneuver focused near the infundibulum/neck (e.g., traction anchor or dissection near the junction)."
+      },
+      {
+        "label": "moving from an anterior view to a posterior view",
+        "value": "moving from an anterior view to a posterior view",
+        "count": 5,
+        "annotation_description": "The maneuver accompanies a view/perspective change from anterior → posterior orientation of the HCT.",
+        "recommendation_description": "Use when recommending a maneuver that shifts exposure from anterior to posterior orientation (often via traction vector change or camera reposition)."
+      },
+      {
+        "label": "near the cystic duct",
+        "value": "near the cystic duct",
+        "count": 4,
+        "annotation_description": "Focused adjacent to the presumed cystic duct.",
+        "recommendation_description": "Use to specify a maneuver focused adjacent to the presumed cystic duct."
+      },
+      {
+        "label": "behind the two tubular structures",
+        "value": "behind the two tubular structures",
+        "count": 4,
+        "annotation_description": "Focused posterior to the two tubular structures (posterior to duct/artery).",
+        "recommendation_description": "Use to specify a posterior working plane behind the two tubular structures when recommending dissection there."
+      },
+      {
+        "label": "the position of the grasper moved more towards the the gallbladder body",
+        "value": "the position of the grasper moved more towards the the gallbladder body",
+        "count": 1,
+        "annotation_description": "Context note: the grasper/retraction point shifted from the neck toward the gallbladder body.",
+        "recommendation_description": "Use when recommending a traction adjustment that shifts the grasp point from neck toward body to change tension/exposure."
+      },
+      {
+        "label": "on the side near the cystic plate",
+        "value": "on the side near the cystic plate",
+        "count": 1,
+        "annotation_description": "Focused on the side adjacent to the cystic plate/liver bed interface.",
+        "recommendation_description": "Use to specify the plate-side working region when recommending dissection/traction affecting the cystic plate interface."
+      },
+      {
+        "label": "near the cystic plate",
+        "value": "near the cystic plate",
+        "count": 0,
+        "annotation_description": "Focused adjacent to the cystic plate/liver bed interface.",
+        "recommendation_description": "Use to specify a maneuver focused adjacent to the cystic plate."
+      },
+      {
+        "label": "on the outside of cystic duct",
+        "value": "on the outside of cystic duct",
+        "count": 0,
+        "annotation_description": "Focused on the outer side of the presumed cystic duct rather than between the duct and artery.",
+        "recommendation_description": "Use to specify a maneuver focused on the outer side of the presumed cystic duct."
+      },
+      {
+        "label": "near cystic duct",
+        "value": "near cystic duct",
+        "count": 1,
+        "annotation_description": "Focused adjacent to the presumed cystic duct (abbreviated phrasing).",
+        "recommendation_description": "Same as 'near the cystic duct' (abbreviated). Prefer the standardized phrasing if you later deduplicate."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 0,
+        "annotation_description": "No additional contextual qualifier is needed or it cannot be determined.",
+        "recommendation_description": "Leave context unset when it does not add meaningful disambiguation for the recommendation."
+      }
+    ],
+    "intention": [
+      {
+        "label": "expose the hepatocystic triangle",
+        "value": "expose the hepatocystic triangle",
+        "count": 81,
+        "annotation_description": "Create or significantly improve anatomical exposure of the HCT.",
+        "recommendation_description": "Recommend when the next priority is to improve HCT exposure (usually via traction and/or camera optimization)."
+      },
+      {
+        "label": "clear the hepatocystic triangle",
+        "value": "clear the hepatocystic triangle",
+        "count": 70,
+        "annotation_description": "Remove fat/fibrous tissue within HCT boundaries.",
+        "recommendation_description": "Recommend when the next priority is to remove fat/fibrous tissue in the HCT to reveal key anatomy."
+      },
+      {
+        "label": "expose the cystic plate",
+        "value": "expose the cystic plate",
+        "count": 43,
+        "annotation_description": "Create or expand exposure of the gallbladder-liver interface (C3 plane).",
+        "recommendation_description": "Recommend when the next priority is to separate the lower gallbladder from the liver bed to reveal the cystic plate plane."
+      },
+      {
+        "label": "obtain a contextualized view",
+        "value": "obtain a contextualized view",
+        "count": 42,
+        "annotation_description": "Camera zooms out to show the surgical field in wider context.",
+        "recommendation_description": "Recommend when situational awareness is missing and a wider view would help orient tools/anatomy."
+      },
+      {
+        "label": "skeletonize the two tubular structures",
+        "value": "skeletonize the two tubular structures",
+        "count": 31,
+        "annotation_description": "Simultaneous dissection isolating duct and artery together.",
+        "recommendation_description": "Recommend when both duct and artery need refinement/clearance together as a pair."
+      },
+      {
+        "label": "adjust the viewing angle",
+        "value": "adjust the viewing angle",
+        "count": 25,
+        "annotation_description": "Camera repositions to change the viewing perspective on the surgical field.",
+        "recommendation_description": "Recommend when the current viewing angle is suboptimal and repositioning could reveal hidden planes or reduce occlusion."
+      },
+      {
+        "label": "obtain a close-up focused view",
+        "value": "obtain a close-up focused view",
+        "count": 24,
+        "annotation_description": "Camera zooms in to get a detailed view of the area of interest.",
+        "recommendation_description": "Recommend when detail is needed to judge structure identity or dissection safety."
+      },
+      {
+        "label": "expose the two tubular structures",
+        "value": "expose the two tubular structures",
+        "count": 11,
+        "annotation_description": "First clear visual isolation of cystic duct and artery together.",
+        "recommendation_description": "Recommend when the goal is first-time clear visualization of duct+artery as two distinct structures."
+      },
+      {
+        "label": "clear blood/fluid to improve visualization",
+        "value": "clear blood/fluid to improve visualization",
+        "count": 9,
+        "annotation_description": "Remove fluid obscuring the field (aspiration / irrigation-suction).",
+        "recommendation_description": "Recommend when obscuring blood/fluid/smoke must be cleared before safe progression."
+      },
+      {
+        "label": "skeletonize the presumed cystic artery",
+        "value": "skeletonize the presumed cystic artery",
+        "count": 8,
+        "annotation_description": "Remove surrounding tissue to isolate the presumed cystic artery.",
+        "recommendation_description": "Recommend when focusing on isolating the presumed cystic artery to confirm identity and prepare safe progression."
+      },
+      {
+        "label": "improve visualization of the surgical field",
+        "value": "improve visualization of the surgical field",
+        "count": 6,
+        "annotation_description": "Tool withdraws from the field to unblock the camera's view of the surgical area.",
+        "recommendation_description": "Recommend when an instrument or scene configuration blocks visualization and needs to be corrected."
+      },
+      {
+        "label": "improve visualization and help confirm the identity of the biliary structures",
+        "value": "improve visualization and help confirm the identity of the biliary structures",
+        "count": 5,
+        "annotation_description": "Use modality change (e.g. ICG) to confirm structure identity.",
+        "recommendation_description": "Recommend when anatomy is ambiguous and modality change (e.g., ICG) could help confirm identities."
+      },
+      {
+        "label": "assist retraction (allow regrasp / countertraction)",
+        "value": "assist retraction (allow regrasp / countertraction)",
+        "count": 5,
+        "annotation_description": "Temporary assistance to enable traction setup or regrasp.",
+        "recommendation_description": "Recommend when temporary assistance is needed to set up better traction (e.g., enable regrasping)."
+      },
+      {
+        "label": "achieve hemostasis",
+        "value": "achieve hemostasis",
+        "count": 2,
+        "annotation_description": "Actively stop bleeding (coagulation applied to bleeding site).",
+        "recommendation_description": "Recommend when active bleeding needs control before further dissection."
+      },
+      {
+        "label": "skeletonize the presumed cystic duct",
+        "value": "skeletonize the presumed cystic duct",
+        "count": 1,
+        "annotation_description": "Remove surrounding tissue to isolate the presumed cystic duct.",
+        "recommendation_description": "Recommend when focusing on isolating the presumed cystic duct to confirm identity and prepare safe progression."
+      },
+      {
+        "label": "(not set)",
+        "value": "(not set)",
+        "count": 0,
+        "annotation_description": "Intention cannot be determined from the clip/frame, or the action is purely observational with no clear goal.",
+        "recommendation_description": "Avoid recommending '(not set)'; choose the most plausible goal or omit intention if not required."
+      }
+    ]
+  },
+  "intentions": [
+    {
+      "label": "expose the hepatocystic triangle",
+      "value": "expose the hepatocystic triangle",
+      "count": 81,
+      "annotation_description": "Create or significantly improve anatomical exposure of the HCT.",
+      "recommendation_description": "Recommend when the next priority is to improve HCT exposure (usually via traction and/or camera optimization)."
+    },
+    {
+      "label": "clear the hepatocystic triangle",
+      "value": "clear the hepatocystic triangle",
+      "count": 70,
+      "annotation_description": "Remove fat/fibrous tissue within HCT boundaries.",
+      "recommendation_description": "Recommend when the next priority is to remove fat/fibrous tissue in the HCT to reveal key anatomy."
+    },
+    {
+      "label": "expose the cystic plate",
+      "value": "expose the cystic plate",
+      "count": 43,
+      "annotation_description": "Create or expand exposure of the gallbladder-liver interface (C3 plane).",
+      "recommendation_description": "Recommend when the next priority is to separate the lower gallbladder from the liver bed to reveal the cystic plate plane."
+    },
+    {
+      "label": "obtain a contextualized view",
+      "value": "obtain a contextualized view",
+      "count": 42,
+      "annotation_description": "Camera zooms out to show the surgical field in wider context.",
+      "recommendation_description": "Recommend when situational awareness is missing and a wider view would help orient tools/anatomy."
+    },
+    {
+      "label": "skeletonize the two tubular structures",
+      "value": "skeletonize the two tubular structures",
+      "count": 31,
+      "annotation_description": "Simultaneous dissection isolating duct and artery together.",
+      "recommendation_description": "Recommend when both duct and artery need refinement/clearance together as a pair."
+    },
+    {
+      "label": "adjust the viewing angle",
+      "value": "adjust the viewing angle",
+      "count": 25,
+      "annotation_description": "Camera repositions to change the viewing perspective on the surgical field.",
+      "recommendation_description": "Recommend when the current viewing angle is suboptimal and repositioning could reveal hidden planes or reduce occlusion."
+    },
+    {
+      "label": "obtain a close-up focused view",
+      "value": "obtain a close-up focused view",
+      "count": 24,
+      "annotation_description": "Camera zooms in to get a detailed view of the area of interest.",
+      "recommendation_description": "Recommend when detail is needed to judge structure identity or dissection safety."
+    },
+    {
+      "label": "expose the two tubular structures",
+      "value": "expose the two tubular structures",
+      "count": 11,
+      "annotation_description": "First clear visual isolation of cystic duct and artery together.",
+      "recommendation_description": "Recommend when the goal is first-time clear visualization of duct+artery as two distinct structures."
+    },
+    {
+      "label": "clear blood/fluid to improve visualization",
+      "value": "clear blood/fluid to improve visualization",
+      "count": 9,
+      "annotation_description": "Remove fluid obscuring the field (aspiration / irrigation-suction).",
+      "recommendation_description": "Recommend when obscuring blood/fluid/smoke must be cleared before safe progression."
+    },
+    {
+      "label": "skeletonize the presumed cystic artery",
+      "value": "skeletonize the presumed cystic artery",
+      "count": 8,
+      "annotation_description": "Remove surrounding tissue to isolate the presumed cystic artery.",
+      "recommendation_description": "Recommend when focusing on isolating the presumed cystic artery to confirm identity and prepare safe progression."
+    },
+    {
+      "label": "improve visualization of the surgical field",
+      "value": "improve visualization of the surgical field",
+      "count": 6,
+      "annotation_description": "Tool withdraws from the field to unblock the camera's view of the surgical area.",
+      "recommendation_description": "Recommend when an instrument or scene configuration blocks visualization and needs to be corrected."
+    },
+    {
+      "label": "improve visualization and help confirm the identity of the biliary structures",
+      "value": "improve visualization and help confirm the identity of the biliary structures",
+      "count": 5,
+      "annotation_description": "Use modality change (e.g. ICG) to confirm structure identity.",
+      "recommendation_description": "Recommend when anatomy is ambiguous and modality change (e.g., ICG) could help confirm identities."
+    },
+    {
+      "label": "assist retraction (allow regrasp / countertraction)",
+      "value": "assist retraction (allow regrasp / countertraction)",
+      "count": 5,
+      "annotation_description": "Temporary assistance to enable traction setup or regrasp.",
+      "recommendation_description": "Recommend when temporary assistance is needed to set up better traction (e.g., enable regrasping)."
+    },
+    {
+      "label": "achieve hemostasis",
+      "value": "achieve hemostasis",
+      "count": 2,
+      "annotation_description": "Actively stop bleeding (coagulation applied to bleeding site).",
+      "recommendation_description": "Recommend when active bleeding needs control before further dissection."
+    },
+    {
+      "label": "skeletonize the presumed cystic duct",
+      "value": "skeletonize the presumed cystic duct",
+      "count": 1,
+      "annotation_description": "Remove surrounding tissue to isolate the presumed cystic duct.",
+      "recommendation_description": "Recommend when focusing on isolating the presumed cystic duct to confirm identity and prepare safe progression."
+    },
+    {
+      "label": "(not set)",
+      "value": "(not set)",
+      "count": 0,
+      "annotation_description": "Intention cannot be determined from the clip/frame, or the action is purely observational with no clear goal.",
+      "recommendation_description": "Avoid recommending '(not set)'; choose the most plausible goal or omit intention if not required."
+    }
+  ],
+  "merges": {
+    "action_code": [
+      {
+        "from": [
+          "retracts from upward to laterally",
+          "retracts from upward to medially",
+          "regrasps and retracts laterally",
+          "retracts the tissue around"
+        ],
+        "to_map": {
+          "retracts from upward to laterally": "RETRACT_LATERAL",
+          "retracts from upward to medially": "RETRACT_MEDIAL",
+          "regrasps and retracts laterally": "RETRACT_LATERAL",
+          "retracts the tissue around": "RETRACT_DOWNWARD"
+        },
+        "note": "Free-text action descriptions mapped to structured codes in v7"
+      }
+    ],
+    "tool_type": [
+      {
+        "from": [
+          "Maryland grasper"
+        ],
+        "to": "Maryland",
+        "note": "Renamed Maryland grasper → Maryland"
+      }
+    ]
+  },
+  "v7_cleanup_rules": {
+    "camera_tool_type": "When actor_role=camera, tool_type forced to camera",
+    "action_code_remap": {
+      "retracts from upward to laterally": "RETRACT_LATERAL",
+      "retracts from upward to medially": "RETRACT_MEDIAL",
+      "regrasps and retracts laterally": "RETRACT_LATERAL",
+      "retracts the tissue around": "RETRACT_DOWNWARD"
+    },
+    "tool_type_remap": {
+      "Maryland grasper": "Maryland"
+    },
+    "typo_fix": {
+      "regraps": "regrasps"
+    },
+    "unknown_to_not_set": {
+      "fields": [
+        "action_code",
+        "target_structure",
+        "target_context_1",
+        "target_context_2",
+        "intention",
+        "tool_type",
+        "actor_role"
+      ],
+      "note": "v10: All unknown/Unknown values mapped to (not set) across ALL fields including actor_role and tool_type"
+    }
+  },
+  "nl_mappings": {
+    "actor_text": {
+      "camera": "The camera",
+      "left_instrument": "The left instrument",
+      "right_instrument": "The right instrument",
+      "top_instrument": "The top instrument",
+      "offscreen": "An offscreen instrument",
+      "(not set)": "An instrument"
+    },
+    "tool_text": {
+      "Grasper": "grasper",
+      "Hook": "hook",
+      "Scissors": "scissors",
+      "Clipper": "clipper",
+      "Irrigator": "irrigator",
+      "camera": "",
+      "Maryland": "Maryland grasper",
+      "(not set)": ""
+    },
+    "action_text": {
+      "CAMERA_REPOSITION": "repositions toward",
+      "CAMERA_STABILIZE": "stabilizes on",
+      "CAMERA_ZOOM_IN": "zooms in on",
+      "CAMERA_ZOOM_OUT": "zooms out from",
+      "COAGULATE_HEMOSTASIS": "coagulates",
+      "DISSECT": "dissects the tissue around",
+      "ICG_SWITCH": "switches to ICG view of",
+      "IRRIGATOR_CLEAR_FIELD": "clears",
+      "IRRIGATOR_COUNTERTRACTION_ASSIST": "provides countertraction on",
+      "IRRIGATOR_PUSH_TISSUE": "pushes tissue near",
+      "IRRIGATOR_ASPIRATE": "aspirates",
+      "IRRIGATOR_IRRIGATE": "irrigates",
+      "IRRIGATOR_GRASP": "grasps",
+      "REGRASP": "regrasps",
+      "RETRACT_LATERAL": "retracts laterally",
+      "RETRACT_LATERAL_TO_MEDIAL": "retracts from laterally to medially",
+      "RETRACT_MEDIAL_TO_LATERAL": "retracts from medially to laterally",
+      "RETRACT_UPWARD": "retracts upward",
+      "RETRACT_UPWARD_MEDIAL": "retracts upward and medially",
+      "RETRACT_MEDIAL": "retracts medially",
+      "TOOL_WITHDRAW_UNBLOCKS_VIEW": "withdraws from view of",
+      "OTHER/UNKNOWN": "acts on",
+      "RETRACT_DOWNWARD": "retracts downward",
+      "(not set)": "acts on"
+    },
+    "target_text": {
+      "HepatocysticTriangle": "the hepatocystic triangle",
+      "TwoTubularStructures": "between two tubular structures",
+      "CysticDuct": "the cystic duct",
+      "CysticArtery": "the cystic artery",
+      "Gallbladder": "the gallbladder",
+      "GallbladderNeck_Infundibulum": "the gallbladder neck/infundibulum",
+      "GallbladderFundus": "the gallbladder fundus",
+      "CysticPlate": "the cystic plate",
+      "PeritoneumOrSoftTissue": "the peritoneum",
+      "BloodOrFluid": "blood/fluid",
+      "TissueNearCysticArtery": "tissue near the cystic artery",
+      "TissueNearCysticDuct": "tissue near the cystic duct",
+      "(not set)": ""
+    },
+    "retract_direction": {
+      "RETRACT_UPWARD": "upward",
+      "RETRACT_LATERAL": "laterally",
+      "RETRACT_LATERAL_TO_MEDIAL": "from laterally to medially",
+      "RETRACT_MEDIAL_TO_LATERAL": "from medially to laterally",
+      "RETRACT_UPWARD_MEDIAL": "upward and medially",
+      "RETRACT_MEDIAL": "medially",
+      "RETRACT_DOWNWARD": "downward"
+    }
+  },
+  "presets": [
+    {
+      "name": "left_grasper",
+      "label": "Retract GB neck laterally",
+      "actor_role": "left_instrument",
+      "tool_type": "Grasper",
+      "action_code": "RETRACT_LATERAL",
+      "target_structure": "GallbladderNeck_Infundibulum",
+      "intention": "expose the hepatocystic triangle"
+    },
+    {
+      "name": "camera_zoom_in",
+      "label": "Zoom in on HCT",
+      "actor_role": "camera",
+      "action_code": "CAMERA_ZOOM_IN",
+      "target_structure": "HepatocysticTriangle",
+      "intention": "obtain a close-up focused view"
+    },
+    {
+      "name": "camera_zoom_out",
+      "label": "Zoom out from HCT",
+      "actor_role": "camera",
+      "action_code": "CAMERA_ZOOM_OUT",
+      "target_structure": "HepatocysticTriangle",
+      "intention": "obtain a contextualized view"
+    },
+    {
+      "name": "right_hook_hct",
+      "label": "Dissect HCT",
+      "actor_role": "right_instrument",
+      "tool_type": "Hook",
+      "action_code": "DISSECT",
+      "target_structure": "HepatocysticTriangle",
+      "intention": "clear the hepatocystic triangle"
+    },
+    {
+      "name": "right_hook_artery",
+      "label": "Dissect cystic artery",
+      "actor_role": "right_instrument",
+      "tool_type": "Hook",
+      "action_code": "DISSECT",
+      "target_structure": "CysticArtery",
+      "intention": "skeletonize the presumed cystic artery"
+    },
+    {
+      "name": "right_hook_duct",
+      "label": "Dissect cystic duct",
+      "actor_role": "right_instrument",
+      "tool_type": "Hook",
+      "action_code": "DISSECT",
+      "target_structure": "CysticDuct",
+      "intention": "skeletonize the presumed cystic duct"
+    }
+  ],
+  "splits": [],
+  "combo_remaps": [],
+  "instance_splits": [],
+  "v8_rules": {
+    "intention_remap": {
+      "separate the gallbladder from the cystic plate": "expose the cystic plate",
+      "skeletonize the cystic duct": "skeletonize the presumed cystic duct",
+      "skeletonize the cystic artery": "skeletonize the presumed cystic artery"
+    },
+    "target_context_remap": {
+      "between cystic duct and cystic artery": "between presumed cystic duct and presumed cystic artery"
+    },
+    "camera_intention_by_action_code": {
+      "CAMERA_ZOOM_OUT": "obtain a contextualized view",
+      "CAMERA_ZOOM_IN": "obtain a close-up focused view",
+      "CAMERA_REPOSITION": "adjust the viewing angle"
+    }
+  },
+  "v9_rules": {
+    "removed_intentions": [
+      "maintain exposure of the cystic plate",
+      "maintain exposure of the hepatocystic triangle",
+      "maintain exposure of the two tubular structures"
+    ],
+    "rationale": "Maintain actions describe passive holding (stable traction) rather than active surgical manoeuvres. Removing them focuses the taxonomy on changes the surgeon makes to advance toward CVS."
+  },
+  "v10_rules": {
+    "merged_values": {
+      "tool_type": {
+        "Unknown": "(not set)"
+      },
+      "actor_role": {
+        "unknown": "(not set)"
+      }
+    },
+    "rationale": "Unify the sentinel for unspecified values. Previously tool_type used both Unknown and (not set), and actor_role used unknown. Now all fields consistently use (not set)."
+  },
+  "field_guidelines": {
+    "actor_role": {
+      "annotation_description": "Who performs the maneuver. Choose the most specific visible actor (right/left/top instrument or camera). Use 'offscreen' only when an instrument action is strongly implied but the instrument is not visible. Use '(not set)' only when you cannot determine whether the acting tool is left/right/top/camera/offscreen from the clip.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "tool_type": {
+      "annotation_description": "Instrument identity used for interpretability (not required for every clip). If actor_role=camera, tool_type should be 'camera'. If the instrument is visible but not confidently identifiable, use '(not set)'. Do not guess.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "action_code": {
+      "annotation_description": "Discrete, event-based surgical maneuvers (state transitions). Annotate only when the surgeon initiates or meaningfully changes an action (e.g., begins/increases retraction, changes retraction direction, starts a new dissection pass, performs a camera zoom/reposition). If the surgeon continues holding an existing state without meaningful change (e.g., already retracting laterally and continues to hold), do NOT annotate a new action.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "target_structure": {
+      "annotation_description": "Primary anatomical structure (or visual obstruction) that the action is applied to / intended to affect. Choose the closest specific structure relevant to the maneuver. Use '(not set)' if the target cannot be determined from the clip.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "target_context": {
+      "annotation_description": "Optional contextual qualifier describing where on/around the target_structure the maneuver is focused (e.g., between duct and artery, posterior vs anterior view shift). Use it when it meaningfully disambiguates the action location; otherwise leave '(not set)'.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "intention": {
+      "annotation_description": "The surgical objective the action is trying to achieve (why this maneuver now), aligned with CVS progress (e.g., expose/clear HCT, expose cystic plate, obtain close-up/context view). Intentions are goal-oriented; do not use them to encode passive holding. Use '(not set)' if intention cannot be inferred.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    }
+  },
+  "field_meta": {
+    "actor_role": {
+      "annotation_description": "Who performs the maneuver. Choose the most specific visible actor (right/left/top instrument or camera). Use 'offscreen' only when an instrument action is strongly implied but the instrument is not visible. Use '(not set)' only when you cannot determine whether the acting tool is left/right/top/camera/offscreen from the clip.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "tool_type": {
+      "annotation_description": "Instrument identity used for interpretability (not required for every clip). If actor_role=camera, tool_type should be 'camera'. If the instrument is visible but not confidently identifiable, use '(not set)'. Do not guess.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "action_code": {
+      "annotation_description": "Discrete, event-based surgical maneuvers (state transitions). Annotate only when the surgeon initiates or meaningfully changes an action (e.g., begins/increases retraction, changes retraction direction, starts a new dissection pass, performs a camera zoom/reposition). If the surgeon continues holding an existing state without meaningful change (e.g., already retracting laterally and continues to hold), do NOT annotate a new action.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "target_structure": {
+      "annotation_description": "Primary anatomical structure (or visual obstruction) that the action is applied to / intended to affect. Choose the closest specific structure relevant to the maneuver. Use '(not set)' if the target cannot be determined from the clip.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "target_context": {
+      "annotation_description": "Optional contextual qualifier describing where on/around the target_structure the maneuver is focused (e.g., between duct and artery, posterior vs anterior view shift). Use it when it meaningfully disambiguates the action location; otherwise leave '(not set)'.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    },
+    "intention": {
+      "annotation_description": "The surgical objective the action is trying to achieve (why this maneuver now), aligned with CVS progress (e.g., expose/clear HCT, expose cystic plate, obtain close-up/context view). Intentions are goal-oriented; do not use them to encode passive holding. Use '(not set)' if intention cannot be inferred.",
+      "recommendation_description": "Use this field to express actionable choices when recommending the next maneuver; follow the recommendation_description of the selected option."
+    }
+  }
+}

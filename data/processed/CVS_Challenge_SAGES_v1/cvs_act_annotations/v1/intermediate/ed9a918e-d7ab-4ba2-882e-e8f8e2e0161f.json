@@ -1,0 +1,259 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f__C1__avg__c_001200_001650",
+    "video_id": "ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f",
+    "criterion": "C1",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 1200,
+      "mid_frame": 1500,
+      "end_frame": 1650,
+      "video_id": "ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f",
+      "keyframes": {
+        "start": "test/ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f/frame_001200",
+        "mid": "test/ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f/frame_001500",
+        "end": "test/ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f/frame_001650"
+      },
+      "annotation": {
+        "criterion": "C1",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The hepatocystic triangle is obscured by blood and undifferentiated tissue.",
+            "No distinct tubular structures are visible.",
+            "The camera view is tightly zoomed in, lacking anatomical context."
+          ],
+          "confidence": 0.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "Two distinct tubular structures are clearly visible in the hepatocystic triangle.",
+            "The structures are identifiable as the likely cystic duct and artery.",
+            "A clipper tool is positioned on the anterior structure (cystic duct).",
+            "The camera view is wide, providing clear anatomical context."
+          ],
+          "confidence": 0.66
+        },
+        "mid_state": null,
+        "deltas": [
+          {
+            "delta": "Camera pulls back to provide a wider, more contextual view.",
+            "actor_side": "camera",
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear",
+            "evidence_frame": 1500,
+            "mechanism": "Changing from a narrow, close-up view to a wide-angle view reveals the anatomical relationships between the gallbladder, liver, and ductal structures."
+          },
+          {
+            "delta": "Dissection clears tissue from the hepatocystic triangle.",
+            "actor_side": "unclear",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "evidence_frame": 1350,
+            "mechanism": "The removal of blood and overlying connective tissue physically uncovers the two tubular structures, making them visible."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "unclear",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear",
+            "one_sentence": "An unclear tool dissects connective tissue in the hepatocystic triangle to expose the ductal structures.",
+            "rationale": "This dissection cleared away blood and tissue that were obscuring the anatomy, directly exposing the two tubular structures required for C1.",
+            "confidence": 0.7
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "unclear",
+            "tool": "bipolar",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          },
+          {
+            "actor_side": "right",
+            "tool": "clipper",
+            "verb": "Clip",
+            "item": "Cystic-duct",
+            "region": "Hepatocystic triangle",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f__C1__avg__f_001500_001650",
+        "start_frame": 1500,
+        "end_frame": 1650,
+        "video_id": "ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f",
+        "keyframes": {
+          "start": "test/ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f/frame_001500",
+          "end": "test/ed9a918e-d7ab-4ba2-882e-e8f8e2e0161f/frame_001650"
+        },
+        "annotation": {
+          "criterion": "C1",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "occlusion"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "grasper",
+              "verb": "Retract",
+              "item": "Gallbladder",
+              "region": "Gallbladder neck/infundibulum",
+              "direction": "upward"
+            },
+            "right": {
+              "tool": "clipper",
+              "verb": "Null",
+              "item": "Cystic-duct",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The shaft of a clipper tool partially occludes the hepatocystic triangle.",
+              "One clipped tubular structure, the cystic duct, is visible.",
+              "A second tubular structure is not clearly delineated from surrounding tissue.",
+              "The view is somewhat cluttered with clip artifacts and dissected tissue."
+            ],
+            "confidence": 0.2
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The clipper tool has returned to a position over the cystic duct.",
+              "Two distinct tubular structures are now identifiable.",
+              "The separation between the cystic duct and artery is more apparent than at the start.",
+              "The view is again partially occluded by the tool."
+            ],
+            "confidence": 0.7
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The clipper tool is temporarily removed from the operative field.",
+              "The camera provides a closer, unobstructed view of the anatomy.",
+              "Two distinct tubular structures (cystic duct and artery) are clearly visible.",
+              "The separation between the two structures is well-defined."
+            ],
+            "evidence_frame": 1620,
+            "confidence": 0.9
+          },
+          "deltas": [
+            {
+              "delta": "The right-sided clipper is temporarily withdrawn from the hepatocystic triangle.",
+              "actor_side": "right",
+              "tool": "clipper",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1620,
+              "mechanism": "Removes a major source of occlusion, revealing the underlying anatomy, particularly the cystic artery."
+            },
+            {
+              "delta": "The camera moves closer to or zooms in on the hepatocystic triangle.",
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear",
+              "evidence_frame": 1620,
+              "mechanism": "Provides a magnified view that improves the clarity and distinction of the two tubular structures."
+            }
+          ],
+          "actions_ranked": [],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "clipper",
+              "verb": "Null",
+              "item": "Cystic-duct",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            },
+            {
+              "actor_side": "camera",
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Hepatocystic triangle",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The hepatocystic triangle is obscured by blood and undifferentiated tissue.\",\n      \"No distinct tubular structures are visible.\",\n      \"The camera view is tightly zoomed in, lacking anatomical context.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"Two distinct tubular structures are clearly visible in the hepatocystic triangle.\",\n      \"The structures are identifiable as the likely cystic duct and artery.\",\n      \"A clipper tool is positioned on the anterior structure (cystic duct).\",\n      \"The camera view is wide, providing clear anatomical context.\"\n    ],\n    \"confidence\": 0.66\n  },\n  \"mid_state\": null,\n  \"deltas\": [\n    {\n      \"delta\": \"Camera pulls back to provide a wider, more contextual view.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1500,\n      \"mechanism\": \"Changing from a narrow, close-up view to a wide-angle view reveals the anatomical relationships between the gallbladder, liver, and ductal structures.\"\n    },\n    {\n      \"delta\": \"Dissection clears tissue from the hepatocystic triangle.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1350,\n      \"mechanism\": \"The removal of blood and overlying connective tissue physically uncovers the two tubular structures, making them visible.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"An unclear tool dissects connective tissue in the hepatocystic triangle to expose the ductal structures.\",\n      \"rationale\": \"This dissection cleared away blood and tissue that were obscuring the anatomy, directly exposing the two tubular structures required for C1.\",\n      \"confidence\": 0.7\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"bipolar\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Clip\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C1\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"occlusion\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder neck/infundibulum\",\n      \"direction\": \"upward\"\n    },\n    \"right\": {\n      \"tool\": \"clipper\",\n      \"verb\": \"Null\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The shaft of a clipper tool partially occludes the hepatocystic triangle.\",\n      \"One clipped tubular structure, the cystic duct, is visible.\",\n      \"A second tubular structure is not clearly delineated from surrounding tissue.\",\n      \"The view is somewhat cluttered with clip artifacts and dissected tissue.\"\n    ],\n    \"confidence\": 0.2\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The clipper tool has returned to a position over the cystic duct.\",\n      \"Two distinct tubular structures are now identifiable.\",\n      \"The separation between the cystic duct and artery is more apparent than at the start.\",\n      \"The view is again partially occluded by the tool.\"\n    ],\n    \"confidence\": 0.7\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The clipper tool is temporarily removed from the operative field.\",\n      \"The camera provides a closer, unobstructed view of the anatomy.\",\n      \"Two distinct tubular structures (cystic duct and artery) are clearly visible.\",\n      \"The separation between the two structures is well-defined.\"\n    ],\n    \"evidence_frame\": 1620,\n    \"confidence\": 0.9\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The right-sided clipper is temporarily withdrawn from the hepatocystic triangle.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1620,\n      \"mechanism\": \"Removes a major source of occlusion, revealing the underlying anatomy, particularly the cystic artery.\"\n    },\n    {\n      \"delta\": \"The camera moves closer to or zooms in on the hepatocystic triangle.\",\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1620,\n      \"mechanism\": \"Provides a magnified view that improves the clarity and distinction of the two tubular structures.\"\n    }\n  ],\n  \"actions_ranked\": [],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"clipper\",\n      \"verb\": \"Null\",\n      \"item\": \"Cystic-duct\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    },\n    {\n      \"actor_side\": \"camera\",\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Hepatocystic triangle\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T02:50:00.615934+00:00"
+    }
+  }
+]

@@ -1,0 +1,273 @@
+[
+  {
+    "schema_version": "cvs_act.v1",
+    "example_id": "d21d252f-8399-4fcf-9ddd-ea475f009a74__C3__avg__c_000900_001350",
+    "video_id": "d21d252f-8399-4fcf-9ddd-ea475f009a74",
+    "criterion": "C3",
+    "rater_id": "avg",
+    "mind_change": "unsatisfied->satisfied",
+    "granularity": "coarse",
+    "coarse": {
+      "start_frame": 900,
+      "mid_frame": 1200,
+      "end_frame": 1350,
+      "video_id": "d21d252f-8399-4fcf-9ddd-ea475f009a74",
+      "keyframes": {
+        "start": "test/d21d252f-8399-4fcf-9ddd-ea475f009a74/frame_000900",
+        "mid": "test/d21d252f-8399-4fcf-9ddd-ea475f009a74/frame_001200",
+        "end": "test/d21d252f-8399-4fcf-9ddd-ea475f009a74/frame_001350"
+      },
+      "annotation": {
+        "criterion": "C3",
+        "mind_change": "unsatisfied->satisfied",
+        "scene_flags": [
+          "bleeding"
+        ],
+        "tool_roles": {
+          "left": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          },
+          "right": {
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          },
+          "camera": {
+            "tool": "Null",
+            "verb": "Null",
+            "item": "Null",
+            "region": "Unclear",
+            "direction": "unclear"
+          }
+        },
+        "start_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is attached to the liver bed.",
+            "A hook tool is actively dissecting tissue at the gallbladder-liver junction.",
+            "The dissection plane is not yet clearly established and is obscured.",
+            "There is minor bleeding in the dissection area."
+          ],
+          "confidence": 0.0
+        },
+        "end_state": {
+          "what_is_visible": [
+            "The lower third of the gallbladder is visibly detached from the liver bed.",
+            "A clear space has been created between the gallbladder and liver.",
+            "The hook tool is positioned within the newly created space.",
+            "The dissection plane is now well-defined."
+          ],
+          "confidence": 0.67
+        },
+        "mid_state": {
+          "what_is_visible": [
+            "Dissection has progressed, creating a significant gap between gallbladder and liver.",
+            "The gallbladder is held under tension, pulling it away from the liver.",
+            "The hook continues to clear connective tissue from the liver bed."
+          ],
+          "evidence_frame": 1200,
+          "confidence": 0.5
+        },
+        "deltas": [
+          {
+            "delta": "Progressive dissection of connective tissue from the liver bed.",
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "evidence_frame": 1200,
+            "mechanism": "The hook tool systematically scrapes and peels tissue away, separating the gallbladder from the liver."
+          },
+          {
+            "delta": "Maintained retraction of the gallbladder, creating space and tension.",
+            "actor_side": "unclear",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward",
+            "evidence_frame": 1050,
+            "mechanism": "Constant upward tension on the gallbladder exposes the dissection plane for the hook and makes the separation visible."
+          }
+        ],
+        "actions_ranked": [
+          {
+            "rank": 1,
+            "importance": 0.9,
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear",
+            "one_sentence": "The right-sided hook dissects connective tissue in the liver bed, separating the lower gallbladder.",
+            "rationale": "This action directly creates the physical separation between the gallbladder and liver required by the criterion.",
+            "confidence": 0.95
+          },
+          {
+            "rank": 2,
+            "importance": 0.7,
+            "actor_side": "unclear",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward",
+            "one_sentence": "An unseen grasper retracts the gallbladder upward, exposing the liver bed for dissection.",
+            "rationale": "This retraction provides the necessary exposure and tension to allow for effective dissection and clear visualization of the separation.",
+            "confidence": 0.8
+          }
+        ],
+        "action_track": [
+          {
+            "actor_side": "unclear",
+            "tool": "grasper",
+            "verb": "Retract",
+            "item": "Gallbladder",
+            "region": "Gallbladder fundus/body",
+            "direction": "upward"
+          },
+          {
+            "actor_side": "right",
+            "tool": "hook",
+            "verb": "Dissect",
+            "item": "Connective tissue",
+            "region": "Liver bed",
+            "direction": "unclear"
+          }
+        ]
+      }
+    },
+    "fine": [
+      {
+        "fine_id": "d21d252f-8399-4fcf-9ddd-ea475f009a74__C3__avg__f_001200_001350",
+        "start_frame": 1200,
+        "end_frame": 1350,
+        "video_id": "d21d252f-8399-4fcf-9ddd-ea475f009a74",
+        "keyframes": {
+          "start": "test/d21d252f-8399-4fcf-9ddd-ea475f009a74/frame_001200",
+          "end": "test/d21d252f-8399-4fcf-9ddd-ea475f009a74/frame_001350"
+        },
+        "annotation": {
+          "criterion": "C3",
+          "mind_change": "unsatisfied->satisfied",
+          "scene_flags": [
+            "bleeding"
+          ],
+          "tool_roles": {
+            "left": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            },
+            "right": {
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear"
+            },
+            "camera": {
+              "tool": "Null",
+              "verb": "Null",
+              "item": "Null",
+              "region": "Unclear",
+              "direction": "unclear"
+            }
+          },
+          "start_state": {
+            "what_is_visible": [
+              "The right-sided hook is positioned near the gallbladder-liver junction.",
+              "Connective tissue obscures the plane between the gallbladder and liver bed.",
+              "The degree of detachment of the lower gallbladder is unclear."
+            ],
+            "confidence": 0.0
+          },
+          "end_state": {
+            "what_is_visible": [
+              "The right hook has cleared tissue from the gallbladder-liver junction.",
+              "A clearer plane of separation is now visible.",
+              "The lower part of the gallbladder is now visibly more detached from the liver bed."
+            ],
+            "confidence": 0.67
+          },
+          "mid_state": {
+            "what_is_visible": [
+              "The right hook is actively dissecting connective tissue.",
+              "This action is creating a space between the gallbladder and the liver bed.",
+              "The separation is in progress but not yet fully established."
+            ],
+            "evidence_frame": 1290,
+            "confidence": 0.5
+          },
+          "deltas": [
+            {
+              "delta": "The right hook dissects connective tissue to separate the gallbladder from the liver bed.",
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear",
+              "evidence_frame": 1290,
+              "mechanism": "The hook cautery peels away tissue connecting the gallbladder infundibulum to the liver surface."
+            }
+          ],
+          "actions_ranked": [
+            {
+              "rank": 1,
+              "importance": 0.9,
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear",
+              "one_sentence": "The right hook dissects connective tissue from the liver bed to separate the gallbladder.",
+              "rationale": "This dissection directly creates the visible separation between the lower gallbladder and the liver bed, which is the core requirement for criterion C3.",
+              "confidence": 0.9
+            }
+          ],
+          "action_track": [
+            {
+              "actor_side": "right",
+              "tool": "hook",
+              "verb": "Dissect",
+              "item": "Connective tissue",
+              "region": "Liver bed",
+              "direction": "unclear"
+            }
+          ]
+        }
+      }
+    ],
+    "raw": {
+      "coarse_text": "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is attached to the liver bed.\",\n      \"A hook tool is actively dissecting tissue at the gallbladder-liver junction.\",\n      \"The dissection plane is not yet clearly established and is obscured.\",\n      \"There is minor bleeding in the dissection area.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The lower third of the gallbladder is visibly detached from the liver bed.\",\n      \"A clear space has been created between the gallbladder and liver.\",\n      \"The hook tool is positioned within the newly created space.\",\n      \"The dissection plane is now well-defined.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"Dissection has progressed, creating a significant gap between gallbladder and liver.\",\n      \"The gallbladder is held under tension, pulling it away from the liver.\",\n      \"The hook continues to clear connective tissue from the liver bed.\"\n    ],\n    \"evidence_frame\": 1200,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"Progressive dissection of connective tissue from the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1200,\n      \"mechanism\": \"The hook tool systematically scrapes and peels tissue away, separating the gallbladder from the liver.\"\n    },\n    {\n      \"delta\": \"Maintained retraction of the gallbladder, creating space and tension.\",\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\",\n      \"evidence_frame\": 1050,\n      \"mechanism\": \"Constant upward tension on the gallbladder exposes the dissection plane for the hook and makes the separation visible.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right-sided hook dissects connective tissue in the liver bed, separating the lower gallbladder.\",\n      \"rationale\": \"This action directly creates the physical separation between the gallbladder and liver required by the criterion.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"rank\": 2,\n      \"importance\": 0.7,\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\",\n      \"one_sentence\": \"An unseen grasper retracts the gallbladder upward, exposing the liver bed for dissection.\",\n      \"rationale\": \"This retraction provides the necessary exposure and tension to allow for effective dissection and clear visualization of the separation.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"unclear\",\n      \"tool\": \"grasper\",\n      \"verb\": \"Retract\",\n      \"item\": \"Gallbladder\",\n      \"region\": \"Gallbladder fundus/body\",\n      \"direction\": \"upward\"\n    },\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```",
+      "fine_texts": [
+        "```json\n{\n  \"criterion\": \"C3\",\n  \"mind_change\": \"unsatisfied->satisfied\",\n  \"scene_flags\": [\n    \"bleeding\"\n  ],\n  \"tool_roles\": {\n    \"left\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    },\n    \"right\": {\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    },\n    \"camera\": {\n      \"tool\": \"Null\",\n      \"verb\": \"Null\",\n      \"item\": \"Null\",\n      \"region\": \"Unclear\",\n      \"direction\": \"unclear\"\n    }\n  },\n  \"start_state\": {\n    \"what_is_visible\": [\n      \"The right-sided hook is positioned near the gallbladder-liver junction.\",\n      \"Connective tissue obscures the plane between the gallbladder and liver bed.\",\n      \"The degree of detachment of the lower gallbladder is unclear.\"\n    ],\n    \"confidence\": 0.0\n  },\n  \"end_state\": {\n    \"what_is_visible\": [\n      \"The right hook has cleared tissue from the gallbladder-liver junction.\",\n      \"A clearer plane of separation is now visible.\",\n      \"The lower part of the gallbladder is now visibly more detached from the liver bed.\"\n    ],\n    \"confidence\": 0.67\n  },\n  \"mid_state\": {\n    \"what_is_visible\": [\n      \"The right hook is actively dissecting connective tissue.\",\n      \"This action is creating a space between the gallbladder and the liver bed.\",\n      \"The separation is in progress but not yet fully established.\"\n    ],\n    \"evidence_frame\": 1290,\n    \"confidence\": 0.5\n  },\n  \"deltas\": [\n    {\n      \"delta\": \"The right hook dissects connective tissue to separate the gallbladder from the liver bed.\",\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"evidence_frame\": 1290,\n      \"mechanism\": \"The hook cautery peels away tissue connecting the gallbladder infundibulum to the liver surface.\"\n    }\n  ],\n  \"actions_ranked\": [\n    {\n      \"rank\": 1,\n      \"importance\": 0.9,\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\",\n      \"one_sentence\": \"The right hook dissects connective tissue from the liver bed to separate the gallbladder.\",\n      \"rationale\": \"This dissection directly creates the visible separation between the lower gallbladder and the liver bed, which is the core requirement for criterion C3.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"action_track\": [\n    {\n      \"actor_side\": \"right\",\n      \"tool\": \"hook\",\n      \"verb\": \"Dissect\",\n      \"item\": \"Connective tissue\",\n      \"region\": \"Liver bed\",\n      \"direction\": \"unclear\"\n    }\n  ]\n}\n```"
+      ],
+      "parse": {
+        "coarse_parse_ok": true,
+        "coarse_parse_error": null,
+        "fine_parse_ok": [
+          true
+        ],
+        "fine_parse_errors": [
+          null
+        ]
+      },
+      "model": "gemini-2.5-pro",
+      "prompt_version": "cvs_act_prompt_v1",
+      "created_at": "2026-02-15T01:41:56.139875+00:00"
+    }
+  }
+]
