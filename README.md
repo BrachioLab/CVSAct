@@ -43,6 +43,17 @@ Open JupyterLab from the repo root:
 jupyter lab --no-browser --port=8999
 ```
 
+## Raw Video Data
+
+Raw SAGES videos are not stored in this repository. On the lab server, link the existing dataset into the expected path:
+
+```bash
+mkdir -p data/raw
+ln -s /mnt/md0/weiqiuy/datasets/CVS_Challenge_SAGES_v1 data/raw/CVS_Challenge_SAGES_v1
+```
+
+If the local dataset is unavailable, download it from the [CAMMA SAGES CVS Challenge 2024 Hugging Face dataset](https://huggingface.co/datasets/CAMMA-public/SAGES_CVS_Challenge_2024/tree/main) and place or link it at `data/raw/CVS_Challenge_SAGES_v1`.
+
 ## Human Annotation
 
 The final trained-annotator labels are `audit_v11`.
