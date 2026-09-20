@@ -531,6 +531,103 @@ class SurgeonVideoMenuWidget:
         return [item.selected_range() for item in self.subclip_editors if item is not editor and item.is_complete()]
 
 
+# --- Conditional-logic lookup tables (Dan's feedback #4) -------------------
+#
+# The flat taxonomy lists (in `_load_simple_taxonomy`) enumerate every value
+# that is valid *somewhere*, but not every value is valid for every
+# combination. These tables gate the dependent dropdowns so surgeons can't
+# select combinations that don't exist in the taxonomy (e.g. a clipper doing
+# DISSECT, or a CysticPlate target paired with a CysticDuct-only context).
+
+TOOL_ACTION_MAP: dict[str, list[str]] = {
+    "Hook": [
+        "COAGULATE_HEMOSTASIS",
+        "COUNTERTRACTION_ASSIST",
+        "DISSECT",
+        "RETRACT_DOWNWARD",
+        "SWEEPING",
+        "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+    ],
+    "Irrigator": [
+        "COUNTERTRACTION_ASSIST",
+        "IRRIGATOR_ASPIRATE",
+        "SWEEPING",
+        "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+    ],
+    "Maryland": [
+        "COUNTERTRACTION_ASSIST",
+        "DISSECT",
+        "RETRACT_DOWNWARD",
+        "SWEEPING",
+        "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+    ],
+    "Scissors": [
+        "COUNTERTRACTION_ASSIST",
+        "DISSECT",
+        "RETRACT_DOWNWARD",
+        "SWEEPING",
+        "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+    ],
+    "clipper": [
+        "CLIP",
+        "RETRACT_DOWNWARD",
+        "SWEEPING",
+        "TOOL_WITHDRAW_UNBLOCKS_VIEW",
+    ],
+}
+
+# Per Dan: merge "on the outside of cystic duct" into "near the cystic duct".
+STRUCTURE_CONTEXT_MAP: dict[str, list[str]] = {
+    "CysticArtery": [
+        "between presumed cystic duct and presumed cystic artery",
+        "between cystic artery and cystic plate",
+        "near the base of the hepatocystic triangle",
+        "close to the gallbladder neck",
+        "(not set)",
+    ],
+    "CysticDuct": [
+        "between presumed cystic duct and presumed cystic artery",
+        "near the base of the hepatocystic triangle",
+        "close to the gallbladder neck",
+        "near the cystic duct",
+        "(not set)",
+    ],
+    "CysticPlate": [
+        "between cystic artery and cystic plate",
+        "near the base of the hepatocystic triangle",
+        "close to the gallbladder neck",
+        "(not set)",
+    ],
+    "GallbladderNeck_Infundibulum": [
+        "between presumed cystic duct and presumed cystic artery",
+        "between cystic artery and cystic plate",
+        "near the cystic duct",
+        "near the cystic plate",
+        "near the cystic artery",
+        "(not set)",
+    ],
+    "HepatocysticTriangle": [
+        "between presumed cystic duct and presumed cystic artery",
+        "between cystic artery and cystic plate",
+        "near the base of the hepatocystic triangle",
+        "close to the gallbladder neck",
+        "near the cystic duct",
+        "near the cystic plate",
+        "near the cystic artery",
+        "(not set)",
+    ],
+}
+
+CAMERA_PAN_DIRECTIONS = ["(none)", "left", "right", "upward", "downward"]
+
+
+def _reconcile_dropdown_options(dropdown: widgets.Dropdown, new_options: list[str]) -> None:
+    """Swap a dropdown's option list, keeping its value if still valid."""
+    current = dropdown.value
+    dropdown.options = new_options
+    dropdown.value = current if current in new_options else new_options[0]
+
+
 class SubclipEditor:
     def __init__(
         self,
@@ -568,9 +665,11 @@ class SubclipEditor:
             value=right.get("tool_type", "(none)"),
             description="R tool",
         )
+        # Action options are gated by the currently selected tool (feedback #4).
+        initial_tool_actions = ["(none)", *TOOL_ACTION_MAP.get(self.right_tool.value, [])]
         self.right_action = widgets.Dropdown(
-            options=["(none)", *taxonomy["right"]["action_code"]],
-            value=right.get("action_code", "(none)"),
+            options=initial_tool_actions,
+            value=_valid_dropdown_value(right.get("action_code", "(none)"), initial_tool_actions),
             description="R action",
         )
         self.right_target = widgets.Dropdown(
@@ -578,22 +677,56 @@ class SubclipEditor:
             value=right.get("target_structure", "(none)"),
             description="R target",
         )
-        right_context_options = ["(none)", *taxonomy["right"]["target_context"]]
+        # Context options are gated by the currently selected target structure (feedback #4).
+        initial_context_options = ["(none)", *STRUCTURE_CONTEXT_MAP.get(self.right_target.value, [])]
         self.right_context_1 = widgets.Dropdown(
-            options=right_context_options,
-            value=_valid_dropdown_value(right.get("target_context_1", right.get("target_context", "(none)")), right_context_options),
+            options=initial_context_options,
+            value=_valid_dropdown_value(
+                right.get("target_context_1", right.get("target_context", "(none)")), initial_context_options
+            ),
             description="R ctx 1",
         )
         self.right_context_2 = widgets.Dropdown(
-            options=right_context_options,
-            value=_valid_dropdown_value(right.get("target_context_2", "(none)"), right_context_options),
+            options=initial_context_options,
+            value=_valid_dropdown_value(right.get("target_context_2", "(none)"), initial_context_options),
             description="R ctx 2",
         )
-        self.camera_action = widgets.Dropdown(
-            options=["(none)", *taxonomy["camera"]["action_code"]],
-            value=camera.get("action_code", "(none)"),
+        self.right_tool.observe(self._on_tool_change, names="value")
+        self.right_target.observe(self._on_target_change, names="value")
+
+        # Camera: restructured per feedback #4 into independent movement /
+        # pan-direction / zoom fields instead of one flat mutually-exclusive
+        # code list. This also drops CAMERA_UNCERTAIN for human annotators
+        # (feedback #5) since "changed"/"no_change" has no uncertain state.
+        legacy_camera_code = camera.get("action_code")
+        camera_movement, camera_pan, camera_zoom_on, camera_zoom_dir = _migrate_legacy_camera(
+            camera, legacy_camera_code
+        )
+        self.camera_movement = widgets.Dropdown(
+            options=["(none)", "no_change", "changed"],
+            value=camera_movement,
             description="Camera",
         )
+        self.camera_pan = widgets.Dropdown(
+            options=CAMERA_PAN_DIRECTIONS,
+            value=camera_pan,
+            description="Pan dir",
+            disabled=(camera_movement != "changed"),
+        )
+        self.camera_zoom_checkbox = widgets.Checkbox(
+            value=camera_zoom_on,
+            description="Zoom",
+            indent=False,
+            disabled=(camera_movement != "changed"),
+        )
+        self.camera_zoom_direction = widgets.Dropdown(
+            options=["in", "out"],
+            value=camera_zoom_dir,
+            description="Zoom dir",
+            disabled=(camera_movement != "changed") or not camera_zoom_on,
+        )
+        self.camera_movement.observe(self._on_camera_movement_change, names="value")
+        self.camera_zoom_checkbox.observe(self._on_camera_zoom_toggle, names="value")
         self.note = widgets.Text(value=initial.get("note", ""), description="Note")
         self.remove_btn = widgets.Button(description="Remove")
         self.remove_btn.on_click(lambda _: self.parent._remove_subclip(self))
@@ -622,13 +755,42 @@ class SubclipEditor:
                 widgets.HBox(
                     [
                         _actor_label("Camera", CAMERA_HELP_TEXT),
-                        self.camera_action,
+                        widgets.VBox(
+                            [
+                                self.camera_movement,
+                                self.camera_pan,
+                                widgets.HBox([self.camera_zoom_checkbox, self.camera_zoom_direction]),
+                            ]
+                        ),
                     ]
                 ),
                 self.note,
             ],
             layout=widgets.Layout(border="1px solid #cbd5e1", padding="8px", margin="8px 0"),
         )
+
+    def _on_tool_change(self, change: dict) -> None:
+        new_tool = change["new"]
+        options = ["(none)", *TOOL_ACTION_MAP.get(new_tool, [])]
+        _reconcile_dropdown_options(self.right_action, options)
+
+    def _on_target_change(self, change: dict) -> None:
+        new_target = change["new"]
+        options = ["(none)", *STRUCTURE_CONTEXT_MAP.get(new_target, [])]
+        _reconcile_dropdown_options(self.right_context_1, options)
+        _reconcile_dropdown_options(self.right_context_2, options)
+
+    def _on_camera_movement_change(self, change: dict) -> None:
+        changed = change["new"] == "changed"
+        self.camera_pan.disabled = not changed
+        self.camera_zoom_checkbox.disabled = not changed
+        self.camera_zoom_direction.disabled = not changed or not self.camera_zoom_checkbox.value
+        if not changed:
+            self.camera_pan.value = "(none)"
+            self.camera_zoom_checkbox.value = False
+
+    def _on_camera_zoom_toggle(self, change: dict) -> None:
+        self.camera_zoom_direction.disabled = self.camera_movement.value != "changed" or not change["new"]
 
     def set_boundary(self, frame_id: int, boundary: str) -> None:
         if boundary == "start":
@@ -736,8 +898,14 @@ class SubclipEditor:
                 "target_context_1": _context_or_not_set(self.right_context_1.value),
                 "target_context_2": _context_or_not_set(self.right_context_2.value),
             }
-        if self.camera_action.value != "(none)":
-            out["camera"] = {"action_code": self.camera_action.value}
+        if self.camera_movement.value != "(none)":
+            camera_out: dict = {"movement": self.camera_movement.value}
+            if self.camera_movement.value == "changed":
+                if self.camera_pan.value != "(none)":
+                    camera_out["pan_direction"] = self.camera_pan.value
+                if self.camera_zoom_checkbox.value:
+                    camera_out["zoom_direction"] = self.camera_zoom_direction.value
+            out["camera"] = camera_out
         return out
 
 
@@ -777,14 +945,39 @@ RIGHT_HELP_TEXT = (
     "(not set). Do not invent values outside the dropdowns."
 )
 CAMERA_HELP_TEXT = (
-    "Annotate observed camera movement only; ignore tool motion. CAMERA_ZOOM_IN means the camera "
-    "moves closer and structures appear larger. CAMERA_ZOOM_OUT means the camera moves farther away "
-    "and structures appear smaller. CAMERA_REPOSITION means the camera changes angle, framing, or "
-    "viewpoint without a clear zoom-only change, or the hepatocystic triangle is being re-centered. "
-    "CAMERA_NO_CHANGE means the camera view stays meaningfully stable / no meaningful camera motion "
-    "is visible. CAMERA_UNCERTAIN means camera motion is present or suspected but cannot be judged "
-    "reliably. Leave (none) if no camera actor label should be recorded for this subclip."
+    "Annotate observed camera movement only; ignore tool motion. First choose whether the camera "
+    "view changed at all this subclip (no_change vs. changed). If changed, set the pan direction "
+    "the view moved toward from the patient's perspective (left/right/upward/downward) if the "
+    "framing shifted, and separately check Zoom if the camera also moved closer (in) or farther "
+    "away (out) so structures appear larger or smaller \u2014 pan and zoom can both apply to the same "
+    "subclip. Leave the Camera dropdown at (none) if no camera actor label should be recorded for "
+    "this subclip."
 )
+
+
+def _migrate_legacy_camera(camera: dict, legacy_code: str | None) -> tuple[str, str, bool, str]:
+    """Map an old flat camera action_code (or new-schema dict) to the new fields.
+
+    Returns (movement, pan_direction, zoom_on, zoom_direction).
+    """
+    if legacy_code is None:
+        # Already new schema (or empty).
+        movement = camera.get("movement", "(none)")
+        pan = camera.get("pan_direction", "(none)")
+        zoom_dir = camera.get("zoom_direction")
+        return movement, pan, zoom_dir is not None, (zoom_dir or "in")
+
+    # Legacy flat action_code -> best-effort mapping onto the new schema.
+    # CAMERA_UNCERTAIN has no equivalent (dropped per feedback #5); it maps
+    # to "(none)" so the annotator has to make a fresh call on re-open.
+    mapping = {
+        "CAMERA_NO_CHANGE": ("no_change", "(none)", False, "in"),
+        "CAMERA_REPOSITION": ("changed", "(none)", False, "in"),
+        "CAMERA_ZOOM_IN": ("changed", "(none)", True, "in"),
+        "CAMERA_ZOOM_OUT": ("changed", "(none)", True, "out"),
+        "CAMERA_UNCERTAIN": ("(none)", "(none)", False, "in"),
+    }
+    return mapping.get(legacy_code, ("(none)", "(none)", False, "in"))
 
 
 def _actor_label(label: str, help_text: str) -> widgets.HTML:
