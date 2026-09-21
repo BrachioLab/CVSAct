@@ -581,20 +581,20 @@ STRUCTURE_CONTEXT_MAP: dict[str, list[str]] = {
     "CysticArtery": [
         "between presumed cystic duct and presumed cystic artery",
         "between cystic artery and cystic plate",
-        "near the base of the hepatocystic triangle",
+        "near the portal side of the hepatocystic triangle",
         "close to the gallbladder neck",
         "(not set)",
     ],
     "CysticDuct": [
         "between presumed cystic duct and presumed cystic artery",
-        "near the base of the hepatocystic triangle",
+        "near the portal side of the hepatocystic triangle",
         "close to the gallbladder neck",
         "near the cystic duct",
         "(not set)",
     ],
     "CysticPlate": [
         "between cystic artery and cystic plate",
-        "near the base of the hepatocystic triangle",
+        "near the portal side of the hepatocystic triangle",
         "close to the gallbladder neck",
         "(not set)",
     ],
@@ -609,7 +609,7 @@ STRUCTURE_CONTEXT_MAP: dict[str, list[str]] = {
     "HepatocysticTriangle": [
         "between presumed cystic duct and presumed cystic artery",
         "between cystic artery and cystic plate",
-        "near the base of the hepatocystic triangle",
+        "near the portal side of the hepatocystic triangle",
         "close to the gallbladder neck",
         "near the cystic duct",
         "near the cystic plate",
@@ -621,11 +621,85 @@ STRUCTURE_CONTEXT_MAP: dict[str, list[str]] = {
 CAMERA_PAN_DIRECTIONS = ["(none)", "left", "right", "upward", "downward"]
 
 
-def _reconcile_dropdown_options(dropdown: widgets.Dropdown, new_options: list[str]) -> None:
-    """Swap a dropdown's option list, keeping its value if still valid."""
+# --- Surgeon-facing natural language labels --------------------------------
+#
+# The saved value is always the original code (schema unchanged downstream).
+# Only the on-screen label changes, via ipywidgets' (label, value) option
+# pairs. Kept plain/literal on purpose -- these are UI labels, not the
+# ground-truth-sentence style used for the C1/C2/C3 display.
+
+LEFT_CODE_LABELS = {
+    "KEEP_RETRACT_LATERAL": "Keep retracting laterally",
+    "KEEP_RETRACT_MEDIAL": "Keep retracting medially",
+    "KEEP_RETRACT_UPWARD": "Keep retracting upward",
+    "RETRACT_LATERAL": "Start retracting laterally",
+    "RETRACT_MEDIAL": "Start retracting medially",
+    "RETRACT_UPWARD": "Start retracting upward",
+    "RETRACT_LATERAL_TO_MEDIAL": "Retract: lateral to medial",
+    "RETRACT_LATERAL_TO_UPWARD": "Retract: lateral to upward",
+    "RETRACT_MEDIAL_TO_LATERAL": "Retract: medial to lateral",
+    "RETRACT_MEDIAL_TO_UPWARD": "Retract: medial to upward",
+    "RETRACT_UPWARD_TO_LATERAL": "Retract: upward to lateral",
+    "RETRACT_UPWARD_TO_MEDIAL": "Retract: upward to medial",
+}
+
+TOOL_TYPE_LABELS = {
+    "Hook": "Hook",
+    "Irrigator": "Irrigator",
+    "Maryland": "Maryland grasper",
+    "Scissors": "Scissors",
+    "clipper": "Clip applier",
+}
+
+ACTION_CODE_LABELS = {
+    "CLIP": "Clip",
+    "COAGULATE_HEMOSTASIS": "Coagulate / hemostasis",
+    "COUNTERTRACTION_ASSIST": "Provide countertraction",
+    "DISSECT": "Dissect",
+    "IRRIGATOR_ASPIRATE": "Irrigate / aspirate",
+    "RETRACT_DOWNWARD": "Retract downward",
+    "SWEEPING": "Sweep",
+    "TOOL_WITHDRAW_UNBLOCKS_VIEW": "Withdraw tool to unblock view",
+}
+
+TARGET_STRUCTURE_LABELS = {
+    "CysticArtery": "Cystic artery",
+    "CysticDuct": "Cystic duct",
+    "CysticPlate": "Cystic plate",
+    "GallbladderNeck_Infundibulum": "Gallbladder neck / infundibulum",
+    "HepatocysticTriangle": "Hepatocystic triangle",
+}
+
+CAMERA_MOVEMENT_LABELS = {
+    "no_change": "No change",
+    "changed": "Changed",
+}
+
+CAMERA_PAN_LABELS = {
+    "left": "Left",
+    "right": "Right",
+    "upward": "Upward",
+    "downward": "Downward",
+}
+
+CAMERA_ZOOM_DIRECTION_LABELS = {
+    "in": "In",
+    "out": "Out",
+}
+
+
+def _labeled_options(values: list[str], label_map: dict[str, str]) -> list[tuple[str, str]]:
+    """Build (display_label, value) pairs for a Dropdown; unmapped values
+    (e.g. "(none)", "(not set)", or already-natural-language strings like
+    target_context) just display as-is."""
+    return [(label_map.get(v, v), v) for v in values]
+
+
+def _reconcile_dropdown_options(dropdown: widgets.Dropdown, new_values: list[str], label_map: dict[str, str]) -> None:
+    """Swap a dropdown's (label, value) options, keeping its value if still valid."""
     current = dropdown.value
-    dropdown.options = new_options
-    dropdown.value = current if current in new_options else new_options[0]
+    dropdown.options = _labeled_options(new_values, label_map)
+    dropdown.value = current if current in new_values else new_values[0]
 
 
 class SubclipEditor:
@@ -656,39 +730,40 @@ class SubclipEditor:
         camera = initial.get("camera") or {}
 
         self.left_action = widgets.Dropdown(
-            options=["(none)", *taxonomy["left"]["retraction_direction_code"]],
+            options=_labeled_options(["(none)", *taxonomy["left"]["retraction_direction_code"]], LEFT_CODE_LABELS),
             value=left.get("retraction_direction_code", "(none)"),
             description="Left",
         )
         self.right_tool = widgets.Dropdown(
-            options=["(none)", *taxonomy["right"]["tool_type"]],
+            options=_labeled_options(["(none)", *taxonomy["right"]["tool_type"]], TOOL_TYPE_LABELS),
             value=right.get("tool_type", "(none)"),
             description="R tool",
         )
         # Action options are gated by the currently selected tool (feedback #4).
-        initial_tool_actions = ["(none)", *TOOL_ACTION_MAP.get(self.right_tool.value, [])]
+        initial_tool_action_values = ["(none)", *TOOL_ACTION_MAP.get(self.right_tool.value, [])]
         self.right_action = widgets.Dropdown(
-            options=initial_tool_actions,
-            value=_valid_dropdown_value(right.get("action_code", "(none)"), initial_tool_actions),
+            options=_labeled_options(initial_tool_action_values, ACTION_CODE_LABELS),
+            value=_valid_dropdown_value(right.get("action_code", "(none)"), initial_tool_action_values),
             description="R action",
         )
         self.right_target = widgets.Dropdown(
-            options=["(none)", *taxonomy["right"]["target_structure"]],
+            options=_labeled_options(["(none)", *taxonomy["right"]["target_structure"]], TARGET_STRUCTURE_LABELS),
             value=right.get("target_structure", "(none)"),
             description="R target",
         )
         # Context options are gated by the currently selected target structure (feedback #4).
-        initial_context_options = ["(none)", *STRUCTURE_CONTEXT_MAP.get(self.right_target.value, [])]
+        # target_context strings are already natural language, so no label map needed.
+        initial_context_values = ["(none)", *STRUCTURE_CONTEXT_MAP.get(self.right_target.value, [])]
         self.right_context_1 = widgets.Dropdown(
-            options=initial_context_options,
+            options=_labeled_options(initial_context_values, {}),
             value=_valid_dropdown_value(
-                right.get("target_context_1", right.get("target_context", "(none)")), initial_context_options
+                right.get("target_context_1", right.get("target_context", "(none)")), initial_context_values
             ),
             description="R ctx 1",
         )
         self.right_context_2 = widgets.Dropdown(
-            options=initial_context_options,
-            value=_valid_dropdown_value(right.get("target_context_2", "(none)"), initial_context_options),
+            options=_labeled_options(initial_context_values, {}),
+            value=_valid_dropdown_value(right.get("target_context_2", "(none)"), initial_context_values),
             description="R ctx 2",
         )
         self.right_tool.observe(self._on_tool_change, names="value")
@@ -703,12 +778,12 @@ class SubclipEditor:
             camera, legacy_camera_code
         )
         self.camera_movement = widgets.Dropdown(
-            options=["(none)", "no_change", "changed"],
+            options=_labeled_options(["(none)", "no_change", "changed"], CAMERA_MOVEMENT_LABELS),
             value=camera_movement,
             description="Camera",
         )
         self.camera_pan = widgets.Dropdown(
-            options=CAMERA_PAN_DIRECTIONS,
+            options=_labeled_options(CAMERA_PAN_DIRECTIONS, CAMERA_PAN_LABELS),
             value=camera_pan,
             description="Pan dir",
             disabled=(camera_movement != "changed"),
@@ -720,7 +795,7 @@ class SubclipEditor:
             disabled=(camera_movement != "changed"),
         )
         self.camera_zoom_direction = widgets.Dropdown(
-            options=["in", "out"],
+            options=_labeled_options(["in", "out"], CAMERA_ZOOM_DIRECTION_LABELS),
             value=camera_zoom_dir,
             description="Zoom dir",
             disabled=(camera_movement != "changed") or not camera_zoom_on,
@@ -772,13 +847,14 @@ class SubclipEditor:
     def _on_tool_change(self, change: dict) -> None:
         new_tool = change["new"]
         options = ["(none)", *TOOL_ACTION_MAP.get(new_tool, [])]
-        _reconcile_dropdown_options(self.right_action, options)
+        _reconcile_dropdown_options(self.right_action, options, ACTION_CODE_LABELS)
 
     def _on_target_change(self, change: dict) -> None:
         new_target = change["new"]
         options = ["(none)", *STRUCTURE_CONTEXT_MAP.get(new_target, [])]
-        _reconcile_dropdown_options(self.right_context_1, options)
-        _reconcile_dropdown_options(self.right_context_2, options)
+        # target_context strings are already natural language; no label map needed.
+        _reconcile_dropdown_options(self.right_context_1, options, {})
+        _reconcile_dropdown_options(self.right_context_2, options, {})
 
     def _on_camera_movement_change(self, change: dict) -> None:
         changed = change["new"] == "changed"
@@ -936,7 +1012,7 @@ RIGHT_HELP_TEXT = (
     "the gallbladder-cystic plate / liver-bed interface, use CysticPlate. If it is at the neck or "
     "infundibulum, use GallbladderNeck_Infundibulum. Use target_context_1 and target_context_2 for "
     "up to two more precise visible locations: between presumed cystic duct and presumed cystic "
-    "artery, between cystic artery and cystic plate, near the base of the hepatocystic triangle, "
+    "artery, between cystic artery and cystic plate, near the portal side of the hepatocystic triangle, "
     "close to the gallbladder neck, near the cystic duct, near the cystic plate, or on the outside "
     "of cystic duct. If the action targets the space between the two tubular structures rather than "
     "one structure specifically, use HepatocysticTriangle plus context 'between presumed cystic duct "
@@ -978,6 +1054,49 @@ def _migrate_legacy_camera(camera: dict, legacy_code: str | None) -> tuple[str, 
         "CAMERA_UNCERTAIN": ("(none)", "(none)", False, "in"),
     }
     return mapping.get(legacy_code, ("(none)", "(none)", False, "in"))
+
+
+CRITERION_DEFINITIONS = {
+    "C1": "two and only two tubular structures are visible entering the gallbladder",
+    "C2": "the hepatocystic triangle is cleared of fat and fibrous tissue",
+    "C3": "the lower third of the gallbladder is detached from the liver bed",
+}
+
+
+def _vote_satisfaction_word(keyframe: Mapping[str, Any] | None, criterion_key: str) -> str | None:
+    if not keyframe:
+        return None
+    crit = (keyframe.get("criteria") or {}).get(criterion_key) or {}
+    total = crit.get("total") or 0
+    if not total:
+        return None
+    votes = crit.get("votes") or 0
+    return "satisfied" if votes / total > 0.5 else "not satisfied"
+
+
+def _natural_criterion_sentence(clip: "ClipManifestRow") -> str | None:
+    """Render the C1/C2/C3 ground-truth label as a full sentence, per Dan's
+    feedback #1/#2: these are ground truth (never editable here) and should
+    read in plain language, e.g. 'C3 (...) changes from not satisfied to
+    satisfied.' instead of a bare code."""
+    criterion = (clip.existing_cvs_labels or {}).get("criterion") or clip.criterion
+    if not criterion:
+        return None
+    crit_key = str(criterion).strip().upper()
+    definition = CRITERION_DEFINITIONS.get(crit_key)
+    label = f"{crit_key} ({definition})" if definition else crit_key
+
+    keyframes = (clip.existing_cvs_labels or {}).get("keyframes") or []
+    start_kf = next((kf for kf in keyframes if kf.get("role") == "start"), None)
+    end_kf = next((kf for kf in keyframes if kf.get("role") == "end"), None)
+    start_word = _vote_satisfaction_word(start_kf, crit_key)
+    end_word = _vote_satisfaction_word(end_kf, crit_key)
+
+    if start_word and end_word:
+        if start_word == end_word:
+            return f"For this case, {label} stays {start_word} for the whole subclip."
+        return f"For this case, {label} changes from {start_word} to {end_word}."
+    return f"For this case, {label} is the ground-truth transition criterion for this subclip."
 
 
 def _actor_label(label: str, help_text: str) -> widgets.HTML:
@@ -1065,8 +1184,9 @@ def _cvs_keyframe_label_table(clip: ClipManifestRow) -> str:
                 "</div>"
             )
         parts = []
-        if criterion:
-            parts.append(f"<b>Transition criterion:</b> {html.escape(str(criterion))}")
+        sentence = _natural_criterion_sentence(clip)
+        if sentence:
+            parts.append(html.escape(sentence))
         if mind_change:
             parts.append(f"<b>Mind change:</b> {html.escape(str(mind_change))}")
         return (
@@ -1096,9 +1216,10 @@ def _cvs_keyframe_label_table(clip: ClipManifestRow) -> str:
         )
     criterion = (clip.existing_cvs_labels or {}).get("criterion") or clip.criterion
     mind_change = (clip.existing_cvs_labels or {}).get("mind_change") or clip.mind_change
+    sentence = _natural_criterion_sentence(clip)
     summary = []
-    if criterion:
-        summary.append(f"transition {html.escape(str(criterion))}")
+    if sentence:
+        summary.append(html.escape(sentence))
     if mind_change:
         summary.append(html.escape(str(mind_change)))
     title = "CVS keyframe labels"
@@ -1160,7 +1281,7 @@ def _load_simple_taxonomy(path: Path = DEFAULT_SIMPLE_TAXONOMY_PATH) -> dict[str
             "target_context": [
                 "between presumed cystic duct and presumed cystic artery",
                 "between cystic artery and cystic plate",
-                "near the base of the hepatocystic triangle",
+                "near the portal side of the hepatocystic triangle",
                 "close to the gallbladder neck",
                 "near the cystic duct",
                 "near the cystic plate",
