@@ -257,6 +257,8 @@ class SurgeonAnnotationWidget:
 
     def _add_subclip(self, _btn=None, initial: dict | None = None, render: bool = True) -> None:
         clip = self._current_clip()
+        if initial is None and self.subclip_editors:
+            initial = self.subclip_editors[-1].answers()
         editor = SubclipEditor(
             parent=self,
             clip_start=int(clip.start_frame),
@@ -502,6 +504,8 @@ class SurgeonVideoMenuWidget:
         if self.current_clip_idx is None:
             return
         clip = self.clips[self.current_clip_idx]
+        if initial is None and self.subclip_editors:
+            initial = self.subclip_editors[-1].answers()
         editor = SubclipEditor(
             parent=self,
             clip_start=int(clip.start_frame),
@@ -618,48 +622,60 @@ STRUCTURE_CONTEXT_MAP: dict[str, list[str]] = {
     ],
 }
 
-CAMERA_PAN_DIRECTIONS = ["(none)", "left", "right", "upward", "downward"]
-
-
-# --- Surgeon-facing natural language labels --------------------------------
+# --- Surgeon-facing questions ------------------------------------------------
 #
-# The saved value is always the original code (schema unchanged downstream).
-# Only the on-screen label changes, via ipywidgets' (label, value) option
-# pairs. Kept plain/literal on purpose -- these are UI labels, not the
-# ground-truth-sentence style used for the C1/C2/C3 display.
+# Each subclip is annotated through sentence-style questions (Qualtrics-style);
+# follow-up questions appear only once the answer they depend on is chosen.
+# `SubclipEditor.answers()` maps the answers back onto taxonomy codes.
 
-LEFT_CODE_LABELS = {
-    "KEEP_RETRACT_LATERAL": "Keep retracting laterally",
-    "KEEP_RETRACT_MEDIAL": "Keep retracting medially",
-    "KEEP_RETRACT_UPWARD": "Keep retracting upward",
-    "RETRACT_LATERAL": "Start retracting laterally",
-    "RETRACT_MEDIAL": "Start retracting medially",
-    "RETRACT_UPWARD": "Start retracting upward",
-    "RETRACT_LATERAL_TO_MEDIAL": "Retract: lateral to medial",
-    "RETRACT_LATERAL_TO_UPWARD": "Retract: lateral to upward",
-    "RETRACT_MEDIAL_TO_LATERAL": "Retract: medial to lateral",
-    "RETRACT_MEDIAL_TO_UPWARD": "Retract: medial to upward",
-    "RETRACT_UPWARD_TO_LATERAL": "Retract: upward to lateral",
-    "RETRACT_UPWARD_TO_MEDIAL": "Retract: upward to medial",
+LEFT_DIRECTIONS = ["LATERAL", "MEDIAL", "UPWARD"]
+
+LEFT_DIRECTION_LABELS = {
+    "LATERAL": "Laterally — toward the patient's right (left side of the camera view)",
+    "MEDIAL": "Medially — toward the patient's left (right side of the camera view)",
+    "UPWARD": (
+        "Upward — neither clearly left nor right, with the two tubular structures "
+        "oriented mostly vertically"
+    ),
 }
+
+LEFT_PATTERN_OPTIONS = [
+    ("It keeps retracting the gallbladder neck in approximately the same direction throughout the clip.", "keep"),
+    ("It is not retracting at first, but starts retracting the gallbladder neck during the clip.", "start"),
+    ("It changes the direction in which it is retracting the gallbladder neck during the clip.", "change"),
+    ("The gallbladder neck is not being retracted during this clip.", "none"),
+]
+
+LEFT_DIRECTION_QUESTIONS = {
+    "keep": "Which direction is it retracting the gallbladder neck?",
+    "start": "Which direction does it start retracting the gallbladder neck?",
+    "change": "Which direction is it retracting the gallbladder neck at the beginning of the clip?",
+}
+
+LEFT_CODE_PREFIXES = {"keep": "KEEP_RETRACT_", "start": "RETRACT_"}
+
+NO_TOOL = "(no tool)"
 
 TOOL_TYPE_LABELS = {
     "Hook": "Hook",
     "Irrigator": "Irrigator",
     "Maryland": "Maryland grasper",
     "Scissors": "Scissors",
-    "clipper": "Clip applier",
+    "clipper": "Clipper",
 }
 
 ACTION_CODE_LABELS = {
-    "CLIP": "Clip",
-    "COAGULATE_HEMOSTASIS": "Coagulate / hemostasis",
-    "COUNTERTRACTION_ASSIST": "Provide countertraction",
-    "DISSECT": "Dissect",
-    "IRRIGATOR_ASPIRATE": "Irrigate / aspirate",
-    "RETRACT_DOWNWARD": "Retract downward",
-    "SWEEPING": "Sweep",
-    "TOOL_WITHDRAW_UNBLOCKS_VIEW": "Withdraw tool to unblock view",
+    "CLIP": "Applying a clip",
+    "COAGULATE_HEMOSTASIS": "Coagulating / controlling bleeding",
+    "COUNTERTRACTION_ASSIST": (
+        "Providing countertraction — temporarily holding or stabilizing the tissue or gallbladder "
+        "neck so that the other tool can reposition, adjust, or re-grasp it"
+    ),
+    "DISSECT": "Dissecting tissue",
+    "IRRIGATOR_ASPIRATE": "Irrigating / aspirating",
+    "RETRACT_DOWNWARD": "Retracting tissue downward",
+    "SWEEPING": "Sweeping tissue",
+    "TOOL_WITHDRAW_UNBLOCKS_VIEW": "Withdrawing to clear the view",
 }
 
 TARGET_STRUCTURE_LABELS = {
@@ -670,36 +686,102 @@ TARGET_STRUCTURE_LABELS = {
     "HepatocysticTriangle": "Hepatocystic triangle",
 }
 
-CAMERA_MOVEMENT_LABELS = {
-    "no_change": "No change",
-    "changed": "Changed",
+TARGET_CONTEXT_LABELS = {
+    "between presumed cystic duct and presumed cystic artery": (
+        "Between the presumed cystic duct and presumed cystic artery"
+    ),
+    "between cystic artery and cystic plate": "Between the cystic artery and cystic plate",
+    "(not set)": "None of these / location is not clearly specified",
 }
 
-CAMERA_PAN_LABELS = {
-    "left": "Left",
-    "right": "Right",
-    "upward": "Upward",
-    "downward": "Downward",
-}
+CAMERA_OPTIONS = [
+    ("The camera view mostly stays the same.", "CAMERA_NO_CHANGE"),
+    ("The camera pans / repositions to show a different area.", "CAMERA_REPOSITION"),
+    ("The camera zooms in.", "CAMERA_ZOOM_IN"),
+    ("The camera zooms out.", "CAMERA_ZOOM_OUT"),
+    ("It is unclear whether or how the camera moves.", "CAMERA_UNCERTAIN"),
+]
 
-CAMERA_ZOOM_DIRECTION_LABELS = {
-    "in": "In",
-    "out": "Out",
-}
-
-
-def _labeled_options(values: list[str], label_map: dict[str, str]) -> list[tuple[str, str]]:
-    """Build (display_label, value) pairs for a Dropdown; unmapped values
-    (e.g. "(none)", "(not set)", or already-natural-language strings like
-    target_context) just display as-is."""
-    return [(label_map.get(v, v), v) for v in values]
+CAMERA_PAN_OPTIONS = [
+    ("Toward the patient's left", "left"),
+    ("Toward the patient's right", "right"),
+    ("Upward", "upward"),
+    ("Downward", "downward"),
+]
 
 
-def _reconcile_dropdown_options(dropdown: widgets.Dropdown, new_values: list[str], label_map: dict[str, str]) -> None:
-    """Swap a dropdown's (label, value) options, keeping its value if still valid."""
-    current = dropdown.value
-    dropdown.options = _labeled_options(new_values, label_map)
-    dropdown.value = current if current in new_values else new_values[0]
+def _context_label(value: str) -> str:
+    return TARGET_CONTEXT_LABELS.get(value, value[:1].upper() + value[1:])
+
+
+def _radio(options: list[tuple[str, str]], value: str | None = None) -> widgets.RadioButtons:
+    values = [v for _, v in options]
+    return widgets.RadioButtons(
+        options=options,
+        value=value if value in values else None,
+        layout=widgets.Layout(width="auto"),
+    )
+
+
+def _set_radio_options(radio: widgets.RadioButtons, options: list[tuple[str, str]]) -> None:
+    """Swap options, keeping the current answer only if it is still offered."""
+    current = radio.value
+    radio.options = options
+    radio.value = current if current in [v for _, v in options] else None
+
+
+def _show(widget: widgets.Widget, visible: bool) -> None:
+    widget.layout.display = None if visible else "none"
+
+
+class _Question:
+    def __init__(self, text: str, control: widgets.Widget, hint: str = "") -> None:
+        self.prompt = widgets.HTML()
+        self.control = control
+        self.hint = hint
+        self.set_text(text)
+        self.box = widgets.VBox([self.prompt, control], layout=widgets.Layout(margin="2px 0 8px 12px"))
+
+    def set_text(self, text: str) -> None:
+        hint = f"<div style='font-size:12px;color:#64748b;'>{html.escape(self.hint)}</div>" if self.hint else ""
+        self.prompt.value = f"<div style='font-weight:600;color:#0f172a;'>{html.escape(text)}</div>{hint}"
+
+
+def _left_code(pattern: str | None, first: str | None, second: str | None) -> str | None:
+    if pattern == "change":
+        return f"RETRACT_{first}_TO_{second}" if first and second else None
+    if pattern in LEFT_CODE_PREFIXES and first:
+        return LEFT_CODE_PREFIXES[pattern] + first
+    return None
+
+
+def _parse_left(left: dict) -> tuple[str | None, str | None, str | None]:
+    """Inverse of `_left_code`: returns (pattern, first_direction, second_direction)."""
+    if left.get("absent"):
+        return "none", None, None
+    code = str(left.get("retraction_direction_code") or "")
+    if code.startswith(LEFT_CODE_PREFIXES["keep"]):
+        return "keep", code[len(LEFT_CODE_PREFIXES["keep"]):], None
+    if code.startswith("RETRACT_"):
+        first, _, second = code[len("RETRACT_"):].partition("_TO_")
+        return ("change", first, second) if second else ("start", first, None)
+    return None, None, None
+
+
+def _initial_camera(camera: dict) -> tuple[str | None, str | None]:
+    """Returns (action_code, pan_direction). Also accepts the interim
+    {movement, pan_direction, zoom_direction} shape saved by the dropdown UI."""
+    if "action_code" in camera:
+        return camera["action_code"], camera.get("pan_direction")
+    movement = camera.get("movement")
+    if movement == "no_change":
+        return "CAMERA_NO_CHANGE", None
+    if movement == "changed":
+        zoom = camera.get("zoom_direction")
+        if zoom in ("in", "out"):
+            return f"CAMERA_ZOOM_{zoom.upper()}", None
+        return "CAMERA_REPOSITION", camera.get("pan_direction")
+    return None, None
 
 
 class SubclipEditor:
@@ -725,148 +807,175 @@ class SubclipEditor:
         self.frame_grid = widgets.GridBox()
         self._frame_card_widgets: dict[int, widgets.VBox] = {}
         self._frame_card_index: int | None = None
-        left = initial.get("left") or {}
+        self._syncing = False
+
+        # Part 1: left grasper retracting the gallbladder.
+        pattern, first_dir, second_dir = _parse_left(initial.get("left") or {})
+        direction_options = [(LEFT_DIRECTION_LABELS[d], d) for d in LEFT_DIRECTIONS]
+        self.left_pattern = _Question(
+            "What is the grasper / tool used for retracting the gallbladder doing during this clip?",
+            _radio(LEFT_PATTERN_OPTIONS, pattern),
+        )
+        self.left_first = _Question(
+            LEFT_DIRECTION_QUESTIONS.get(pattern or "keep", ""),
+            _radio(direction_options, first_dir),
+        )
+        self.left_second = _Question(
+            "Which direction is it retracting the gallbladder neck later in the clip?",
+            _radio([option for option in direction_options if option[1] != first_dir], second_dir),
+        )
+        self.left_pattern.control.observe(self._on_left_pattern_change, names="value")
+        self.left_first.control.observe(self._on_left_first_change, names="value")
+
+        # Part 2: the tool actively working on tissue.
         right = initial.get("right") or {}
-        camera = initial.get("camera") or {}
+        tool_options = [(TOOL_TYPE_LABELS.get(t, t), t) for t in taxonomy["right"]["tool_type"]]
+        tool_options.append(("No tool is actively working on the tissue in this clip.", NO_TOOL))
+        self.right_tool = _Question(
+            "Which tool is actively working on the tissue in this clip?",
+            _radio(tool_options, NO_TOOL if right.get("absent") else right.get("tool_type")),
+        )
+        self.right_action = _Question(
+            "What is this tool primarily doing?",
+            _radio(self._action_options(), right.get("action_code")),
+        )
+        structure_options = [
+            (TARGET_STRUCTURE_LABELS.get(s, s), s) for s in taxonomy["right"]["target_structure"]
+        ]
+        self.right_structure = _Question(
+            "What anatomical structure is the tool primarily acting on?",
+            _radio(structure_options, right.get("target_structure")),
+        )
+        self.context_checks: dict[str, widgets.Checkbox] = {}
+        self.right_context = _Question(
+            "More specifically, where is the tool working relative to the surrounding anatomy?",
+            widgets.VBox(),
+            hint="Select up to two locations that best describe where the tool is working.",
+        )
+        initial_contexts = [
+            right.get("target_context_1", right.get("target_context")),
+            right.get("target_context_2"),
+        ]
+        self._build_context_checks([c for c in initial_contexts if c and c != "(not set)"][:2])
+        self.right_tool.control.observe(self._on_tool_change, names="value")
+        self.right_action.control.observe(lambda _: self._sync_visibility(), names="value")
+        self.right_structure.control.observe(self._on_structure_change, names="value")
 
-        self.left_action = widgets.Dropdown(
-            options=_labeled_options(["(none)", *taxonomy["left"]["retraction_direction_code"]], LEFT_CODE_LABELS),
-            value=left.get("retraction_direction_code", "(none)"),
-            description="Left",
+        # Part 3: camera.
+        camera_code, pan = _initial_camera(initial.get("camera") or {})
+        self.camera = _Question("What is the camera doing during this clip?", _radio(CAMERA_OPTIONS, camera_code))
+        self.camera_pan = _Question(
+            "Which direction does the camera move relative to the patient?",
+            _radio(CAMERA_PAN_OPTIONS, pan),
         )
-        self.right_tool = widgets.Dropdown(
-            options=_labeled_options(["(none)", *taxonomy["right"]["tool_type"]], TOOL_TYPE_LABELS),
-            value=right.get("tool_type", "(none)"),
-            description="R tool",
-        )
-        # Action options are gated by the currently selected tool (feedback #4).
-        initial_tool_action_values = ["(none)", *TOOL_ACTION_MAP.get(self.right_tool.value, [])]
-        self.right_action = widgets.Dropdown(
-            options=_labeled_options(initial_tool_action_values, ACTION_CODE_LABELS),
-            value=_valid_dropdown_value(right.get("action_code", "(none)"), initial_tool_action_values),
-            description="R action",
-        )
-        self.right_target = widgets.Dropdown(
-            options=_labeled_options(["(none)", *taxonomy["right"]["target_structure"]], TARGET_STRUCTURE_LABELS),
-            value=right.get("target_structure", "(none)"),
-            description="R target",
-        )
-        # Context options are gated by the currently selected target structure (feedback #4).
-        # target_context strings are already natural language, so no label map needed.
-        initial_context_values = ["(none)", *STRUCTURE_CONTEXT_MAP.get(self.right_target.value, [])]
-        self.right_context_1 = widgets.Dropdown(
-            options=_labeled_options(initial_context_values, {}),
-            value=_valid_dropdown_value(
-                right.get("target_context_1", right.get("target_context", "(none)")), initial_context_values
-            ),
-            description="R ctx 1",
-        )
-        self.right_context_2 = widgets.Dropdown(
-            options=_labeled_options(initial_context_values, {}),
-            value=_valid_dropdown_value(right.get("target_context_2", "(none)"), initial_context_values),
-            description="R ctx 2",
-        )
-        self.right_tool.observe(self._on_tool_change, names="value")
-        self.right_target.observe(self._on_target_change, names="value")
+        self.camera.control.observe(lambda _: self._sync_visibility(), names="value")
 
-        # Camera: restructured per feedback #4 into independent movement /
-        # pan-direction / zoom fields instead of one flat mutually-exclusive
-        # code list. This also drops CAMERA_UNCERTAIN for human annotators
-        # (feedback #5) since "changed"/"no_change" has no uncertain state.
-        legacy_camera_code = camera.get("action_code")
-        camera_movement, camera_pan, camera_zoom_on, camera_zoom_dir = _migrate_legacy_camera(
-            camera, legacy_camera_code
-        )
-        self.camera_movement = widgets.Dropdown(
-            options=_labeled_options(["(none)", "no_change", "changed"], CAMERA_MOVEMENT_LABELS),
-            value=camera_movement,
-            description="Camera",
-        )
-        self.camera_pan = widgets.Dropdown(
-            options=_labeled_options(CAMERA_PAN_DIRECTIONS, CAMERA_PAN_LABELS),
-            value=camera_pan,
-            description="Pan dir",
-            disabled=(camera_movement != "changed"),
-        )
-        self.camera_zoom_checkbox = widgets.Checkbox(
-            value=camera_zoom_on,
-            description="Zoom",
-            indent=False,
-            disabled=(camera_movement != "changed"),
-        )
-        self.camera_zoom_direction = widgets.Dropdown(
-            options=_labeled_options(["in", "out"], CAMERA_ZOOM_DIRECTION_LABELS),
-            value=camera_zoom_dir,
-            description="Zoom dir",
-            disabled=(camera_movement != "changed") or not camera_zoom_on,
-        )
-        self.camera_movement.observe(self._on_camera_movement_change, names="value")
-        self.camera_zoom_checkbox.observe(self._on_camera_zoom_toggle, names="value")
         self.note = widgets.Text(value=initial.get("note", ""), description="Note")
         self.remove_btn = widgets.Button(description="Remove")
         self.remove_btn.on_click(lambda _: self.parent._remove_subclip(self))
+        self._sync_visibility()
         self.box = widgets.VBox(
             [
                 self.header,
                 widgets.HBox([self.boundary_status, self.remove_btn]),
                 self.frame_grid,
-                widgets.HBox(
-                    [
-                        _actor_label("Left", LEFT_HELP_TEXT),
-                        self.left_action,
-                    ]
+                _part_section(
+                    "Part 1. The tool grasping and retracting the gallbladder to expose the hepatocystic triangle",
+                    LEFT_HELP_TEXT,
+                    [self.left_pattern, self.left_first, self.left_second],
                 ),
-                widgets.HBox(
-                    [
-                        _actor_label("Right", RIGHT_HELP_TEXT),
-                        widgets.VBox(
-                            [
-                                widgets.HBox([self.right_tool, self.right_action, self.right_target]),
-                                widgets.HBox([self.right_context_1, self.right_context_2]),
-                            ]
-                        ),
-                    ]
+                _part_section(
+                    "Part 2. The tool that is actively working on the tissue to achieve the CVS criteria",
+                    RIGHT_HELP_TEXT,
+                    [self.right_tool, self.right_action, self.right_structure, self.right_context],
                 ),
-                widgets.HBox(
-                    [
-                        _actor_label("Camera", CAMERA_HELP_TEXT),
-                        widgets.VBox(
-                            [
-                                self.camera_movement,
-                                self.camera_pan,
-                                widgets.HBox([self.camera_zoom_checkbox, self.camera_zoom_direction]),
-                            ]
-                        ),
-                    ]
-                ),
+                _part_section("Part 3. The camera movement", CAMERA_HELP_TEXT, [self.camera, self.camera_pan]),
                 self.note,
             ],
             layout=widgets.Layout(border="1px solid #cbd5e1", padding="8px", margin="8px 0"),
         )
 
-    def _on_tool_change(self, change: dict) -> None:
-        new_tool = change["new"]
-        options = ["(none)", *TOOL_ACTION_MAP.get(new_tool, [])]
-        _reconcile_dropdown_options(self.right_action, options, ACTION_CODE_LABELS)
+    def _action_options(self) -> list[tuple[str, str]]:
+        tool = self.right_tool.control.value
+        return [(ACTION_CODE_LABELS.get(a, a), a) for a in TOOL_ACTION_MAP.get(tool, [])]
 
-    def _on_target_change(self, change: dict) -> None:
-        new_target = change["new"]
-        options = ["(none)", *STRUCTURE_CONTEXT_MAP.get(new_target, [])]
-        # target_context strings are already natural language; no label map needed.
-        _reconcile_dropdown_options(self.right_context_1, options, {})
-        _reconcile_dropdown_options(self.right_context_2, options, {})
+    def _build_context_checks(self, checked: list[str]) -> None:
+        values = STRUCTURE_CONTEXT_MAP.get(self.right_structure.control.value, [])
+        self.context_checks = {
+            value: widgets.Checkbox(
+                value=value in checked,
+                description=_context_label(value),
+                indent=False,
+                layout=widgets.Layout(width="auto"),
+            )
+            for value in values
+        }
+        for checkbox in self.context_checks.values():
+            checkbox.observe(self._on_context_toggle, names="value")
+        self.right_context.control.children = tuple(self.context_checks.values())
+        self._update_context_disabled()
 
-    def _on_camera_movement_change(self, change: dict) -> None:
-        changed = change["new"] == "changed"
-        self.camera_pan.disabled = not changed
-        self.camera_zoom_checkbox.disabled = not changed
-        self.camera_zoom_direction.disabled = not changed or not self.camera_zoom_checkbox.value
-        if not changed:
-            self.camera_pan.value = "(none)"
-            self.camera_zoom_checkbox.value = False
+    def _checked_contexts(self) -> list[str]:
+        return [value for value, checkbox in self.context_checks.items() if checkbox.value]
 
-    def _on_camera_zoom_toggle(self, change: dict) -> None:
-        self.camera_zoom_direction.disabled = self.camera_movement.value != "changed" or not change["new"]
+    def _on_left_pattern_change(self, change: dict) -> None:
+        self.left_first.control.value = None
+        self.left_second.control.value = None
+        self.left_first.set_text(LEFT_DIRECTION_QUESTIONS.get(change["new"], ""))
+        self._sync_visibility()
+
+    def _on_left_first_change(self, change: dict) -> None:
+        options = [(LEFT_DIRECTION_LABELS[d], d) for d in LEFT_DIRECTIONS if d != change["new"]]
+        _set_radio_options(self.left_second.control, options)
+        self._sync_visibility()
+
+    def _on_tool_change(self, _change: dict) -> None:
+        _set_radio_options(self.right_action.control, self._action_options())
+        self._sync_visibility()
+
+    def _on_structure_change(self, _change: dict) -> None:
+        still_valid = [c for c in self._checked_contexts() if c in STRUCTURE_CONTEXT_MAP.get(_change["new"], [])]
+        self._build_context_checks(still_valid)
+        self._sync_visibility()
+
+    def _on_context_toggle(self, change: dict) -> None:
+        if self._syncing:
+            return
+        self._syncing = True
+        try:
+            if change["new"]:
+                not_set = self.context_checks.get("(not set)")
+                others = [cb for cb in self.context_checks.values() if cb is not not_set]
+                # "None of these" is exclusive with the specific locations.
+                if change["owner"] is not_set:
+                    for checkbox in others:
+                        checkbox.value = False
+                elif not_set is not None:
+                    not_set.value = False
+            self._update_context_disabled()
+        finally:
+            self._syncing = False
+
+    def _update_context_disabled(self) -> None:
+        specific = [v for v in self._checked_contexts() if v != "(not set)"]
+        for value, checkbox in self.context_checks.items():
+            checkbox.disabled = value != "(not set)" and not checkbox.value and len(specific) >= 2
+
+    def _sync_visibility(self) -> None:
+        pattern = self.left_pattern.control.value
+        _show(self.left_first.box, pattern in LEFT_DIRECTION_QUESTIONS)
+        _show(self.left_second.box, pattern == "change" and self.left_first.control.value is not None)
+        tool = self.right_tool.control.value
+        tool_active = tool is not None and tool != NO_TOOL
+        _show(self.right_action.box, tool_active)
+        _show(self.right_structure.box, tool_active and self.right_action.control.value is not None)
+        _show(
+            self.right_context.box,
+            tool_active
+            and self.right_action.control.value is not None
+            and self.right_structure.control.value is not None,
+        )
+        _show(self.camera_pan.box, self.camera.control.value == "CAMERA_REPOSITION")
 
     def set_boundary(self, frame_id: int, boundary: str) -> None:
         if boundary == "start":
@@ -954,106 +1063,76 @@ class SubclipEditor:
             ),
         )
 
+    def answers(self) -> dict:
+        """Left/right/camera labels as taxonomy codes; `{"absent": True}` records an
+        explicit "not retracting" / "no tool" answer, `{}` means unanswered."""
+        out: dict = {"left": {}, "right": {}, "camera": {}}
+        pattern = self.left_pattern.control.value
+        if pattern == "none":
+            out["left"] = {"absent": True}
+        else:
+            code = _left_code(pattern, self.left_first.control.value, self.left_second.control.value)
+            if code:
+                out["left"] = {"retraction_direction_code": code}
+
+        tool = self.right_tool.control.value
+        if tool == NO_TOOL:
+            out["right"] = {"absent": True}
+        elif tool is not None:
+            # Only save what is on screen: structure/location stay hidden until an action is chosen.
+            action = self.right_action.control.value
+            structure = self.right_structure.control.value if action is not None else None
+            contexts = [c for c in self._checked_contexts() if c != "(not set)"] if structure is not None else []
+            contexts += ["(not set)"] * (2 - len(contexts))
+            out["right"] = {
+                "tool_type": tool,
+                "action_code": action or "(none)",
+                "target_structure": structure or "(none)",
+                "target_context_1": contexts[0],
+                "target_context_2": contexts[1],
+            }
+
+        camera_code = self.camera.control.value
+        if camera_code is not None:
+            out["camera"] = {"action_code": camera_code}
+            if camera_code == "CAMERA_REPOSITION" and self.camera_pan.control.value is not None:
+                out["camera"]["pan_direction"] = self.camera_pan.control.value
+        return out
+
     def to_json(self) -> dict:
         start, end = self.selected_range()
-        out = {"start_frame": start, "end_frame": end, "left": {}, "right": {}, "camera": {}, "note": self.note.value}
-        if self.left_action.value != "(none)":
-            out["left"] = {"retraction_direction_code": self.left_action.value}
-        right_values = (
-            self.right_tool.value,
-            self.right_action.value,
-            self.right_target.value,
-            self.right_context_1.value,
-            self.right_context_2.value,
-        )
-        if any(value != "(none)" for value in right_values):
-            out["right"] = {
-                "tool_type": self.right_tool.value,
-                "action_code": self.right_action.value,
-                "target_structure": self.right_target.value,
-                "target_context_1": _context_or_not_set(self.right_context_1.value),
-                "target_context_2": _context_or_not_set(self.right_context_2.value),
-            }
-        if self.camera_movement.value != "(none)":
-            camera_out: dict = {"movement": self.camera_movement.value}
-            if self.camera_movement.value == "changed":
-                if self.camera_pan.value != "(none)":
-                    camera_out["pan_direction"] = self.camera_pan.value
-                if self.camera_zoom_checkbox.value:
-                    camera_out["zoom_direction"] = self.camera_zoom_direction.value
-            out["camera"] = camera_out
-        return out
+        return {"start_frame": start, "end_frame": end, **self.answers(), "note": self.note.value}
+
+
+def _part_section(title: str, help_text: str, questions: list[_Question]) -> widgets.VBox:
+    return widgets.VBox(
+        [_actor_label(title, help_text), *(q.box for q in questions)],
+        layout=widgets.Layout(margin="10px 0 0 0"),
+    )
 
 
 LEFT_HELP_TEXT = (
-    "Annotate the observed left instrument / grasper retraction only. Directions follow the LLM "
-    "hint prompts: lateral = pulling leftward from the camera perspective, medial = pulling "
-    "rightward, upward = cephalad/lifting toward the liver-bed view. KEEP_RETRACT_LATERAL means "
-    "the grasper is already retracting laterally and maintains that lateral retraction. "
-    "KEEP_RETRACT_MEDIAL means it maintains medial/rightward retraction. KEEP_RETRACT_UPWARD means "
-    "it maintains upward/cephalad retraction. RETRACT_LATERAL means it begins or changes into "
-    "lateral/leftward retraction from a non-retracted or unclear prior state. RETRACT_MEDIAL means "
-    "it begins or changes into medial/rightward retraction. RETRACT_UPWARD means it begins or "
-    "changes into upward/cephalad retraction. RETRACT_X_TO_Y means the grasper starts this subclip "
-    "retracting in direction X and visibly changes to direction Y, e.g. RETRACT_LATERAL_TO_MEDIAL "
-    "means it was pulling left/lateral and switches to pulling right/medial. Use the analogous "
-    "meaning for LATERAL_TO_UPWARD, MEDIAL_TO_LATERAL, MEDIAL_TO_UPWARD, UPWARD_TO_LATERAL, and "
-    "UPWARD_TO_MEDIAL. Leave (none) if the left grasper is absent, not acting, or no dropdown value "
-    "matches what happened."
+    "Answer about the grasper holding and retracting the gallbladder neck / infundibulum to expose "
+    "the hepatocystic triangle. Directions are relative to the patient: laterally = toward the "
+    "patient's right (left side of the camera view); medially = toward the patient's left (right "
+    "side of the camera view); upward = lifting toward the liver so the two tubular structures run "
+    "mostly vertically. Choose 'not being retracted' if the grasper is absent or not retracting."
 )
 RIGHT_HELP_TEXT = (
-    "Annotate the observed active right instrument only: dissection, clipping, cautery, aspiration, "
-    "countertraction assist, sweeping, or withdrawing when it blocks view. Tool type should match "
-    "the visible working instrument. For DISSECT in the hepatocystic region, choose "
-    "target_structure by anatomic specificity. If the cystic duct and cystic artery / two tubular "
-    "structures are not clearly delineated and the action is general dissection in that area, use "
-    "HepatocysticTriangle. If the action is visibly operating mostly near the cystic duct or cystic "
-    "artery, even if not fully skeletonized, prefer CysticDuct or CysticArtery. If the action is at "
-    "the gallbladder-cystic plate / liver-bed interface, use CysticPlate. If it is at the neck or "
-    "infundibulum, use GallbladderNeck_Infundibulum. Use target_context_1 and target_context_2 for "
-    "up to two more precise visible locations: between presumed cystic duct and presumed cystic "
-    "artery, between cystic artery and cystic plate, near the portal side of the hepatocystic triangle, "
-    "close to the gallbladder neck, near the cystic duct, near the cystic plate, or on the outside "
-    "of cystic duct. If the action targets the space between the two tubular structures rather than "
-    "one structure specifically, use HepatocysticTriangle plus context 'between presumed cystic duct "
-    "and presumed cystic artery'. If it targets the plane between artery and plate, use context "
-    "'between cystic artery and cystic plate'. Use (none) when absent; saved empty contexts become "
-    "(not set). Do not invent values outside the dropdowns."
+    "Answer about the instrument actively working on the tissue. Choose the anatomical structure by "
+    "specificity: if the cystic duct and cystic artery are not yet clearly delineated and the tool is "
+    "dissecting generally in that area, choose the hepatocystic triangle; if it is working mostly on "
+    "or near the cystic duct or cystic artery, even if not fully skeletonized, choose that structure; "
+    "the gallbladder / liver-bed interface is the cystic plate; the neck or infundibulum is the "
+    "gallbladder neck. If the tool works in the space between the two tubular structures rather than "
+    "on one of them, choose the hepatocystic triangle and 'between the presumed cystic duct and "
+    "presumed cystic artery'."
 )
 CAMERA_HELP_TEXT = (
-    "Annotate observed camera movement only; ignore tool motion. First choose whether the camera "
-    "view changed at all this subclip (no_change vs. changed). If changed, set the pan direction "
-    "the view moved toward from the patient's perspective (left/right/upward/downward) if the "
-    "framing shifted, and separately check Zoom if the camera also moved closer (in) or farther "
-    "away (out) so structures appear larger or smaller \u2014 pan and zoom can both apply to the same "
-    "subclip. Leave the Camera dropdown at (none) if no camera actor label should be recorded for "
-    "this subclip."
+    "Answer about camera movement only; ignore instrument motion. Panning / repositioning means the "
+    "framing shifts to show a different area; zooming means the camera moves closer (structures "
+    "appear larger) or farther away (structures appear smaller). Directions are relative to the patient."
 )
-
-
-def _migrate_legacy_camera(camera: dict, legacy_code: str | None) -> tuple[str, str, bool, str]:
-    """Map an old flat camera action_code (or new-schema dict) to the new fields.
-
-    Returns (movement, pan_direction, zoom_on, zoom_direction).
-    """
-    if legacy_code is None:
-        # Already new schema (or empty).
-        movement = camera.get("movement", "(none)")
-        pan = camera.get("pan_direction", "(none)")
-        zoom_dir = camera.get("zoom_direction")
-        return movement, pan, zoom_dir is not None, (zoom_dir or "in")
-
-    # Legacy flat action_code -> best-effort mapping onto the new schema.
-    # CAMERA_UNCERTAIN has no equivalent (dropped per feedback #5); it maps
-    # to "(none)" so the annotator has to make a fresh call on re-open.
-    mapping = {
-        "CAMERA_NO_CHANGE": ("no_change", "(none)", False, "in"),
-        "CAMERA_REPOSITION": ("changed", "(none)", False, "in"),
-        "CAMERA_ZOOM_IN": ("changed", "(none)", True, "in"),
-        "CAMERA_ZOOM_OUT": ("changed", "(none)", True, "out"),
-        "CAMERA_UNCERTAIN": ("(none)", "(none)", False, "in"),
-    }
-    return mapping.get(legacy_code, ("(none)", "(none)", False, "in"))
 
 
 CRITERION_DEFINITIONS = {
@@ -1110,14 +1189,6 @@ def _actor_label(label: str, help_text: str) -> widgets.HTML:
         "font-size:11px;font-weight:700;color:#334155;cursor:help;'>i</span>"
         "</span>"
     )
-
-
-def _context_or_not_set(value: str) -> str:
-    return "(not set)" if value == "(none)" else value
-
-
-def _valid_dropdown_value(value: str, options: list[str]) -> str:
-    return value if value in options else "(none)"
 
 
 def _cvs_labels_by_frame(video_name: str, frame_ids: list[int]) -> dict[int, dict]:
