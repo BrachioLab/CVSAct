@@ -329,6 +329,7 @@ class SurgeonVideoMenuWidget:
         self.cvs_label_box = widgets.HTML()
         self.subclip_box = widgets.VBox()
         self.note = widgets.Textarea(description="Note", layout=widgets.Layout(width="720px", height="70px"))
+        self.submit_error = widgets.HTML()
 
         self.annotator.observe(lambda _: self._show_menu(), names="value")
         self.back_btn.on_click(lambda _: self._save_and_show_menu())
@@ -435,14 +436,17 @@ class SurgeonVideoMenuWidget:
         else:
             self.video_box.children = (_video_widget_for_clip(clip),)
         self._load_subclips(ann.get("subclips", []) if ann else [])
+        self.submit_error.value = ""
         self.detail_box.children = (
             widgets.HBox([self.back_btn, self.submit_btn, self.reset_btn]),
+            self.submit_error,
             self.meta_box,
             self.cvs_label_box,
             self.video_box,
             self.subclip_box,
             self.add_subclip_btn,
             self.note,
+            self.submit_error,
             widgets.HBox([self.bottom_back_btn, self.bottom_submit_btn, self.bottom_reset_btn]),
         )
 
@@ -477,6 +481,16 @@ class SurgeonVideoMenuWidget:
         if self.current_clip_idx is None:
             return
         clip = self.clips[self.current_clip_idx]
+        problems = _submit_problems(self.subclip_editors)
+        if problems:
+            items = "".join(f"<li>{html.escape(p)}</li>" for p in problems)
+            self.submit_error.value = (
+                "<div style='margin:8px 0;padding:8px 10px;border:1px solid #fca5a5;background:#fef2f2;"
+                "color:#991b1b;'><b>Not submitted — please answer everything first:</b>"
+                f"<ul style='margin:4px 0 0 0;'>{items}</ul></div>"
+            )
+            return
+        self.submit_error.value = ""
         saved = self._save_current_record("submitted")
         if saved is None:
             return
@@ -643,18 +657,25 @@ LEFT_PATTERN_OPTIONS = [
     ("It keeps retracting the gallbladder neck in approximately the same direction throughout the clip.", "keep"),
     ("It is not retracting at first, but starts retracting the gallbladder neck during the clip.", "start"),
     ("It changes the direction in which it is retracting the gallbladder neck during the clip.", "change"),
-    ("The gallbladder neck is not being retracted during this clip.", "none"),
+    ("It is retracting the gallbladder neck at first, but lets go during the clip.", "let_go"),
+    ("The grasper is in view but is not retracting the gallbladder neck.", "idle"),
+    ("No grasper is in view during this clip.", "not_in_view"),
 ]
 
 LEFT_DIRECTION_QUESTIONS = {
     "keep": "Which direction is it retracting the gallbladder neck?",
     "start": "Which direction does it start retracting the gallbladder neck?",
     "change": "Which direction is it retracting the gallbladder neck at the beginning of the clip?",
+    "let_go": "Which direction was it retracting the gallbladder neck before letting go?",
 }
 
-LEFT_CODE_PREFIXES = {"keep": "KEEP_RETRACT_", "start": "RETRACT_"}
+# LET_GO_FROM_* is not in the released taxonomy yet (pending sign-off with Dan).
+LEFT_CODE_PREFIXES = {"keep": "KEEP_RETRACT_", "let_go": "LET_GO_FROM_", "start": "RETRACT_"}
 
-NO_TOOL = "(no tool)"
+# Saved as {"status": ...} on the left/right actor when no action code applies.
+IDLE = "idle"
+NOT_IN_VIEW = "not_in_view"
+IDLE_ACTION = "(idle)"
 
 TOOL_TYPE_LABELS = {
     "Hook": "Hook",
@@ -676,6 +697,7 @@ ACTION_CODE_LABELS = {
     "RETRACT_DOWNWARD": "Retracting tissue downward",
     "SWEEPING": "Sweeping tissue",
     "TOOL_WITHDRAW_UNBLOCKS_VIEW": "Withdrawing to clear the view",
+    IDLE_ACTION: "Not doing anything — the tool is in view but not acting on the tissue",
 }
 
 TARGET_STRUCTURE_LABELS = {
@@ -735,14 +757,24 @@ def _show(widget: widgets.Widget, visible: bool) -> None:
 
 
 class _Question:
-    def __init__(self, text: str, control: widgets.Widget, hint: str = "") -> None:
+    """`depth` nests a follow-up under the question it depends on (tree indent + guide line)."""
+
+    def __init__(self, text: str, control: widgets.Widget, hint: str = "", depth: int = 0) -> None:
         self.prompt = widgets.HTML()
         self.control = control
         self.hint = hint
         self.set_text(text)
-        self.box = widgets.VBox([self.prompt, control], layout=widgets.Layout(margin="2px 0 8px 12px"))
+        self.box = widgets.VBox(
+            [self.prompt, control],
+            layout=widgets.Layout(
+                margin=f"2px 0 8px {12 + 28 * depth}px",
+                padding="0 0 0 10px" if depth else "0",
+                border_left="3px solid #93c5fd" if depth else "",
+            ),
+        )
 
     def set_text(self, text: str) -> None:
+        self.text = text
         hint = f"<div style='font-size:12px;color:#64748b;'>{html.escape(self.hint)}</div>" if self.hint else ""
         self.prompt.value = f"<div style='font-weight:600;color:#0f172a;'>{html.escape(text)}</div>{hint}"
 
@@ -757,11 +789,13 @@ def _left_code(pattern: str | None, first: str | None, second: str | None) -> st
 
 def _parse_left(left: dict) -> tuple[str | None, str | None, str | None]:
     """Inverse of `_left_code`: returns (pattern, first_direction, second_direction)."""
-    if left.get("absent"):
-        return "none", None, None
+    if left.get("status") in (IDLE, NOT_IN_VIEW):
+        return left["status"], None, None
     code = str(left.get("retraction_direction_code") or "")
-    if code.startswith(LEFT_CODE_PREFIXES["keep"]):
-        return "keep", code[len(LEFT_CODE_PREFIXES["keep"]):], None
+    for pattern in ("keep", "let_go"):
+        prefix = LEFT_CODE_PREFIXES[pattern]
+        if code.startswith(prefix):
+            return pattern, code[len(prefix):], None
     if code.startswith("RETRACT_"):
         first, _, second = code[len("RETRACT_"):].partition("_TO_")
         return ("change", first, second) if second else ("start", first, None)
@@ -819,10 +853,12 @@ class SubclipEditor:
         self.left_first = _Question(
             LEFT_DIRECTION_QUESTIONS.get(pattern or "keep", ""),
             _radio(direction_options, first_dir),
+            depth=1,
         )
         self.left_second = _Question(
             "Which direction is it retracting the gallbladder neck later in the clip?",
             _radio([option for option in direction_options if option[1] != first_dir], second_dir),
+            depth=2,
         )
         self.left_pattern.control.observe(self._on_left_pattern_change, names="value")
         self.left_first.control.observe(self._on_left_first_change, names="value")
@@ -830,14 +866,17 @@ class SubclipEditor:
         # Part 2: the tool actively working on tissue.
         right = initial.get("right") or {}
         tool_options = [(TOOL_TYPE_LABELS.get(t, t), t) for t in taxonomy["right"]["tool_type"]]
-        tool_options.append(("No tool is actively working on the tissue in this clip.", NO_TOOL))
+        tool_options.append(("No tool is in view during this clip.", NOT_IN_VIEW))
+        right_status = right.get("status")
         self.right_tool = _Question(
-            "Which tool is actively working on the tissue in this clip?",
-            _radio(tool_options, NO_TOOL if right.get("absent") else right.get("tool_type")),
+            "Which tool is working on the tissue in this clip?",
+            _radio(tool_options, NOT_IN_VIEW if right_status == NOT_IN_VIEW else right.get("tool_type")),
+            hint="If a tool is in view but not doing anything, choose it here; you can say so in the next question.",
         )
         self.right_action = _Question(
             "What is this tool primarily doing?",
-            _radio(self._action_options(), right.get("action_code")),
+            _radio(self._action_options(), IDLE_ACTION if right_status == IDLE else right.get("action_code")),
+            depth=1,
         )
         structure_options = [
             (TARGET_STRUCTURE_LABELS.get(s, s), s) for s in taxonomy["right"]["target_structure"]
@@ -845,18 +884,22 @@ class SubclipEditor:
         self.right_structure = _Question(
             "What anatomical structure is the tool primarily acting on?",
             _radio(structure_options, right.get("target_structure")),
+            depth=2,
         )
         self.context_checks: dict[str, widgets.Checkbox] = {}
         self.right_context = _Question(
             "More specifically, where is the tool working relative to the surrounding anatomy?",
             widgets.VBox(),
-            hint="Select up to two locations that best describe where the tool is working.",
+            hint="Select all locations that describe where the tool is working.",
+            depth=3,
         )
-        initial_contexts = [
-            right.get("target_context_1", right.get("target_context")),
-            right.get("target_context_2"),
-        ]
-        self._build_context_checks([c for c in initial_contexts if c and c != "(not set)"][:2])
+        if "target_contexts" in right:
+            initial_contexts = right["target_contexts"]
+        else:
+            # Older two-slot format, where "(not set)" only padded an empty slot.
+            legacy = [right.get("target_context_1", right.get("target_context")), right.get("target_context_2")]
+            initial_contexts = [c for c in legacy if c and c != "(not set)"]
+        self._build_context_checks(initial_contexts)
         self.right_tool.control.observe(self._on_tool_change, names="value")
         self.right_action.control.observe(lambda _: self._sync_visibility(), names="value")
         self.right_structure.control.observe(self._on_structure_change, names="value")
@@ -867,6 +910,7 @@ class SubclipEditor:
         self.camera_pan = _Question(
             "Which direction does the camera move relative to the patient?",
             _radio(CAMERA_PAN_OPTIONS, pan),
+            depth=1,
         )
         self.camera.control.observe(lambda _: self._sync_visibility(), names="value")
 
@@ -897,7 +941,8 @@ class SubclipEditor:
 
     def _action_options(self) -> list[tuple[str, str]]:
         tool = self.right_tool.control.value
-        return [(ACTION_CODE_LABELS.get(a, a), a) for a in TOOL_ACTION_MAP.get(tool, [])]
+        actions = [*TOOL_ACTION_MAP[tool], IDLE_ACTION] if tool in TOOL_ACTION_MAP else []
+        return [(ACTION_CODE_LABELS.get(a, a), a) for a in actions]
 
     def _build_context_checks(self, checked: list[str]) -> None:
         values = STRUCTURE_CONTEXT_MAP.get(self.right_structure.control.value, [])
@@ -913,7 +958,6 @@ class SubclipEditor:
         for checkbox in self.context_checks.values():
             checkbox.observe(self._on_context_toggle, names="value")
         self.right_context.control.children = tuple(self.context_checks.values())
-        self._update_context_disabled()
 
     def _checked_contexts(self) -> list[str]:
         return [value for value, checkbox in self.context_checks.items() if checkbox.value]
@@ -952,30 +996,47 @@ class SubclipEditor:
                         checkbox.value = False
                 elif not_set is not None:
                     not_set.value = False
-            self._update_context_disabled()
         finally:
             self._syncing = False
 
-    def _update_context_disabled(self) -> None:
-        specific = [v for v in self._checked_contexts() if v != "(not set)"]
-        for value, checkbox in self.context_checks.items():
-            checkbox.disabled = value != "(not set)" and not checkbox.value and len(specific) >= 2
+    def _visible_questions(self) -> list[_Question]:
+        """The questions currently on screen, in display order; each must be answered to submit."""
+        shown = [self.left_pattern]
+        pattern = self.left_pattern.control.value
+        if pattern in LEFT_DIRECTION_QUESTIONS:
+            shown.append(self.left_first)
+            if pattern == "change" and self.left_first.control.value is not None:
+                shown.append(self.left_second)
+        shown.append(self.right_tool)
+        tool = self.right_tool.control.value
+        if tool is not None and tool != NOT_IN_VIEW:
+            shown.append(self.right_action)
+            action = self.right_action.control.value
+            if action is not None and action != IDLE_ACTION:
+                shown.append(self.right_structure)
+                if self.right_structure.control.value is not None:
+                    shown.append(self.right_context)
+        shown.append(self.camera)
+        if self.camera.control.value == "CAMERA_REPOSITION":
+            shown.append(self.camera_pan)
+        return shown
 
     def _sync_visibility(self) -> None:
-        pattern = self.left_pattern.control.value
-        _show(self.left_first.box, pattern in LEFT_DIRECTION_QUESTIONS)
-        _show(self.left_second.box, pattern == "change" and self.left_first.control.value is not None)
-        tool = self.right_tool.control.value
-        tool_active = tool is not None and tool != NO_TOOL
-        _show(self.right_action.box, tool_active)
-        _show(self.right_structure.box, tool_active and self.right_action.control.value is not None)
-        _show(
-            self.right_context.box,
-            tool_active
-            and self.right_action.control.value is not None
-            and self.right_structure.control.value is not None,
-        )
-        _show(self.camera_pan.box, self.camera.control.value == "CAMERA_REPOSITION")
+        shown = self._visible_questions()
+        for question in (
+            self.left_first, self.left_second, self.right_action, self.right_structure,
+            self.right_context, self.camera_pan,
+        ):
+            _show(question.box, question in shown)
+
+    def missing_answers(self) -> list[str]:
+        """Names what still has to be filled in before this subclip can be submitted."""
+        missing = [] if self.is_complete() else ["start and end frames"]
+        for question in self._visible_questions():
+            answered = bool(self._checked_contexts()) if question is self.right_context else question.control.value is not None
+            if not answered:
+                missing.append(question.text)
+        return missing
 
     def set_boundary(self, frame_id: int, boundary: str) -> None:
         if boundary == "start":
@@ -1064,32 +1125,31 @@ class SubclipEditor:
         )
 
     def answers(self) -> dict:
-        """Left/right/camera labels as taxonomy codes; `{"absent": True}` records an
-        explicit "not retracting" / "no tool" answer, `{}` means unanswered."""
+        """Left/right/camera labels as taxonomy codes. `{"status": "idle" | "not_in_view"}`
+        records an in-view-but-idle or not-in-view answer; `{}` means unanswered."""
         out: dict = {"left": {}, "right": {}, "camera": {}}
         pattern = self.left_pattern.control.value
-        if pattern == "none":
-            out["left"] = {"absent": True}
+        if pattern in (IDLE, NOT_IN_VIEW):
+            out["left"] = {"status": pattern}
         else:
             code = _left_code(pattern, self.left_first.control.value, self.left_second.control.value)
             if code:
                 out["left"] = {"retraction_direction_code": code}
 
         tool = self.right_tool.control.value
-        if tool == NO_TOOL:
-            out["right"] = {"absent": True}
+        action = self.right_action.control.value
+        if tool == NOT_IN_VIEW:
+            out["right"] = {"status": NOT_IN_VIEW}
+        elif tool is not None and action == IDLE_ACTION:
+            out["right"] = {"tool_type": tool, "status": IDLE}
         elif tool is not None:
             # Only save what is on screen: structure/location stay hidden until an action is chosen.
-            action = self.right_action.control.value
             structure = self.right_structure.control.value if action is not None else None
-            contexts = [c for c in self._checked_contexts() if c != "(not set)"] if structure is not None else []
-            contexts += ["(not set)"] * (2 - len(contexts))
             out["right"] = {
                 "tool_type": tool,
                 "action_code": action or "(none)",
                 "target_structure": structure or "(none)",
-                "target_context_1": contexts[0],
-                "target_context_2": contexts[1],
+                "target_contexts": self._checked_contexts() if structure is not None else [],
             }
 
         camera_code = self.camera.control.value
@@ -1104,10 +1164,29 @@ class SubclipEditor:
         return {"start_frame": start, "end_frame": end, **self.answers(), "note": self.note.value}
 
 
+def _submit_problems(editors: list[SubclipEditor]) -> list[str]:
+    if not editors:
+        return ["Add at least one subclip."]
+    return [
+        f"Subclip {index}: {item}"
+        for index, editor in enumerate(editors, start=1)
+        for item in editor.missing_answers()
+    ]
+
+
 def _part_section(title: str, help_text: str, questions: list[_Question]) -> widgets.VBox:
+    header = widgets.HTML(
+        "<div style='display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:#0f172a;"
+        "background:#e2e8f0;border-left:5px solid #1d4ed8;padding:6px 10px;'>"
+        f"<span>{html.escape(title)}</span>"
+        f"<span title='{html.escape(help_text, quote=True)}' "
+        "style='display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;"
+        "border:1px solid #475569;border-radius:50%;font-size:11px;cursor:help;'>i</span>"
+        "</div>"
+    )
     return widgets.VBox(
-        [_actor_label(title, help_text), *(q.box for q in questions)],
-        layout=widgets.Layout(margin="10px 0 0 0"),
+        [header, *(q.box for q in questions)],
+        layout=widgets.Layout(margin="14px 0 0 0"),
     )
 
 
@@ -1116,10 +1195,12 @@ LEFT_HELP_TEXT = (
     "the hepatocystic triangle. Directions are relative to the patient: laterally = toward the "
     "patient's right (left side of the camera view); medially = toward the patient's left (right "
     "side of the camera view); upward = lifting toward the liver so the two tubular structures run "
-    "mostly vertically. Choose 'not being retracted' if the grasper is absent or not retracting."
+    "mostly vertically. If the grasper is in view but not retracting, or not in view at all, choose "
+    "the matching answer."
 )
 RIGHT_HELP_TEXT = (
-    "Answer about the instrument actively working on the tissue. Choose the anatomical structure by "
+    "Answer about the instrument working on the tissue. If it is in view but not doing anything, "
+    "choose the tool and then 'Not doing anything'. Choose the anatomical structure by "
     "specificity: if the cystic duct and cystic artery are not yet clearly delineated and the tool is "
     "dissecting generally in that area, choose the hepatocystic triangle; if it is working mostly on "
     "or near the cystic duct or cystic artery, even if not fully skeletonized, choose that structure; "
@@ -1176,19 +1257,6 @@ def _natural_criterion_sentence(clip: "ClipManifestRow") -> str | None:
             return f"For this case, {label} stays {start_word} for the whole subclip."
         return f"For this case, {label} changes from {start_word} to {end_word}."
     return f"For this case, {label} is the ground-truth transition criterion for this subclip."
-
-
-def _actor_label(label: str, help_text: str) -> widgets.HTML:
-    return widgets.HTML(
-        "<span style='min-width:86px;display:inline-flex;align-items:center;gap:6px;'>"
-        f"<b>{html.escape(label)}</b>"
-        "<span "
-        f"title='{html.escape(help_text, quote=True)}' "
-        "style='display:inline-flex;align-items:center;justify-content:center;"
-        "width:16px;height:16px;border:1px solid #64748b;border-radius:50%;"
-        "font-size:11px;font-weight:700;color:#334155;cursor:help;'>i</span>"
-        "</span>"
-    )
 
 
 def _cvs_labels_by_frame(video_name: str, frame_ids: list[int]) -> dict[int, dict]:
