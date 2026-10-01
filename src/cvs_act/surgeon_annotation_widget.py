@@ -842,6 +842,46 @@ def _show(widget: widgets.Widget, visible: bool) -> None:
     widget.layout.display = None if visible else "none"
 
 
+class _MultiChoice(widgets.VBox):
+    """Select-all-that-apply checkboxes; a value in `exclusive` can't be combined with any other."""
+
+    def __init__(self, options: list[tuple[str, str]], checked: Iterable[str] = (), exclusive: Iterable[str] = ()) -> None:
+        super().__init__()
+        self._exclusive = set(exclusive)
+        self._syncing = False
+        self._callbacks: list = []
+        checked = set(checked)
+        self.checks = {
+            value: widgets.Checkbox(value=value in checked, description=label, indent=False, layout=widgets.Layout(width="auto"))
+            for label, value in options
+        }
+        self.children = tuple(self.checks.values())
+        for checkbox in self.checks.values():
+            checkbox.observe(self._on_toggle, names="value")
+
+    @property
+    def selected(self) -> list[str]:
+        return [value for value, checkbox in self.checks.items() if checkbox.value]
+
+    def on_change(self, callback) -> None:
+        self._callbacks.append(callback)
+
+    def _on_toggle(self, change: dict) -> None:
+        if self._syncing:
+            return
+        self._syncing = True
+        try:
+            if change["new"]:
+                owner = next(v for v, cb in self.checks.items() if cb is change["owner"])
+                for value, checkbox in self.checks.items():
+                    if value != owner and (owner in self._exclusive or value in self._exclusive):
+                        checkbox.value = False
+        finally:
+            self._syncing = False
+        for callback in self._callbacks:
+            callback()
+
+
 class _Question:
     """`depth` nests a follow-up under the question it depends on (tree indent + guide line)."""
 
@@ -888,20 +928,25 @@ def _parse_left(left: dict) -> tuple[str | None, str | None, str | None]:
     return None, None, None
 
 
-def _initial_camera(camera: dict) -> tuple[str | None, str | None]:
-    """Returns (action_code, pan_direction). Also accepts the interim
-    {movement, pan_direction, zoom_direction} shape saved by the dropdown UI."""
+def _initial_camera(camera: dict) -> tuple[list[str], list[str]]:
+    """Returns (action_codes, pan_directions). Also accepts the older single-choice
+    {action_code, pan_direction} and dropdown-UI {movement, pan_direction, zoom_direction} shapes."""
+    if "action_codes" in camera:
+        return list(camera["action_codes"]), list(camera.get("pan_directions") or [])
     if "action_code" in camera:
-        return camera["action_code"], camera.get("pan_direction")
+        pan = camera.get("pan_direction")
+        return [camera["action_code"]], [pan] if pan else []
     movement = camera.get("movement")
     if movement == "no_change":
-        return "CAMERA_NO_CHANGE", None
+        return ["CAMERA_NO_CHANGE"], []
     if movement == "changed":
+        pan = camera.get("pan_direction")
         zoom = camera.get("zoom_direction")
+        codes = ["CAMERA_REPOSITION"] if pan or zoom not in ("in", "out") else []
         if zoom in ("in", "out"):
-            return f"CAMERA_ZOOM_{zoom.upper()}", None
-        return "CAMERA_REPOSITION", camera.get("pan_direction")
-    return None, None
+            codes.append(f"CAMERA_ZOOM_{zoom.upper()}")
+        return codes, [pan] if pan else []
+    return [], []
 
 
 class SubclipEditor:
@@ -998,14 +1043,19 @@ class SubclipEditor:
         self.right_structure.control.observe(self._on_structure_change, names="value")
 
         # Part 3: camera.
-        camera_code, pan = _initial_camera(initial.get("camera") or {})
-        self.camera = _Question("What is the camera doing during this clip?", _radio(CAMERA_OPTIONS, camera_code))
+        camera_codes, pans = _initial_camera(initial.get("camera") or {})
+        self.camera = _Question(
+            "What is the camera doing during this clip?",
+            _MultiChoice(CAMERA_OPTIONS, camera_codes, exclusive=("CAMERA_NO_CHANGE", "CAMERA_UNCERTAIN")),
+            hint="Select all that apply.",
+        )
         self.camera_pan = _Question(
             "Which direction does the camera move relative to the patient?",
-            _radio(CAMERA_PAN_OPTIONS, pan),
+            _MultiChoice(CAMERA_PAN_OPTIONS, pans),
+            hint="Select all that apply.",
             depth=1,
         )
-        self.camera.control.observe(lambda _: self._sync_visibility(), names="value")
+        self.camera.control.on_change(self._sync_visibility)
 
         self.note = widgets.Text(value=initial.get("note", ""), description="Note")
         self.remove_btn = widgets.Button(description="Remove")
@@ -1113,7 +1163,7 @@ class SubclipEditor:
                 if self.right_structure.control.value is not None:
                     shown.append(self.right_context)
         shown.append(self.camera)
-        if self.camera.control.value == "CAMERA_REPOSITION":
+        if "CAMERA_REPOSITION" in self.camera.control.selected:
             shown.append(self.camera_pan)
         return shown
 
@@ -1129,7 +1179,12 @@ class SubclipEditor:
         """Names what still has to be filled in before this subclip can be submitted."""
         missing = [] if self.is_complete() else ["start and end frames"]
         for question in self._visible_questions():
-            answered = bool(self._checked_contexts()) if question is self.right_context else question.control.value is not None
+            if question is self.right_context:
+                answered = bool(self._checked_contexts())
+            elif isinstance(question.control, _MultiChoice):
+                answered = bool(question.control.selected)
+            else:
+                answered = question.control.value is not None
             if not answered:
                 missing.append(question.text)
         return missing
@@ -1248,11 +1303,12 @@ class SubclipEditor:
                 "target_contexts": self._checked_contexts() if structure is not None else [],
             }
 
-        camera_code = self.camera.control.value
-        if camera_code is not None:
-            out["camera"] = {"action_code": camera_code}
-            if camera_code == "CAMERA_REPOSITION" and self.camera_pan.control.value is not None:
-                out["camera"]["pan_direction"] = self.camera_pan.control.value
+        camera_codes = self.camera.control.selected
+        if camera_codes:
+            out["camera"] = {"action_codes": camera_codes}
+            pans = self.camera_pan.control.selected
+            if "CAMERA_REPOSITION" in camera_codes and pans:
+                out["camera"]["pan_directions"] = pans
         return out
 
     def to_json(self) -> dict:
@@ -1312,7 +1368,8 @@ RIGHT_HELP_TEXT = (
     "presumed cystic artery'."
 )
 CAMERA_HELP_TEXT = (
-    "Answer about camera movement only; ignore instrument motion. Panning / repositioning means the "
+    "Answer about camera movement only; ignore instrument motion. Select every movement that happens: "
+    "the camera can, for example, pan and zoom in the same clip. Panning / repositioning means the "
     "framing shifts to show a different area; zooming means the camera moves closer (structures "
     "appear larger) or farther away (structures appear smaller). Directions are relative to the patient."
 )
