@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CVS-Act Annotation Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one reading column: video, then the three parts as nested question trees. */
+:root {
+  --bg: #f3f6f6;
+  --surface: #ffffff;
+  --ink: #14232a;
+  --muted: #56676c;
+  --line: #d3dddf;
+  --accent: #0a6c72;
+  --accent-soft: #e0eff0;
+  --accent-ink: #ffffff;
+  --part: #e6eded;
+  --warn-bg: #fdf2df;
+  --warn-ink: #774705;
+  --err-bg: #fbe9e9;
+  --err-ink: #8c1c1c;
+  --ok-bg: #e4f3e8;
+  --ok-ink: #1b6636;
+  --code-bg: #eef3f3;
+  --font-body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.375rem;
+  --step-3: 1.875rem;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1517; --surface: #142025; --ink: #e2ebed; --muted: #98a9ae; --line: #29393e;
+    --accent: #5ec3c8; --accent-soft: #15353a; --accent-ink: #062226; --part: #1b2a2f;
+    --warn-bg: #39290f; --warn-ink: #f3c878; --err-bg: #3c1717; --err-ink: #f2a3a3;
+    --ok-bg: #143020; --ok-ink: #8dd6a4; --code-bg: #0a1215;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1517; --surface: #142025; --ink: #e2ebed; --muted: #98a9ae; --line: #29393e;
+  --accent: #5ec3c8; --accent-soft: #15353a; --accent-ink: #062226; --part: #1b2a2f;
+  --warn-bg: #39290f; --warn-ink: #f3c878; --err-bg: #3c1717; --err-ink: #f2a3a3;
+  --ok-bg: #143020; --ok-ink: #8dd6a4; --code-bg: #0a1215;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+.page { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+button, input { font: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Header */
+.masthead { display: grid; gap: 10px; margin-bottom: 20px; }
+.eyebrow { font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.masthead h1 { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.01em; }
+.masthead .lede { max-width: 68ch; color: var(--muted); }
+
+.main { display: grid; gap: 20px; min-width: 0; }
+
+.context { background: var(--accent-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: grid; gap: 4px; }
+.video-wrap { display: grid; gap: 6px; }
+video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); display: block; }
+.video-missing { aspect-ratio: 16 / 9; max-width: 100%; border: 1px dashed var(--line); border-radius: var(--radius); display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; background: var(--surface); }
+
+/* Parts and question tree */
+.part { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.part-head { border-radius: var(--radius) var(--radius) 0 0; background: var(--part); border-bottom: 1px solid var(--line); padding: 10px 14px; display: grid; gap: 2px; }
+.part-head .num { font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.part-head h2 { font-size: var(--step-1); font-weight: 800; }
+.part-body { padding: 14px; display: grid; gap: 14px; }
+
+.q { min-width: 0; display: grid; gap: 8px; }
+.q[data-depth="1"] { margin-left: 14px; padding-left: 14px; border-left: 3px solid var(--accent); }
+.q[data-depth="2"] { margin-left: 42px; padding-left: 14px; border-left: 3px solid var(--accent); }
+.q[data-depth="3"] { margin-left: 70px; padding-left: 14px; border-left: 3px solid var(--accent); }
+@media (max-width: 520px) {
+  .q[data-depth="2"] { margin-left: 26px; }
+  .q[data-depth="3"] { margin-left: 38px; }
+}
+.qtext { font-weight: 700; font-size: var(--step-0); }
+.hint { font-size: var(--step--1); color: var(--muted); }
+.opts { display: grid; gap: 4px; }
+.opt { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; align-items: start; padding: 6px 8px; border-radius: var(--radius); cursor: pointer; }
+.opt:hover { background: var(--accent-soft); }
+.opt input { margin: 3px 0 0; accent-color: var(--accent); width: 16px; height: 16px; }
+.opt.is-on { background: var(--accent-soft); }
+.opt.is-on span { font-weight: 600; }
+.empty { font-size: var(--step--1); color: var(--muted); font-style: italic; padding: 4px 8px; }
+
+
+@media (min-width: 720px) { 
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <span class="eyebrow">Interface preview</span>
+    <h1>CVS-Act Surgeon Annotation</h1>
+    <p class="lede">The questions a surgeon answers for each laparoscopic cholecystectomy video. Follow-up questions appear only when the answer they depend on is picked. This preview does not save anything.</p>
+  </header>
+
+  <main class="main">
+      <div class="context">
+        <p id="criterion"></p>
+      </div>
+
+      <div class="video-wrap">
+        <video id="video" controls preload="metadata" src="example.mp4"></video>
+        <div class="video-missing" id="video-missing" hidden>The example video isn't included in this copy of the preview.</div>
+      </div>
+
+      <section class="part" aria-labelledby="part-left">
+        <div class="part-head"><span class="num">Part 1</span><h2 id="part-left">The tool grasping and retracting the gallbladder to expose the hepatocystic triangle</h2></div>
+        <div class="part-body" id="body-left"></div>
+      </section>
+      <section class="part" aria-labelledby="part-right">
+        <div class="part-head"><span class="num">Part 2</span><h2 id="part-right">The tool that is actively working on the tissue to achieve the CVS criteria</h2></div>
+        <div class="part-body" id="body-right"></div>
+      </section>
+      <section class="part" aria-labelledby="part-camera">
+        <div class="part-head"><span class="num">Part 3</span><h2 id="part-camera">The camera movement</h2></div>
+        <div class="part-body" id="body-camera"></div>
+      </section>
+
+  </main>
+</div>
+
+<script>
+const D = {"leftDirections": [["Laterally — toward the patient's right (left side of the camera view)", "LATERAL"], ["Medially — toward the patient's left (right side of the camera view)", "MEDIAL"], ["Upward — neither clearly left nor right, with the two tubular structures oriented mostly vertically", "UPWARD"]], "leftPatterns": [["It keeps retracting the gallbladder neck in approximately the same direction throughout the clip.", "keep"], ["It is not retracting at first, but starts retracting the gallbladder neck during the clip.", "start"], ["It changes the direction in which it is retracting the gallbladder neck during the clip.", "change"], ["It is retracting the gallbladder neck at first, but lets go during the clip.", "let_go"], ["The grasper is in view but is not retracting the gallbladder neck.", "idle"], ["No grasper is in view during this clip.", "not_in_view"], ["No primary action can be determined — the grasper does several different things during this clip.", "multiple"]], "leftDirectionQuestions": {"keep": "Which direction is it retracting the gallbladder neck?", "start": "Which direction does it start retracting the gallbladder neck?", "change": "Which direction is it retracting the gallbladder neck at the beginning of the clip?", "let_go": "Which direction was it retracting the gallbladder neck before letting go?"}, "tools": [["Hook", "Hook"], ["Irrigator", "Irrigator"], ["Maryland grasper", "Maryland"], ["Scissors", "Scissors"], ["Clipper", "clipper"]], "toolActions": {"Hook": ["COAGULATE_HEMOSTASIS", "COUNTERTRACTION_ASSIST", "DISSECT", "RETRACT_DOWNWARD", "SWEEPING", "TOOL_WITHDRAW_UNBLOCKS_VIEW"], "Irrigator": ["COUNTERTRACTION_ASSIST", "IRRIGATOR_ASPIRATE", "SWEEPING", "TOOL_WITHDRAW_UNBLOCKS_VIEW"], "Maryland": ["COUNTERTRACTION_ASSIST", "DISSECT", "RETRACT_DOWNWARD", "SWEEPING", "TOOL_WITHDRAW_UNBLOCKS_VIEW"], "Scissors": ["COUNTERTRACTION_ASSIST", "DISSECT", "RETRACT_DOWNWARD", "SWEEPING", "TOOL_WITHDRAW_UNBLOCKS_VIEW"], "clipper": ["CLIP", "RETRACT_DOWNWARD", "SWEEPING", "TOOL_WITHDRAW_UNBLOCKS_VIEW"]}, "actionLabels": {"CLIP": "Applying a clip", "COAGULATE_HEMOSTASIS": "Coagulating / controlling bleeding", "COUNTERTRACTION_ASSIST": "Providing countertraction — temporarily holding or stabilizing the tissue or gallbladder neck so that the other tool can reposition, adjust, or re-grasp it", "DISSECT": "Dissecting tissue", "IRRIGATOR_ASPIRATE": "Irrigating / aspirating", "RETRACT_DOWNWARD": "Retracting tissue downward", "SWEEPING": "Sweeping tissue", "TOOL_WITHDRAW_UNBLOCKS_VIEW": "Withdrawing to clear the view", "(idle)": "Not doing anything — the tool is in view but not acting on the tissue"}, "structures": [["Cystic artery", "CysticArtery"], ["Cystic duct", "CysticDuct"], ["Cystic plate", "CysticPlate"], ["Gallbladder neck / infundibulum", "GallbladderNeck_Infundibulum"], ["Hepatocystic triangle", "HepatocysticTriangle"]], "structureContexts": {"CysticArtery": ["between presumed cystic duct and presumed cystic artery", "between cystic artery and cystic plate", "near the portal side of the hepatocystic triangle", "close to the gallbladder neck", "(not set)"], "CysticDuct": ["between presumed cystic duct and presumed cystic artery", "near the portal side of the hepatocystic triangle", "close to the gallbladder neck", "near the cystic duct", "(not set)"], "CysticPlate": ["between cystic artery and cystic plate", "near the portal side of the hepatocystic triangle", "close to the gallbladder neck", "(not set)"], "GallbladderNeck_Infundibulum": ["between presumed cystic duct and presumed cystic artery", "between cystic artery and cystic plate", "near the cystic duct", "near the cystic plate", "near the cystic artery", "(not set)"], "HepatocysticTriangle": ["between presumed cystic duct and presumed cystic artery", "between cystic artery and cystic plate", "near the portal side of the hepatocystic triangle", "close to the gallbladder neck", "near the cystic duct", "near the cystic plate", "near the cystic artery", "(not set)"]}, "contextLabels": {"between presumed cystic duct and presumed cystic artery": "Between the presumed cystic duct and presumed cystic artery", "between cystic artery and cystic plate": "Between the cystic artery and cystic plate", "near the portal side of the hepatocystic triangle": "Near the portal side of the hepatocystic triangle", "close to the gallbladder neck": "Close to the gallbladder neck", "(not set)": "None of these / location is not clearly specified", "near the cystic duct": "Near the cystic duct", "near the cystic plate": "Near the cystic plate", "near the cystic artery": "Near the cystic artery"}, "camera": [["The camera view mostly stays the same.", "CAMERA_NO_CHANGE"], ["The camera pans / repositions to show a different area.", "CAMERA_REPOSITION"], ["The camera zooms in.", "CAMERA_ZOOM_IN"], ["The camera zooms out.", "CAMERA_ZOOM_OUT"], ["It is unclear whether or how the camera moves.", "CAMERA_UNCERTAIN"]], "pans": [["Toward the patient's left", "left"], ["Toward the patient's right", "right"], ["Upward", "upward"], ["Downward", "downward"]], "criterionSentence": "For this case, C3 (the lower third of the gallbladder is detached from the liver bed) changes from not satisfied to satisfied."};
+const NOT_IN_VIEW = "not_in_view", MULTIPLE = "multiple", IDLE_ACTION = "(idle)";
+
+const blank = () => ({ leftPattern: null, leftFirst: null, leftSecond: null, tool: null, action: null,
+  structure: null, contexts: [], camera: [], pans: [] });
+let S = blank();
+
+const toolOptions = () => [...D.tools,
+  ["No tool is in view during this clip.", NOT_IN_VIEW],
+  ["No primary action can be determined — several different tools or actions are used during this clip.", MULTIPLE]];
+const actionOptions = () => (D.toolActions[S.tool] ? [...D.toolActions[S.tool], IDLE_ACTION] : [])
+  .map(a => [D.actionLabels[a] || a, a]);
+const contextOptions = () => (D.structureContexts[S.structure] || []).map(c => [D.contextLabels[c] || c, c]);
+const toolActive = () => S.tool !== null && S.tool !== NOT_IN_VIEW && S.tool !== MULTIPLE;
+
+const QUESTIONS = [
+  { id: "L1", part: "left", depth: 0, type: "radio",
+    text: () => "What is the grasper / tool used for retracting the gallbladder doing during this clip?",
+    options: () => D.leftPatterns, get: () => S.leftPattern, visible: () => true,
+    set: v => { S.leftPattern = v; S.leftFirst = null; S.leftSecond = null; } },
+  { id: "L2", part: "left", depth: 1, type: "radio",
+    text: () => D.leftDirectionQuestions[S.leftPattern] || "Which direction is it retracting the gallbladder neck?",
+    options: () => D.leftDirections, get: () => S.leftFirst,
+    visible: () => S.leftPattern in D.leftDirectionQuestions,
+    set: v => { S.leftFirst = v; if (S.leftSecond === v) S.leftSecond = null; } },
+  { id: "L3", part: "left", depth: 2, type: "radio",
+    text: () => "Which direction is it retracting the gallbladder neck later in the clip?",
+    options: () => D.leftDirections.filter(([, v]) => v !== S.leftFirst), get: () => S.leftSecond,
+    visible: () => S.leftPattern === "change" && S.leftFirst !== null,
+    set: v => { S.leftSecond = v; } },
+  { id: "R1", part: "right", depth: 0, type: "radio",
+    text: () => "Which tool is working on the tissue in this clip?",
+    hint: "If a tool is in view but not doing anything, choose it here; you can say so in the next question.",
+    options: toolOptions, get: () => S.tool, visible: () => true,
+    set: v => { S.tool = v; if (!actionOptions().some(([, a]) => a === S.action)) S.action = null; } },
+  { id: "R2", part: "right", depth: 1, type: "radio",
+    text: () => "What is this tool primarily doing?", empty: "Choose a tool above to see what it can do.",
+    options: actionOptions, get: () => S.action, visible: toolActive,
+    set: v => { S.action = v; } },
+  { id: "R3", part: "right", depth: 2, type: "radio",
+    text: () => "What anatomical structure is the tool primarily acting on?",
+    options: () => D.structures, get: () => S.structure,
+    visible: () => toolActive() && S.action !== null && S.action !== IDLE_ACTION,
+    set: v => { S.structure = v; const ok = D.structureContexts[v] || []; S.contexts = S.contexts.filter(c => ok.includes(c)); } },
+  { id: "R4", part: "right", depth: 3, type: "check", exclusive: ["(not set)"],
+    text: () => "More specifically, where is the tool working relative to the surrounding anatomy?",
+    hint: "Select all locations that describe where the tool is working.", empty: "Choose a structure above to see its locations.",
+    options: contextOptions, get: () => S.contexts,
+    visible: () => toolActive() && S.action !== null && S.action !== IDLE_ACTION && S.structure !== null,
+    set: v => { S.contexts = v; } },
+  { id: "C1", part: "camera", depth: 0, type: "check", exclusive: ["CAMERA_NO_CHANGE", "CAMERA_UNCERTAIN"],
+    text: () => "What is the camera doing during this clip?", hint: "Select all that apply.",
+    options: () => D.camera, get: () => S.camera, visible: () => true,
+    set: v => { S.camera = v; } },
+  { id: "C2", part: "camera", depth: 1, type: "check",
+    text: () => "Which direction does the camera move relative to the patient?", hint: "Select all that apply.",
+    options: () => D.pans, get: () => S.pans, visible: () => S.camera.includes("CAMERA_REPOSITION"),
+    set: v => { S.pans = v; } },
+];
+
+function toggled(q, value, on) {
+  const order = q.options().map(([, v]) => v);
+  const exclusive = q.exclusive || [];
+  let next = q.get().filter(v => v !== value);
+  if (on) next = exclusive.includes(value) ? [value] : [...next.filter(v => !exclusive.includes(v)), value];
+  return next.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+}
+
+function el(tag, attrs = {}, children = []) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "text") node.textContent = v; else if (k === "class") node.className = v; else node.setAttribute(k, v);
+  }
+  for (const child of [].concat(children)) if (child) node.append(child);
+  return node;
+}
+
+function buildParts() {
+  for (const part of ["left", "right", "camera"]) {
+    const body = document.getElementById(`body-${part}`);
+    for (const q of QUESTIONS.filter(q => q.part === part)) {
+      // A plain div group: some browsers mis-size <fieldset> with grid layout and clip its contents.
+      const fs = el("div", { class: "q", id: `q-${q.id}`, role: "group", "aria-labelledby": `qt-${q.id}`, "data-depth": String(q.depth) });
+      fs.append(el("p", { class: "qtext", id: `qt-${q.id}` }));
+      if (q.hint) fs.append(el("p", { class: "hint", text: q.hint }));
+      fs.append(el("div", { class: "opts", id: `opts-${q.id}` }));
+      body.append(fs);
+    }
+  }
+}
+
+function render() {
+  const focused = document.activeElement && document.activeElement.id;
+  for (const q of QUESTIONS) {
+    const fs = document.getElementById(`q-${q.id}`);
+    const visible = q.visible();
+    fs.hidden = !visible;
+    fs.querySelector(".qtext").textContent = q.text();
+    const box = document.getElementById(`opts-${q.id}`);
+    box.replaceChildren();
+    const options = q.options();
+    if (!options.length) { box.append(el("p", { class: "empty", text: q.empty || "" })); continue; }
+    const current = q.get();
+    options.forEach(([label, value], i) => {
+      const id = `${q.id}-${i}`;
+      const on = q.type === "radio" ? current === value : current.includes(value);
+      const input = el("input", { type: q.type === "radio" ? "radio" : "checkbox", id, name: q.id, value });
+      input.checked = on;
+      input.addEventListener("change", () => {
+        q.set(q.type === "radio" ? value : toggled(q, value, input.checked));
+        render();
+      });
+      box.append(el("label", { class: "opt" + (on ? " is-on" : ""), for: id }, [input, el("span", { text: label })]));
+    });
+  }
+  if (focused) document.getElementById(focused)?.focus();
+}
+
+
+
+
+
+
+document.getElementById("criterion").textContent = D.criterionSentence;
+const video = document.getElementById("video");
+video.addEventListener("error", () => { video.hidden = true; document.getElementById("video-missing").hidden = false; });
+buildParts();
+render();
+</script>
+</body>
+</html>
