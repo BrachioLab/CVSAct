@@ -6,7 +6,7 @@ For a short introduction written for students new to the project, start with the
 
 The current generator is **v3.1 structured LLM extraction**: Qwen3.6 views a transition clip as a temporally ordered frame bundle, receives per-anchor CVS reviewer scores as context, segments the clip, and then converts the segmentation into the controlled left/right/camera/other taxonomy. A second morphology questionnaire can correct one known right-tool confusion, but only with the narrow rule `Hook -> Maryland` when both stages support it.
 
-This was the best defensible version at the decision point, not a finished high-accuracy labeler. On the fixed 10-video validation split, its selected score was `0.428`; on the held-out 20-video test split it fell to `0.321` (`left exact=0.461`, `right medium=0.308`, `camera coarse=0.194`). Synthetic GT ranked six downstream systems similarly to human GT (Pearson `0.947`, Spearman `0.886`), but this is only six points and Pearson's video-bootstrap 95% interval is wide (`0.270–0.968`). Ranking correlation is not label accuracy.
+This was the best defensible version at the decision point, not a finished high-accuracy labeler. On the fixed 10-video validation split, its selected score was `0.428`; on the held-out 20-video test split it fell to `0.321` (`left exact=0.461`, `right medium=0.308`, `camera coarse=0.194`). Synthetic GT ranked six downstream systems similarly to human GT (Pearson `0.947`, Spearman `0.886`), but this is only six points and Pearson's video-bootstrap 95% interval is wide (`0.270–0.968`). The result is largely camera-driven: removing camera reduces Pearson correlation to `0.451`. Worse, all evaluated camera-coarse GT rows in this correlation are `change` (66/66 human, 25/25 synthetic), so the component cannot test `change` versus `no_change` specificity. Ranking correlation is not label accuracy.
 
 **Recommendation: do not publish the generated labels as validated ground truth yet.** A private/preview release explicitly marked as unverified synthetic annotations is defensible. A public ground-truth-style release needs the expert audit and release gates in [What remains](#what-remains-before-a-final-public-release).
 
@@ -651,27 +651,34 @@ Return STRICT JSON only with this schema:
 - **No cross-model label ensemble, calibrated abstention, active-learning loop, or human-in-the-loop correction was evaluated.**
 - **No independent-dataset/domain-shift validation** was performed.
 - **No measurement of inter-surgeon agreement or the achievable human ceiling** exists for this taxonomy.
+- **Misleading downstream correlation:** the six-system final-score correlation is largely driven by camera-coarse (`r=0.963`); removing camera reduces Pearson correlation to `0.451`. Under the conditional onset protocol, every evaluated camera-coarse row is `change` (66 human-GT rows and 25 synthetic-GT rows), with no `no_change` reference cases. It therefore cannot measure specificity on stable camera periods, and the human/synthetic evaluations also use different actor-event supports. This correlation does not validate label fidelity.
 - **Not tried:** shorter actor-specific prompts; separate left/right/camera models; constrained decoding instead of a second extraction LLM; explicit negative examples; checker coverage over all train/test clips; class-balanced sampling; confidence calibration; temporal video models; multiple random seeds/models; or blinded expert comparison of v3.1, v4, and a simpler baseline.
 
 ## What remains before a final public release
 
-“High enough” must be a preregistered release criterion, not a subjective impression after looking at results. Recommended minimum gate:
+“High enough” must be defined for an intended use and preregistered, not inferred from whichever aggregate looks favorable. The earlier left-exact/right-medium/camera-coarse average mixes different tasks, and its conditional camera-coarse component has only positive `change` GT rows, so it cannot serve as the headline camera-quality measure. Recommended evaluation and release process:
 
-1. Freeze the taxonomy, prompt, model revision, sampling code, and split before the final audit.
-2. Fix the v3.1 checker coverage bug and regenerate every record, or rename the dataset honestly as base v3 and remove the claimed fix.
-3. Obtain two independent surgeon annotations plus adjudication on a class-balanced, video-disjoint sample large enough for narrow intervals (at least 400 clips; increase until every release-critical class has at least 50 positive instances).
-4. Measure segment detection and component correctness separately. Report precision, recall, F1, calibration/abstention coverage, per-class scores, video-bootstrap 95% confidence intervals, and inter-annotator agreement.
-5. Require all of the following on the untouched expert test set:
-   - overall adjudicated component accuracy lower 95% bound at least `0.90`;
-   - left exact, right medium, and camera coarse F1 each at least `0.80`, with lower 95% bound at least `0.75`;
-   - safety-critical right action/target precision and recall each at least `0.85`;
-   - no common class below `0.70` F1; rare classes either meet the same bar or are explicitly marked unvalidated/removed;
-   - performance no more than 5 percentage points below the measured non-adjudicating surgeon agreement ceiling;
-   - downstream system-ranking correlation measured on at least 20 meaningfully different systems/configurations, with Spearman lower 95% bound at least `0.80`.
-6. If those gates fail, publish only a silver-label/weak-supervision dataset with confidence, provenance, known-error fields, and a verified expert subset—never under an unqualified ground-truth claim.
-7. Add dataset-card documentation for source licenses/consent, intended uses, prohibited clinical use, sampling, model/version hashes, known errors, class distributions, and a transparent correction/versioning policy.
+1. **Define the claim before the metric.** State whether the release promises event presence, useful boundaries, action identity, or all three. Freeze the ontology, prompt, model revision, sampling code, matching policy, negative-window policy, and split before the final audit.
+2. **Fix provenance first.** Complete the v3.1 checker coverage and regenerate every record, or identify the exports honestly as base-v3 predictions with v3.1 metadata.
+3. **Build an adequate expert reference.** Obtain two independent surgeon annotations plus adjudication on video-disjoint data. Include both a natural-prevalence sample and a class-balanced diagnostic sample, representative negative windows, at least 50 positives for every release-critical class, and enough videos for video-level confidence intervals.
+4. **Use one reference universe.** Human- and synthetic-GT comparisons must use the same videos, candidate points/windows, actor-presence policy, labels, and exclusions. Changing which events are evaluated changes the task and invalidates a direct comparison.
+5. **Separate the measurements:**
+   - event detection: label-blind one-to-one event precision, recall, and F1, counting missed GT events and extra predictions;
+   - boundaries: event F1 at IoU `0.10/0.25/0.50`, onset/offset absolute error in seconds, and fraction within a preregistered tolerance tied to sampling resolution;
+   - conditional classification: after label-blind matching, fixed-taxonomy per-class precision/recall/F1 and unweighted macro-F1, with support and constant-majority baselines;
+   - end-to-end labeled segmentation: per-class one-to-one segment F1 or AP at the IoU thresholds, macro-averaged across release-critical classes;
+   - uncertainty: error risk versus retained coverage under confidence-based abstention;
+   - reproducibility: video-bootstrap 95% intervals for every headline metric.
+6. **Use actor-meaningful targets:**
+   - left: score start direction, end direction, and maintain/change separately, then the exact combined transition code;
+   - right: score tool, action, target, and context fields separately, then their exact joint label; retain explicit safety-critical target precision/recall;
+   - camera: score event presence on positive and negative windows, then zoom/reposition direction and temporal boundaries for matched events. Do not use coarse `change/no_change` alone as proof of camera-label quality.
+7. **Measure the human ceiling with the same evaluator.** Report surgeon–surgeon agreement before choosing numeric release thresholds. A proposed gate is model performance within five percentage points of non-adjudicating surgeon agreement, lower 95% confidence bounds of at least `0.75` for each preregistered release-critical macro metric, and no common class below `0.70` F1. These numbers remain proposals until human agreement and intended-use costs are measured.
+8. **Keep downstream utility secondary.** If system-ranking correlation is reported, use at least 20 meaningfully different systems/configurations, identical event support under both GT sources, actor-specific and leave-one-actor-out correlations, and bootstrap intervals. It cannot replace direct human-versus-synthetic annotation evaluation.
+9. **Downgrade the release if any critical gate fails.** Publish only a silver-label/weak-supervision dataset with confidence, provenance, known-error fields, and a verified expert subset—never under an unqualified ground-truth claim.
+10. **Document the dataset.** Include source licenses/consent, intended uses, prohibited clinical use, sampling resolution, model/version hashes, known errors, class distributions, metric definitions, and a transparent correction/versioning policy.
 
-The numeric thresholds above are **proposed**, not measured community standards. They are intentionally demanding because the requested standard is that external users should not reasonably characterize the labels as low-quality. The human-agreement ceiling may justify revising a threshold, but only prospectively and with the raw agreement evidence published.
+The numeric thresholds above are **proposed**, not measured community standards. More importantly, no single scalar can establish publication readiness: detection, boundaries, actor-specific labels, rare classes, and uncertainty must each pass their preregistered gate. The human-agreement ceiling may justify revising a threshold, but only prospectively and with the raw agreement evidence published.
 
 ## Archive inventory
 

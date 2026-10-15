@@ -175,17 +175,31 @@ Use a separate camera pass instead of expanding the joint left/right/camera prom
 
 ### Evaluation shared by all three
 
-Make class-macro F1 plus a constant-majority baseline the primary label-quality report. Pair it with one-to-one temporal IoU F1, no-overlap rate, prediction-side false positives, per-class support/confusions, and video-bootstrap confidence intervals. Freeze a video-held-out expert test set before further prompt work.
+Do not choose one convenient aggregate and call it “accuracy.” First decide whether the intended dataset claim is event detection, boundary localization, action classification, or all three; then evaluate each claim separately on the same frozen expert annotations.
+
+| Question | Meaningful primary measurement |
+|---|---|
+| Did the system find an event? | Label-blind one-to-one event precision/recall/F1, including negative clips and extra predictions |
+| Are its boundaries useful? | F1 at IoU 0.10/0.25/0.50 plus onset and offset absolute error in seconds and fraction within a preregistered tolerance |
+| Is the action label correct once an event is matched? | Fixed-taxonomy per-class precision/recall/F1 and unweighted class-macro F1, always beside class support and a majority baseline |
+| Is the entire segment prediction correct? | Per-class one-to-one segment F1 or AP at the IoU thresholds, macro-averaged across release-critical classes |
+| Can uncertainty reduce errors? | Risk versus retained coverage for confidence-based abstention |
+| Is performance close to what humans can achieve? | Independent surgeon–surgeon agreement using the identical matching/scoring protocol |
+
+For left, score start direction, end direction, and maintain/change separately before the combined raw code. For right, score tool, action, target, and context separately as well as their exact joint label. For camera, do not use coarse `change/no_change` as the headline label metric. In the held-out correlation calculation, every evaluated camera-coarse GT row is `change`—66/66 for human GT and 25/25 for synthetic GT—with no `no_change` reference rows. The score therefore measures whether a system emits `change` at selected positive onsets; it cannot measure specificity or false positives on stable camera periods. Evaluate event presence on positive **and negative** windows, then evaluate zoom/reposition direction and boundaries on matched events.
+
+Downstream system-ranking correlation is only a secondary utility check. The current `0.947` headline uses six systems and is largely camera-driven: camera-coarse Pearson correlation is `0.963`, while removing camera reduces final-score Pearson correlation to `0.451`. Human and synthetic GT also evaluate different numbers of actor events. Correlation therefore cannot validate annotation fidelity; future reporting should use at least 20 diverse systems, identical event support, actor-specific and leave-one-actor-out results, and confidence intervals.
 
 ## What students should do next
 
 1. **Do not call the current exports validated ground truth.** The evaluated v3.1 90-clip artifact received morphology corrections, but the full train/test exports received zero such corrections because checker coverage was missing.
-2. **Focus model/prompt work on the actor-specific experiments above:** left start/end state decomposition, right anatomy-aware field prediction, and a separate camera-change pass.
-3. **Run a blinded, video-held-out expert audit** with enough examples per common and rare class. Do not tune prompts on that final audit set.
-4. **Report uncertainty:** video-bootstrap confidence intervals, per-class support, precision and recall, not only one averaged F1.
-5. **Regenerate the full exports** after the pipeline and checker are frozen, then rerun integrity checks before any Hugging Face upload.
+2. **Freeze a meaningful evaluation protocol before more prompt tuning:** separate detection, timing, and classification, and score every prediction against the same expert reference universe.
+3. **Focus model/prompt work on the actor-specific experiments above:** left start/end state decomposition, right anatomy-aware field prediction, and a separate camera-change pass.
+4. **Run a blinded, video-held-out expert audit** with enough examples per common and rare class plus representative negative windows. Do not tune prompts on that final audit set.
+5. **Report uncertainty and human agreement:** video-bootstrap confidence intervals, per-class support, precision/recall, and surgeon–surgeon agreement, not only one averaged F1.
+6. **Regenerate the full exports** after the pipeline, ontology, and checker are frozen, then rerun integrity checks before any Hugging Face upload.
 
-The proposed public-release target in the comprehensive report is at least 0.80 F1 for left-raw, right-medium, and camera-coarse, with a lower 95% confidence bound of at least 0.75. This is a proposed quality gate, not a community standard. Current right and camera results are well below it.
+Do not retain the earlier blanket target of `0.80 F1` for left-raw/right-medium/camera-coarse without redesigning the evaluation first: those three scores mix different tasks, and camera-coarse is not sufficiently informative. Final numeric release gates should be preregistered per task and class after measuring surgeon agreement; no critical class should be hidden by an aggregate.
 
 ## Where to look next
 
@@ -194,6 +208,7 @@ The proposed public-release target in the comprehensive report is at least 0.80 
 - [Confusion-matrix notebook](confusion_matrices.ipynb): interactive plots for all nine actor/granularity combinations.
 - [All static confusion plots and CSVs](results/current/confusion_matrices/): counts, row-normalized matrices, and interval assignments.
 - [Current v3.1 generation notebook](current_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3_1.ipynb): evaluated pipeline implementation.
+- [Human-versus-synthetic system scores](results/current/recomputed_six_system_human_synthetic_final_scores_test20.csv): source for the component-level and leave-one-actor-out correlation diagnosis.
 - [Recompute overlap metrics](../../scripts/evaluate_overlap_metrics.py) and [recompute confusion matrices](../../scripts/evaluate_overlap_confusions.py).
 
 ## One-sentence handoff
