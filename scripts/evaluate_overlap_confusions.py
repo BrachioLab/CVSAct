@@ -10,6 +10,9 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+import matplotlib.pyplot as plt
+import pandas as pd
+
 from cvs_act.action_segment_eval import (
     GRANULARITIES,
     actor_label,
@@ -76,6 +79,48 @@ def _matrix_rows(
             row[pred_label] = value / total if normalized and total else value
         rows.append(row)
     return rows
+
+
+def _plot_matrix(counts_path: Path, normalized_path: Path, output_path: Path, title: str) -> None:
+    counts = pd.read_csv(counts_path, index_col="gt_label")
+    normalized = pd.read_csv(normalized_path, index_col="gt_label")
+    width = min(30, max(8, 0.65 * len(normalized.columns)))
+    height = min(34, max(5, 0.48 * len(normalized.index)))
+    figure, axis = plt.subplots(figsize=(width, height))
+    image = axis.imshow(normalized.values, aspect="auto", cmap="Blues", vmin=0, vmax=1)
+    axis.set_xticks(
+        range(len(normalized.columns)),
+        normalized.columns,
+        rotation=60,
+        ha="right",
+        fontsize=8,
+    )
+    axis.set_yticks(range(len(normalized.index)), normalized.index, fontsize=8)
+    axis.set_xlabel("Predicted max-overlap label")
+    axis.set_ylabel("GT label")
+    axis.set_title(title)
+    if normalized.size <= 200:
+        for row in range(len(normalized.index)):
+            for column in range(len(normalized.columns)):
+                count = int(counts.iat[row, column])
+                if not count:
+                    continue
+                rate = normalized.iat[row, column]
+                color = "white" if rate >= 0.55 else "black"
+                axis.text(
+                    column,
+                    row,
+                    f"{count}\n{rate:.0%}",
+                    ha="center",
+                    va="center",
+                    fontsize=7,
+                    color=color,
+                )
+    colorbar = figure.colorbar(image, ax=axis, shrink=0.8)
+    colorbar.set_label("Fraction within GT row")
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=180, bbox_inches="tight")
+    plt.close(figure)
 
 
 def main() -> None:
@@ -182,6 +227,12 @@ def main() -> None:
                 args.output_dir / f"{stem}_row_normalized.csv",
                 _matrix_rows(counts, gt_labels, pred_labels, normalized=True),
                 fieldnames,
+            )
+            _plot_matrix(
+                args.output_dir / f"{stem}_counts.csv",
+                args.output_dir / f"{stem}_row_normalized.csv",
+                args.output_dir / f"{stem}_row_normalized.png",
+                f"v3.1 {actor.title()} {level.title()} Confusion Matrix",
             )
             for (gt_label, pred_label), count in sorted(
                 counts.items(), key=lambda item: (-item[1], item[0])
