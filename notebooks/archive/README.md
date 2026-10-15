@@ -8,7 +8,7 @@ This was the best defensible version at the decision point, not a finished high-
 
 **Recommendation: do not publish the generated labels as validated ground truth yet.** A private/preview release explicitly marked as unverified synthetic annotations is defensible. A public ground-truth-style release needs the expert audit and release gates in [What remains](#what-remains-before-a-final-public-release).
 
-All numbers below are regenerated from archived artifacts by [`pipeline_metrics.ipynb`](pipeline_metrics.ipynb). “Measured” means present in a result artifact; “inferred” identifies a conclusion not directly tested.
+The original headline numbers below are regenerated from archived artifacts by [`pipeline_metrics.ipynb`](pipeline_metrics.ipynb); the interval-anchored metrics are loaded and audited by [`overlap_metrics.ipynb`](overlap_metrics.ipynb). “Measured” means present in a result artifact; “inferred” identifies a conclusion not directly tested.
 
 ## Current v3.1 pipeline
 
@@ -58,6 +58,46 @@ These are end-to-end pipeline comparisons, not all single-variable prompt ablati
 | v3.1 + v4 hybrid | Splices already generated actor outputs | Uses v3.1 left/right and v4 camera rather than rerunning a unified prompt | Construction only; no independent metric was produced. |
 
 Sources: the archived `spec_f1_overall_aggregate.csv` and actor tables in [`results/current/`](results/current/); v3.1/v3.2 output cells and override logs; [`pipeline_metrics.ipynb`](pipeline_metrics.ipynb). All action-lineage values above reuse the same 90 human-labeled clips, so they are development comparisons, not independent test estimates.
+
+### Interval-anchored F1@any and F1@max
+
+The historical evaluator is prediction-first, greedy, one-to-one segment matching. Despite occasionally being described as F1@0.1/0.2/0.5, the actual code and saved tables use IoU thresholds **0.10, 0.25, and 0.50**. The new metrics below do not replace those stricter detection metrics; they answer whether the label is plausible somewhere within each interval without requiring a particular IoU.
+
+- **Prediction-anchored accuracy** (precision-like): for every predicted interval, judge it against overlapping GT intervals.
+- **GT-anchored accuracy** (recall-like): for every GT interval, judge it against overlapping predicted intervals.
+- **F1**: harmonic mean of those two directional rates per video, followed by the same macro-average over GT-positive videos used by the historical evaluator.
+- **F1@any**: an anchor is correct when at least one opposing interval has positive temporal overlap and a matching label.
+- **F1@max**: clip opposing intervals to the anchor, group them by label, union overlaps within each label, and sum disconnected pieces. The anchor is correct when its label is among the labels with the greatest accumulated overlap duration. A tie that includes the correct label counts as correct.
+
+Intervals use half-open `[start_frame, end_frame)` boundaries, so merely touching endpoints do not overlap. Matching is deliberately **not one-to-one**: one interval may make several opposite-direction anchors correct. This makes both metrics diagnostic and lenient. In particular, F1@any can reward fragmented predictions, while F1@max ignores how much of the anchor is covered once the correct label has the largest share. Always report both directional rates and retain IoU F1 for publication-quality evaluation.
+
+On the same 90 development clips, using each prompt family's structured LLM extraction output:
+
+| Pipeline | F1@any | Pred-anchored @any | GT-anchored @any | F1@max | Pred-anchored @max | GT-anchored @max |
+|---|---:|---:|---:|---:|---:|---:|
+| Base | 0.260 | 0.265 | 0.286 | 0.232 | 0.255 | 0.249 |
+| CVS context v1 | 0.400 | 0.405 | 0.447 | 0.373 | 0.389 | 0.411 |
+| CVS context v2 | 0.406 | 0.410 | 0.444 | 0.384 | 0.398 | 0.410 |
+| CVS context v3 | 0.417 | 0.418 | 0.466 | 0.387 | 0.404 | 0.416 |
+| **v3.1** | **0.426** | **0.426** | **0.477** | **0.394** | **0.410** | **0.427** |
+| v3.2 | 0.426 | 0.426 | 0.479 | 0.395 | 0.410 | 0.429 |
+| v4 | **0.453** | 0.440 | **0.517** | **0.412** | **0.425** | **0.449** |
+
+That broad average contains all ten actor/granularity rows (left, right, and camera at exact/medium/coarse plus other at exact). Under the release-score components used elsewhere—left exact, right medium, and camera coarse—the comparison is:
+
+| Pipeline | F1@any | F1@max |
+|---|---:|---:|
+| Base | 0.234 | 0.196 |
+| CVS context v1 | 0.384 | 0.347 |
+| CVS context v2 | 0.408 | 0.376 |
+| CVS context v3 | 0.425 | 0.373 |
+| **v3.1** | **0.448** | **0.393** |
+| v3.2 | **0.450** | **0.395** |
+| v4 | 0.411 | 0.361 |
+
+For current v3.1 on those three components, F1@any has prediction-/GT-anchored rates `0.449/0.525`; F1@max has `0.419/0.443`. v3.2 is numerically only `0.002` above v3.1 on both new F1 summaries, so these metrics do not establish a meaningful v3.2 improvement. v4's broad average is highest, but its release-component score is lower because its right-medium result regresses; this is another reason not to select a pipeline on one global average.
+
+Exact component rows are in [`overlap_metrics_by_actor_granularity.csv`](results/current/overlap_metrics_by_actor_granularity.csv), summaries are in [`overlap_metrics_summary.csv`](results/current/overlap_metrics_summary.csv), and per-video counts/rates plus SHA-256 provenance are in [`overlap_metric_results.json`](results/current/overlap_metric_results.json). Recompute them with [`scripts/evaluate_overlap_metrics.py`](../../scripts/evaluate_overlap_metrics.py). The comparison uses the GT conversion archived inside the original base experiment; that file is byte-identical across the base, CVS-v1, CVS-v2, CVS-v3, and CVS-v4 experiment directories. A separately regenerated shared GT artifact differs in five right-action records and three camera records, so it is intentionally not mixed into this comparison. The raw prediction files remain in the preserved legacy artifact tree and are identified by path and hash in the JSON; they are not duplicated into this Git archive.
 
 ### Prompt/output-format ablations
 
@@ -530,5 +570,6 @@ The numeric thresholds above are **proposed**, not measured community standards.
 - [`lvlm_cvs_reasoning/`](lvlm_cvs_reasoning/): selected earlier CVS-classification decision, metadata, ablation, and rubric notebooks.
 - [`results/`](results/): compact source artifacts consumed by the reproducibility notebook.
 - [`pipeline_metrics.ipynb`](pipeline_metrics.ipynb): single entry point that loads the archived results and produces every headline quantitative table.
+- [`overlap_metrics.ipynb`](overlap_metrics.ipynb): loads the F1@any/F1@max summaries, directional rates, exact actor/granularity rows, and raw-artifact provenance.
 
 The copied historical notebooks retain their original absolute paths and are evidence snapshots; some will need path updates before rerunning. The metrics notebook is the portable, read-only audit entry point.

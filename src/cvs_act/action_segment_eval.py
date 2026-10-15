@@ -1028,6 +1028,116 @@ def f1_at_k(pred_segments: List[dict], gt_segments: List[dict], actor: str, gran
     return {"f1": f1, "precision": precision, "recall": recall, "tp": tp, "fp": fp, "fn": fn}
 
 
+def _mapped_segments(segments: List[dict], actor: str, granularity: str) -> List[Tuple[int, int, Any]]:
+    return [
+        (seg["start_frame"], seg["end_frame"], actor_label(seg, actor, granularity))
+        for seg in segments
+    ]
+
+
+def _positive_overlap(left: Tuple[int, int, Any], right: Tuple[int, int, Any]) -> bool:
+    return min(left[1], right[1]) > max(left[0], right[0])
+
+
+def _union_duration(intervals: Iterable[Tuple[int, int]]) -> int:
+    """Return union duration, so overlapping same-label intervals are not double counted."""
+    ordered = sorted((start, end) for start, end in intervals if end > start)
+    if not ordered:
+        return 0
+    duration = 0
+    current_start, current_end = ordered[0]
+    for start, end in ordered[1:]:
+        if start <= current_end:
+            current_end = max(current_end, end)
+        else:
+            duration += current_end - current_start
+            current_start, current_end = start, end
+    return duration + current_end - current_start
+
+
+def _anchor_matches_any(
+    anchor: Tuple[int, int, Any],
+    candidates: List[Tuple[int, int, Any]],
+    actor: str,
+    granularity: str,
+) -> bool:
+    return any(
+        _positive_overlap(anchor, candidate)
+        and labels_match(anchor[2], candidate[2], actor, granularity)
+        for candidate in candidates
+    )
+
+
+def _anchor_matches_max_overlap(
+    anchor: Tuple[int, int, Any],
+    candidates: List[Tuple[int, int, Any]],
+    actor: str,
+    granularity: str,
+) -> bool:
+    """Match the label with the greatest accumulated overlap inside an anchor.
+
+    Disconnected candidate intervals with the same label contribute jointly. Within
+    a label, overlapping intervals are unioned before their duration is measured.
+    A duration tie counts as correct when any tied winning label matches the anchor;
+    this avoids an arbitrary label-order tie break.
+    """
+    overlaps_by_label: Dict[Any, List[Tuple[int, int]]] = defaultdict(list)
+    for start, end, label in candidates:
+        overlap_start = max(anchor[0], start)
+        overlap_end = min(anchor[1], end)
+        if overlap_end > overlap_start:
+            overlaps_by_label[label].append((overlap_start, overlap_end))
+    if not overlaps_by_label:
+        return False
+
+    durations = {
+        label: _union_duration(intervals)
+        for label, intervals in overlaps_by_label.items()
+    }
+    max_duration = max(durations.values())
+    return any(
+        duration == max_duration and labels_match(anchor[2], label, actor, granularity)
+        for label, duration in durations.items()
+    )
+
+
+def interval_anchored_f1(
+    pred_segments: List[dict],
+    gt_segments: List[dict],
+    actor: str,
+    granularity: str,
+    mode: str,
+) -> dict:
+    """Compute bidirectional interval-anchored F1 for ``any`` or ``max`` overlap.
+
+    Prediction-anchored accuracy is treated as precision and GT-anchored accuracy
+    as recall. Unlike F1@IoU, matching is not one-to-one: each anchor is judged
+    independently, which intentionally makes these diagnostic metrics more lenient.
+    """
+    if mode not in {"any", "max"}:
+        raise ValueError(f"Unsupported interval match mode: {mode}")
+    pred_mapped = _mapped_segments(pred_segments, actor, granularity)
+    gt_mapped = _mapped_segments(gt_segments, actor, granularity)
+    match_anchor = _anchor_matches_any if mode == "any" else _anchor_matches_max_overlap
+
+    pred_hits = sum(match_anchor(anchor, gt_mapped, actor, granularity) for anchor in pred_mapped)
+    gt_hits = sum(match_anchor(anchor, pred_mapped, actor, granularity) for anchor in gt_mapped)
+    precision = pred_hits / len(pred_mapped) if pred_mapped else 0.0
+    recall = gt_hits / len(gt_mapped) if gt_mapped else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {
+        "f1": f1,
+        "precision": precision,
+        "recall": recall,
+        "pred_anchor_accuracy": precision,
+        "gt_anchor_accuracy": recall,
+        "pred_hits": pred_hits,
+        "gt_hits": gt_hits,
+        "n_pred": len(pred_mapped),
+        "n_gt": len(gt_mapped),
+    }
+
+
 def is_left_change_segment(seg: dict) -> bool:
     return LEFT_EXACT_TO_COARSE.get(seg.get("retraction_direction_code")) == "change"
 
@@ -1065,6 +1175,48 @@ def evaluate_actor_by_video(pred_by_video: Dict[str, List[dict]], gt_by_video: D
     return rows
 
 
+def evaluate_actor_overlap_by_video(
+    pred_by_video: Dict[str, List[dict]],
+    gt_by_video: Dict[str, List[dict]],
+    actor: str,
+) -> List[dict]:
+    """Evaluate the lenient any/max overlap diagnostics with existing macro policy."""
+    rows = []
+    for granularity in GRANULARITIES:
+        if actor == "other" and granularity != "exact":
+            continue
+        for mode in ("any", "max"):
+            details = []
+            for video_id, gt_segments in sorted(gt_by_video.items()):
+                if not gt_segments:
+                    continue
+                metric = interval_anchored_f1(
+                    pred_by_video.get(video_id, []),
+                    gt_segments,
+                    actor,
+                    granularity,
+                    mode,
+                )
+                details.append({"video_id": video_id, **metric})
+            f1_scores = [detail["f1"] for detail in details]
+            precision_scores = [detail["precision"] for detail in details]
+            recall_scores = [detail["recall"] for detail in details]
+            rows.append(
+                {
+                    "actor": actor,
+                    "granularity": granularity,
+                    "overlap_mode": mode,
+                    "f1_mean": mean(f1_scores) if f1_scores else None,
+                    "f1_std": pstdev(f1_scores) if len(f1_scores) > 1 else 0.0,
+                    "pred_anchor_accuracy_mean": mean(precision_scores) if precision_scores else None,
+                    "gt_anchor_accuracy_mean": mean(recall_scores) if recall_scores else None,
+                    "n_videos": len(details),
+                    "details": details,
+                }
+            )
+    return rows
+
+
 def build_actor_video_maps(records: List[dict], actor: str) -> Dict[str, List[dict]]:
     by_video: Dict[str, List[dict]] = defaultdict(list)
     source_actor = eval_source_actor(actor)
@@ -1082,6 +1234,16 @@ def evaluate_method_predictions(pred_records: List[dict], gt_records: List[dict]
         pred_by_video = build_actor_video_maps(pred_records, actor)
         gt_by_video = build_actor_video_maps(gt_records, actor)
         rows.extend(evaluate_actor_by_video(pred_by_video, gt_by_video, actor))
+    return rows
+
+
+def evaluate_method_overlap_predictions(pred_records: List[dict], gt_records: List[dict]) -> List[dict]:
+    """Evaluate F1@any and F1@max without changing the historical IoU evaluator."""
+    rows = []
+    for actor in EVAL_ACTORS:
+        pred_by_video = build_actor_video_maps(pred_records, actor)
+        gt_by_video = build_actor_video_maps(gt_records, actor)
+        rows.extend(evaluate_actor_overlap_by_video(pred_by_video, gt_by_video, actor))
     return rows
 
 
