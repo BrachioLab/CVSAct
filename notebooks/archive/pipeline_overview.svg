@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">CVS-Act v3.1 synthetic-label processing pipeline</title>
+  <desc id="desc">Eight-step flow from a CVS-transition video clip through frame sampling, contextual labeling, multimodal segmentation, structured extraction, normalization, optional right-tool correction, and dataset export.</desc>
+
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 31px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .step-title { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .step-body { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .step-number { font: 700 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: white; text-anchor: middle; dominant-baseline: central; }
+      .tag { font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; letter-spacing: 0.06em; }
+      .note-title { font: 700 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #78350f; }
+      .note-body { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #78350f; }
+      .arrow { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1400" height="760" rx="20" fill="#f8fafc"/>
+  <text x="50" y="55" class="title">CVS-Act v3.1 processing pipeline</text>
+  <text x="50" y="84" class="subtitle">From one CVS-transition clip to controlled timestamped left, right, camera, and other action labels</text>
+
+  <!-- Top row: left to right -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="125" width="285" height="180" rx="16" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <circle cx="70" cy="155" r="18" fill="#0284c7"/>
+    <text x="70" y="155" class="step-number">1</text>
+    <text x="98" y="161" class="step-title">CVS-transition clip</text>
+    <text x="65" y="202" class="step-body">
+      <tspan x="65" dy="0">Short laparoscopic clip around a</tspan>
+      <tspan x="65" dy="24">change in criterion C1, C2, or C3</tspan>
+      <tspan x="65" dy="24">with clip frame range and IDs</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="385" y="125" width="285" height="180" rx="16" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <circle cx="415" cy="155" r="18" fill="#0284c7"/>
+    <text x="415" y="155" class="step-number">2</text>
+    <text x="443" y="161" class="step-title">Sample ordered frames</text>
+    <text x="410" y="202" class="step-body">
+      <tspan x="410" dy="0">Anchor every 150 frames (~5 s)</tspan>
+      <tspan x="410" dy="24">+ four evenly spaced frames</tspan>
+      <tspan x="410" dy="24">between anchors + endpoint</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="730" y="125" width="285" height="180" rx="16" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <circle cx="760" cy="155" r="18" fill="#0284c7"/>
+    <text x="760" y="155" class="step-number">3</text>
+    <text x="788" y="161" class="step-title">Attach CVS context</text>
+    <text x="755" y="202" class="step-body">
+      <tspan x="755" dy="0">Anchors: frame number plus</tspan>
+      <tspan x="755" dy="24">C1/C2/C3 reviewer votes (k/3)</tspan>
+      <tspan x="755" dy="24">In-between frames: number only</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1075" y="125" width="285" height="180" rx="16" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="1105" cy="155" r="18" fill="#7c3aed"/>
+    <text x="1105" y="155" class="step-number">4</text>
+    <text x="1133" y="161" class="step-title">Multimodal segmentation</text>
+    <text x="1100" y="198" class="tag">FIRST LLM CALL</text>
+    <text x="1100" y="226" class="step-body">
+      <tspan x="1100" dy="0">Qwen3.6 sees ordered images</tspan>
+      <tspan x="1100" dy="23">and writes continuous timestamped</tspan>
+      <tspan x="1100" dy="23">behavior descriptions</tspan>
+    </text>
+  </g>
+
+  <path d="M 325 215 L 374 215" class="arrow"/>
+  <path d="M 670 215 L 719 215" class="arrow"/>
+  <path d="M 1015 215 L 1064 215" class="arrow"/>
+  <path d="M 1217 305 L 1217 365" class="arrow"/>
+
+  <!-- Bottom row: right to left -->
+  <g filter="url(#shadow)">
+    <rect x="1075" y="380" width="285" height="180" rx="16" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="1105" cy="410" r="18" fill="#7c3aed"/>
+    <text x="1105" y="410" class="step-number">5</text>
+    <text x="1133" y="416" class="step-title">Structured extraction</text>
+    <text x="1100" y="453" class="tag">SECOND, TEXT-ONLY LLM CALL</text>
+    <text x="1100" y="481" class="step-body">
+      <tspan x="1100" dy="0">Maps the complete segmentation</tspan>
+      <tspan x="1100" dy="23">into the controlled JSON taxonomy</tspan>
+      <tspan x="1100" dy="23">without images or human GT</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="730" y="380" width="285" height="180" rx="16" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <circle cx="760" cy="410" r="18" fill="#0f766e"/>
+    <text x="760" y="410" class="step-number">6</text>
+    <text x="788" y="416" class="step-title">Validate and normalize</text>
+    <text x="755" y="457" class="step-body">
+      <tspan x="755" dy="0">Drop invalid vocabulary values</tspan>
+      <tspan x="755" dy="24">Clip timestamps to the range</tspan>
+      <tspan x="755" dy="24">Merge adjacent identical segments</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="385" y="380" width="285" height="180" rx="16" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <circle cx="415" cy="410" r="18" fill="#d97706"/>
+    <text x="415" y="410" class="step-number">7</text>
+    <text x="443" y="416" class="step-title">Optional v3.1 correction</text>
+    <text x="410" y="451" class="tag">MORPHOLOGY CHECKER</text>
+    <text x="410" y="479" class="step-body">
+      <tspan x="410" dy="0">Only rewrite Hook → Maryland</tspan>
+      <tspan x="410" dy="23">when the base and checker meet</tspan>
+      <tspan x="410" dy="23">the exact conservative rule</tspan>
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="40" y="380" width="285" height="180" rx="16" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <circle cx="70" cy="410" r="18" fill="#16a34a"/>
+    <text x="70" y="410" class="step-number">8</text>
+    <text x="98" y="416" class="step-title">Export structured labels</text>
+    <text x="65" y="457" class="step-body">
+      <tspan x="65" dy="0">Left / right / camera / other</tspan>
+      <tspan x="65" dy="24">timestamped action JSON</tspan>
+      <tspan x="65" dy="24">split into train / validation / test</tspan>
+    </text>
+  </g>
+
+  <path d="M 1075 470 L 1026 470" class="arrow"/>
+  <path d="M 730 470 L 681 470" class="arrow"/>
+  <path d="M 385 470 L 336 470" class="arrow"/>
+
+  <rect x="40" y="610" width="1320" height="105" rx="14" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/>
+  <text x="65" y="645" class="note-title">Important implementation discrepancy</text>
+  <text x="65" y="674" class="note-body">
+    <tspan x="65" dy="0">The evaluated 90-clip artifact applied the v3.1 correction to 10 structured predictions.</tspan>
+    <tspan x="65" dy="24">The full train/test exports applied zero corrections, so their labels remain the preceding base-v3 predictions with v3.1 provenance metadata.</tspan>
+  </text>
+</svg>

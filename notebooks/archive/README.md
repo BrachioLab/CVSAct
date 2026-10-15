@@ -8,10 +8,7 @@ This page is the starting point for a student who is new to the project. It expl
 
 The selected pipeline is **v3.1 structured extraction**. It converts a short laparoscopic video clip around a CVS transition into timestamped action segments for three actors:
 
-```text
-CVS-transition clip → sampled/scored frame bundle → multimodal segmentation
-                    → structured taxonomy extraction → optional tool correction → export
-```
+![CVS-Act v3.1 processing pipeline: clip construction, sampling, CVS context, two LLM calls, normalization, optional tool correction, and export](pipeline_overview.svg)
 
 - **Left:** how the left grasper retracts the gallbladder.
 - **Right:** what the active right-hand tool is doing and to which anatomy.
