@@ -122,6 +122,11 @@ Key files:
 
 The final synthetic labels use the v3.1 CVS-context pipeline.
 
+Pipeline history, exact prompts, measured accuracy, limitations, release gates, and preserved experimental notebooks:
+
+- [`notebooks/archive/README.md`](notebooks/archive/README.md)
+- [`notebooks/archive/pipeline_metrics.ipynb`](notebooks/archive/pipeline_metrics.ipynb)
+
 Notebook:
 
 - [`notebooks/qwen3.5_audit_v11_seg_extract_spec_eval/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3_1.ipynb`](notebooks/qwen3.5_audit_v11_seg_extract_spec_eval/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3_1.ipynb)
