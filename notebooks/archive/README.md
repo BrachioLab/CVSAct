@@ -4,7 +4,7 @@ This page is the starting point for a student who is new to the project. It expl
 
 These are separate references:
 
-- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): proposed scoring and test-set design.
+- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): a potential future direction for replacing the current problematic evaluation with fixed expert support, one-to-one matching, and separate detection, timing, and classification metrics. It is proposed, not yet implemented.
 - [Full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts): complete segmentation, structured-extraction, and morphology-checker prompts.
 - [Comprehensive technical report](README_COMPREHENSIVE.md): experiment history, provenance, full results, limitations, and publication gates.
 
@@ -18,7 +18,12 @@ The current selected pipeline is **v3.1**. It watches short surgical-video clips
 - **Right:** what the active right-hand tool is doing and to which anatomy.
 - **Camera:** whether the camera zooms, repositions, or stays unchanged.
 
-The current evidence does **not** support publishing these labels as trusted ground truth. The apparently high left-medium overlap score is mostly caused by repeatedly predicting the common `lateral` class, not by recognizing all left-action classes. Right-medium contains some useful class signal, but it is weak; camera and the remaining granularities are also weak. A preview release clearly marked as unverified synthetic annotation would be more defensible.
+> [!WARNING]
+> **Current release status: do not publish these labels as trusted ground truth.**
+>
+> The apparently high left-medium overlap score is mostly caused by repeatedly predicting the common `lateral` class, not by recognizing all left-action classes. Right-medium contains some useful class signal, but it is weak; camera and the remaining granularities are also weak. A preview release clearly marked as **unverified synthetic annotation** would be more defensible.
+
+The [fair evaluation protocol](EVALUATION_PROTOCOL.md) is a **potential future direction for replacing the current evaluation**, whose overlap averages, conditional support, and system-ranking correlation can hide class collapse or degenerate tasks. It has not yet been implemented or validated. The next study should freeze that protocol and an independent expert test set before changing the prompt again.
 
 The results below come from the same **90 development clips** used while developing the pipeline. They are useful for diagnosis, but they are not an independent final test.
 
@@ -207,7 +212,7 @@ Do not retain the earlier blanket target of `0.80 F1` for left-raw/right-medium/
 
 ## Where to look next
 
-- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): the proposed frozen-test, one-to-one matching, actor-specific metrics, human-agreement, and release-gate procedure.
+- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): potential future replacement for the current evaluation; it is a proposed frozen-test, one-to-one matching, actor-specific metric, human-agreement, and release-gate procedure, not a completed result.
 - [Full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts): complete segmentation prompt, structured LLM extraction prompt, and additional morphology-checker prompt.
 - [Comprehensive technical report](README_COMPREHENSIVE.md): full pipeline history, exact prompts, comparability audit, every result table, limitations, and release gates.
 - [Overlap-metrics notebook](overlap_metrics.ipynb): F1@any/F1@max tables and directional rates.
