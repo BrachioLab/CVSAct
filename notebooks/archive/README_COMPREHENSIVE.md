@@ -165,6 +165,22 @@ The confusion matrices use **GT intervals as rows** and the v3.1 label with grea
 | Camera | Medium | 68 | 23 | 12 | 0.176 |
 | Camera | Coarse | 68 | 23 | 23 | 0.338 |
 
+The F1@any/F1@max tables above average by video, **not by action class**. This matters because a dominant label can produce a high overlap score despite ignoring rare classes. As a class-balance diagnostic, the table below applies unweighted multiclass macro-F1 to the pooled GT-anchored max-overlap assignments and compares it with always predicting the most common GT class:
+
+| Actor | Level | Class-macro F1 | Majority baseline |
+|---|---|---:|---:|
+| Left | Raw | 0.091 | 0.071 |
+| Left | Medium | 0.287 | 0.305 |
+| Left | Coarse | 0.228 | 0.346 |
+| Right | Raw | 0.033 | 0.004 |
+| Right | Medium | 0.138 | 0.021 |
+| Right | Coarse | 0.115 | 0.039 |
+| Camera | Raw | 0.133 | 0.108 |
+| Camera | Medium | 0.153 | 0.222 |
+| Camera | Coarse | 0.272 | 0.456 |
+
+Thus left-medium's `0.859` F1@max is not evidence of balanced label recognition: 79 of 83 assignments are `lateral`, and its class-macro F1 is below the constant-`lateral` baseline. Right-medium is weak but exceeds its majority baseline. Camera-medium/coarse also underperform their majority baselines. This diagnostic is GT-anchored and therefore does not by itself measure prediction-side false positives; it must be reported with the bidirectional overlap and one-to-one IoU metrics. The paper-era onset-pointwise score did use conditional class-macro F1, but only on GT-present actor onset rows, so its conditioning and label support must also be reported.
+
 The largest error patterns are interpretable:
 
 - Left raw collapses change actions into `KEEP_RETRACT_LATERAL`: all 14 `RETRACT_LATERAL` intervals and 10 of 11 `RETRACT_MEDIAL_TO_LATERAL` intervals receive that label. At coarse level, all 39 GT `change` intervals are predicted as `maintain`.

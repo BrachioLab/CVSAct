@@ -14,7 +14,7 @@ The current selected pipeline is **v3.1**. It watches short surgical-video clips
 - **Right:** what the active right-hand tool is doing and to which anatomy.
 - **Camera:** whether the camera zooms, repositions, or stays unchanged.
 
-The current evidence does **not** support publishing these labels as trusted ground truth. Left retraction direction is promising, but right-hand fine-grained labels and camera labels remain weak. A preview release clearly marked as unverified synthetic annotation would be more defensible.
+The current evidence does **not** support publishing these labels as trusted ground truth. The apparently high left-medium overlap score is mostly caused by repeatedly predicting the common `lateral` class, not by recognizing all left-action classes. Right-medium contains some useful class signal, but it is weak; camera and the remaining granularities are also weak. A preview release clearly marked as unverified synthetic annotation would be more defensible.
 
 The results below come from the same **90 development clips** used while developing the pipeline. They are useful for diagnosis, but they are not an independent final test.
 
@@ -38,23 +38,24 @@ Important: left-medium and left-coarse answer different questions. Medium asks *
 
 ## Current status by actor and granularity
 
-Use **F1@max** as the main diagnostic here. For each GT interval, it selects the label occupying the greatest accumulated overlap. **F1@any** is more lenient: any positive overlap with a matching label can count.
+Two different questions must be kept separate:
 
-The status words below are navigation aids, not validated publication thresholds: strong ≥0.80, partial 0.50–0.79, weak 0.30–0.49, and very weak <0.30.
+- **F1@max** asks whether the dominant overlapping label is correct and then averages by video. It is useful for temporal overlap, but it does **not** weight action classes equally.
+- **Class-macro F1** computes F1 separately for every label and averages the labels. This is closer to the metric used in the paper and reveals majority-class collapse. Here it is computed from the pooled, GT-anchored F1@max assignments, so it is still a diagnostic classification score rather than a complete segment-detection metric.
 
-| Actor | Level | F1@any | F1@max | Status | Main problem |
-|---|---|---:|---:|---|---|
-| Left | Raw | 0.565 | 0.539 | Partial | Direction-change codes often become `KEEP_RETRACT_LATERAL` |
-| Left | Medium | **0.867** | **0.859** | Strong on development data | Medial/upward examples still collapse toward lateral |
-| Left | Coarse | 0.598 | 0.577 | Partial | All 39 GT change intervals were labeled maintain in the confusion analysis |
-| Right | Raw | 0.096 | 0.094 | Very weak | Tool, target, and context combination is rarely fully correct |
-| Right | Medium | 0.411 | 0.368 | Weak | Frequent cystic artery/duct/plate/triangle target confusion |
-| Right | Coarse | 0.462 | 0.419 | Weak | Target confusion remains after removing tool identity |
-| Camera | Raw | 0.178 | 0.146 | Very weak | Exact motion is often missed or called no-change |
-| Camera | Medium | 0.214 | 0.168 | Very weak | Zoom/reposition/no-change confusion plus missing intervals |
-| Camera | Coarse | 0.367 | 0.271 | Very weak | Many real changes become no-change or have no overlapping prediction |
+| Actor | Level | F1@max | Class-macro F1 | Majority baseline | Interpretation |
+|---|---|---:|---:|---:|---|
+| Left | Raw | 0.539 | 0.091 | 0.071 | Very weak; mostly `KEEP_RETRACT_LATERAL` |
+| Left | Medium | **0.859** | **0.287** | **0.305** | Misleading overlap score; worse than always predicting `lateral` |
+| Left | Coarse | 0.577 | **0.228** | **0.346** | Worse than always predicting `maintain` |
+| Right | Raw | 0.094 | 0.033 | 0.004 | Very weak exact tool/action/target/context prediction |
+| Right | Medium | 0.368 | **0.138** | 0.021 | Weak, but contains real class signal above baseline |
+| Right | Coarse | 0.419 | 0.115 | 0.039 | Weak; target confusion remains |
+| Camera | Raw | 0.146 | 0.133 | 0.108 | Very weak |
+| Camera | Medium | 0.168 | **0.153** | **0.222** | Worse than the majority baseline |
+| Camera | Coarse | 0.271 | **0.272** | **0.456** | Worse than always predicting `change` |
 
-These scores are macro-averaged by video. The confusion matrices use raw interval counts, so their percentages will not be identical to this table.
+The majority baseline always predicts the most frequent GT class at that actor/granularity. The class-macro values are pooled across 83 left, 123 right, or 68 camera GT intervals from the 90 development clips. `<no_overlap>` is retained as an incorrect predicted outcome. Right-raw is exact-string scoring here; the historical raw evaluator instead allows partial unordered context matching. Neither table is an independent held-out test.
 
 ## Three examples that explain the scores
 
@@ -69,7 +70,7 @@ Medium: correct — both finish in the lateral direction
 Coarse: wrong — GT is change, prediction is maintain
 ```
 
-This pattern explains the high left-medium score and much lower left-coarse score.
+This pattern explains the high left-medium **overlap** score and much lower left-coarse score. It does not establish useful left-medium classification: 79 of 83 left intervals receive the medium label `lateral`, and class-macro F1 is below the constant-`lateral` baseline.
 
 ### 2. Typical right-hand target confusion
 
@@ -113,10 +114,45 @@ The problem is both classification and detection: many camera changes are called
 
 [View camera coarse confusion plot](results/current/confusion_matrices/camera_coarse_row_normalized.png)
 
+## What worked in previous experiments—and what did not
+
+These are development-set comparisons, not independent confirmations. Several versions changed more than one prompt/input component, so only v3→v3.1 is close to a controlled post-processing comparison.
+
+| Experiment | Result | Verdict | Evidence |
+|---|---|---|---|
+| Structured LLM taxonomy extraction | It was the best of the four output strategies in every tested prompt family. | **Worked consistently; retain it.** | [Base](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval.ipynb), [CVS v1](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_with_cvs_context.ipynb), [v2](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v2.ipynb), [v3](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3.ipynb), [v4](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v4.ipynb) |
+| Add CVS context and reviewer scores to frames | Structured score rose from 0.195 to 0.302. Text context and scored frame labels changed together. | **Worked as a bundle; individual contribution is unknown.** | [Base](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval.ipynb), [CVS v1](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_with_cvs_context.ipynb) |
+| v2 left stable-versus-transition rules | Aggregate structured score rose slightly, 0.302→0.326. Current confusions nevertheless show severe maintain/change collapse. | **Small aggregate gain; did not solve the left problem.** | [v2](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v2.ipynb) |
+| v3 detailed right extraction rules | Aggregate score changed 0.326→0.323; right overlap diagnostics improved, but exact and medium class-macro F1 remain low. | **Mixed; useful direction, not a solution.** | [v3](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3.ipynb) |
+| v3.1 clip-level Hook→Maryland checker | On the 90-clip artifact, changed 10 structured predictions and raised right F1 0.211→0.231 and aggregate F1 0.323→0.330. | **Worked narrowly on development data.** Full train/test exports applied zero corrections because checker coverage/conditions were insufficient. | [v3.1](current_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3_1.ipynb) |
+| v3.2 interval-level checker | Made more calls and 70 rewrites, but aggregate score was 0.329 versus 0.330 for v3.1. | **Did not justify its extra complexity.** | [v3.2](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v3_2.ipynb) |
+| v4 explicit camera start/end questions | Aggregate score reached 0.340, but camera changed only 0.168→0.171 and right regressed to 0.168. | **Did not demonstrate a reliable camera gain; joint prompting affected other actors.** | [v4](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_cvsctx_v4.ipynb) |
+| v3.1 left/right plus v4 camera | Outputs were spliced, but no independent metric was produced. | **Unmeasured, not evidence of improvement.** | [Hybrid](experimental_action_pipeline/qwen3.5_audit_v11_seg_extract_spec_eval_hybrid_v3_1_left_right_v4_camera.ipynb) |
+
+Older CVS-classification experiments also found that sequential frame context improved mean AP from 0.304 to 0.395, while the tested sequential organ overlay reduced it to 0.316. Observe-then-decide tied sequential direct prompting in mean AP rather than improving it. These five-video experiments support retaining temporal context, but they do not measure action-generation accuracy: [initial ablations](lvlm_cvs_reasoning/visualize_results_initial_ablations.ipynb), [organ ablations](lvlm_cvs_reasoning/visualize_results_organ_ablations.ipynb), and [all-model summary](lvlm_cvs_reasoning/eval_all_models_summary_new.ipynb).
+
+## Best next step for each actor
+
+### Left
+
+Treat **direction** and **state change** as separate predictions. First infer start direction and end direction, then derive maintain/change instead of asking one label to encode both. Add balanced examples and hard negatives for medial, upward, and direction-change classes; reject or flag `KEEP_*` when the inferred start and end states differ. Evaluate on a class-balanced held-out set, because another prompt tuned on the same 90 clips will not establish improvement.
+
+### Right
+
+Keep the structured extraction and conservative morphology correction, but decompose the task into tool, action, target, and context fields before composing the final label. Focus annotation/prompt examples on the observed artery↔duct and duct↔hepatocystic-triangle confusions. Test anatomy crops, tracking/segmentation cues, and targeted hard-negative pairs. Expand checker coverage before regeneration, then accept a correction only when it improves held-out per-class F1 rather than aggregate accuracy alone.
+
+### Camera
+
+Use a separate camera pass instead of expanding the joint left/right/camera prompt again. Estimate start/end zoom and viewpoint states and derive the motion; add explicit global-motion/zoom cues so tissue or instrument motion is not mistaken for camera motion. Measure camera-event coverage and false positives separately from label correctness. The next experiment should compare this isolated camera pass with v3.1 on frozen held-out clips; the existing v4 and unscored hybrid do not answer that question.
+
+### Evaluation shared by all three
+
+Make class-macro F1 plus a constant-majority baseline the primary label-quality report. Pair it with one-to-one temporal IoU F1, no-overlap rate, prediction-side false positives, per-class support/confusions, and video-bootstrap confidence intervals. Freeze a video-held-out expert test set before further prompt work.
+
 ## What students should do next
 
 1. **Do not call the current exports validated ground truth.** The evaluated v3.1 90-clip artifact received morphology corrections, but the full train/test exports received zero such corrections because checker coverage was missing.
-2. **Focus model/prompt work on the actual bottlenecks:** left change-versus-maintain, right anatomical target/context, and camera interval detection.
+2. **Focus model/prompt work on the actor-specific experiments above:** left start/end state decomposition, right anatomy-aware field prediction, and a separate camera-change pass.
 3. **Run a blinded, video-held-out expert audit** with enough examples per common and rare class. Do not tune prompts on that final audit set.
 4. **Report uncertainty:** video-bootstrap confidence intervals, per-class support, precision and recall, not only one averaged F1.
 5. **Regenerate the full exports** after the pipeline and checker are frozen, then rerun integrity checks before any Hugging Face upload.
@@ -134,4 +170,4 @@ The proposed public-release target in the comprehensive report is at least 0.80 
 
 ## One-sentence handoff
 
-**v3.1 understands left retraction direction reasonably well, but it is not yet reliable enough on left state changes, right anatomy, or camera motion to publish as trusted ground truth.**
+**v3.1's high left-medium overlap score is majority-class collapse, right-medium has weak but real signal, and no actor is yet accurate enough across classes and time to publish as trusted ground truth.**

@@ -8,6 +8,7 @@ import csv
 import json
 from collections import Counter
 from pathlib import Path
+from statistics import mean
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -28,6 +29,23 @@ GT_RELATIVE_PATH = Path(
     "qwen3.5_audit_v11_seg_extract_spec_eval/audit_v11_simple_actions.json"
 )
 NO_OVERLAP = "<no_overlap>"
+
+
+def _multiclass_macro_f1(
+    y_true: list[str],
+    y_pred: list[str],
+    labels: list[str] | None = None,
+) -> float:
+    """Return unweighted per-class F1, matching the paper-era helper."""
+    evaluated_labels = labels or sorted(set(y_true) | set(y_pred))
+    scores = []
+    for label in evaluated_labels:
+        tp = sum(true == label and pred == label for true, pred in zip(y_true, y_pred))
+        fp = sum(true != label and pred == label for true, pred in zip(y_true, y_pred))
+        fn = sum(true == label and pred != label for true, pred in zip(y_true, y_pred))
+        denominator = 2 * tp + fp + fn
+        scores.append(2 * tp / denominator if denominator else 0.0)
+    return mean(scores) if scores else 0.0
 
 
 def _read_json(path: Path):
@@ -256,6 +274,9 @@ def main() -> None:
                 )
             anchor_rows.extend(level_anchor_rows)
             n_anchors = len(level_anchor_rows)
+            true_labels = [row["gt_label"] for row in level_anchor_rows]
+            predicted_labels = [row["pred_label"] for row in level_anchor_rows]
+            majority_label, majority_count = Counter(true_labels).most_common(1)[0]
             summary_rows.append(
                 {
                     "pipeline": "v3.1",
@@ -264,9 +285,25 @@ def main() -> None:
                     "n_gt_anchors": n_anchors,
                     "n_gt_classes": len(gt_labels),
                     "n_pred_classes_including_no_overlap": len(pred_labels),
+                    "majority_gt_label": majority_label,
+                    "majority_gt_count": majority_count,
+                    "majority_gt_share": majority_count / n_anchors,
                     "no_overlap_count": sum(
                         row["pred_label"] == NO_OVERLAP for row in level_anchor_rows
                     ),
+                    "class_macro_f1_gt_anchored_max": _multiclass_macro_f1(
+                        true_labels, predicted_labels
+                    ),
+                    "majority_class_macro_f1": _multiclass_macro_f1(
+                        true_labels,
+                        [majority_label] * n_anchors,
+                        gt_labels,
+                    ),
+                    "exact_string_match_rate_micro": sum(
+                        true == predicted
+                        for true, predicted in zip(true_labels, predicted_labels)
+                    )
+                    / n_anchors,
                     "evaluator_match_count": sum(
                         bool(row["evaluator_match"]) for row in level_anchor_rows
                     ),
