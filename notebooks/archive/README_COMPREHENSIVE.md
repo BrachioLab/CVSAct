@@ -1,6 +1,6 @@
 # CVS-Act synthetic-data pipeline audit — comprehensive report
 
-For a short introduction written for students new to the project, start with the [quick handoff README](README.md). This document preserves the full prompts, experiment history, quantitative evidence, provenance, limitations, and release recommendations.
+For a short introduction written for students new to the project, start with the [quick handoff README](README.md). The proposed future scoring design is a separate [fair evaluation protocol](EVALUATION_PROTOCOL.md). This document preserves the full prompts, experiment history, quantitative evidence, provenance, limitations, and release recommendations.
 
 ## Bottom line
 

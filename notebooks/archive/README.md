@@ -2,7 +2,11 @@
 
 This page is the starting point for a student who is new to the project. It explains what the current pipeline predicts, what the evaluation says is working, what is failing, and what should happen next.
 
-For prompts, experiment history, provenance, full tables, and publication gates, see the [comprehensive technical report](README_COMPREHENSIVE.md).
+These are separate references:
+
+- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): proposed scoring and test-set design.
+- [Full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts): complete segmentation, structured-extraction, and morphology-checker prompts.
+- [Comprehensive technical report](README_COMPREHENSIVE.md): experiment history, provenance, full results, limitations, and publication gates.
 
 **CVS** means the *Critical View of Safety*, a safety view surgeons establish during laparoscopic gallbladder removal. The source clips are centered around changes in the three CVS criteria, but this pipeline's output is more detailed: timestamped grasper, working-tool, and camera actions that may explain how the view changed.
 
@@ -203,6 +207,8 @@ Do not retain the earlier blanket target of `0.80 F1` for left-raw/right-medium/
 
 ## Where to look next
 
+- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): the proposed frozen-test, one-to-one matching, actor-specific metrics, human-agreement, and release-gate procedure.
+- [Full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts): complete segmentation prompt, structured LLM extraction prompt, and additional morphology-checker prompt.
 - [Comprehensive technical report](README_COMPREHENSIVE.md): full pipeline history, exact prompts, comparability audit, every result table, limitations, and release gates.
 - [Overlap-metrics notebook](overlap_metrics.ipynb): F1@any/F1@max tables and directional rates.
 - [Confusion-matrix notebook](confusion_matrices.ipynb): interactive plots for all nine actor/granularity combinations.
