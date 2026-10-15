@@ -99,7 +99,14 @@ def _matrix_rows(
     return rows
 
 
-def _plot_matrix(counts_path: Path, normalized_path: Path, output_path: Path, title: str) -> None:
+def _plot_matrix(
+    counts_path: Path,
+    normalized_path: Path,
+    output_path: Path,
+    title: str,
+    *,
+    all_overlaps: bool = False,
+) -> None:
     counts = pd.read_csv(counts_path, index_col="gt_label")
     normalized = pd.read_csv(normalized_path, index_col="gt_label")
     width = min(30, max(8, 0.65 * len(normalized.columns)))
@@ -114,7 +121,11 @@ def _plot_matrix(counts_path: Path, normalized_path: Path, output_path: Path, ti
         fontsize=8,
     )
     axis.set_yticks(range(len(normalized.index)), normalized.index, fontsize=8)
-    axis.set_xlabel("Predicted max-overlap label")
+    axis.set_xlabel(
+        "Predicted overlapping label"
+        if all_overlaps
+        else "Predicted max-overlap label"
+    )
     axis.set_ylabel("GT label")
     axis.set_title(title)
     if normalized.size <= 200:
@@ -166,6 +177,7 @@ def main() -> None:
 
     anchor_rows = []
     pair_rows = []
+    all_overlap_pair_rows = []
     summary_rows = []
     for actor in ("left", "right", "camera"):
         pred_by_video = build_actor_video_maps(pred_records, actor)
@@ -174,6 +186,9 @@ def main() -> None:
             level = "raw" if granularity == "exact" else granularity
             counts: Counter = Counter()
             match_counts: Counter = Counter()
+            all_overlap_counts: Counter = Counter()
+            all_overlap_match_counts: Counter = Counter()
+            all_overlap_frames: Counter = Counter()
             level_anchor_rows = []
             for video_id, gt_segments in sorted(gt_by_video.items()):
                 candidates = [
@@ -190,7 +205,9 @@ def main() -> None:
                         segment["end_frame"],
                         actor_label(segment, actor, granularity),
                     )
-                    winning_labels, overlap_frames = max_overlap_labels(anchor, candidates)
+                    winning_labels, winning_overlap_frames = max_overlap_labels(
+                        anchor, candidates
+                    )
                     matching_winners = [
                         label
                         for label in winning_labels
@@ -213,6 +230,31 @@ def main() -> None:
                     )
                     counts[(gt_text, pred_text)] += 1
                     match_counts[(gt_text, pred_text)] += int(evaluator_match)
+
+                    overlapping_candidates = []
+                    for candidate_start, candidate_end, candidate_label in candidates:
+                        pair_overlap_frames = max(
+                            0,
+                            min(anchor[1], candidate_end)
+                            - max(anchor[0], candidate_start),
+                        )
+                        if pair_overlap_frames:
+                            overlapping_candidates.append(
+                                (candidate_label, pair_overlap_frames)
+                            )
+                    if overlapping_candidates:
+                        for candidate_label, pair_overlap_frames in overlapping_candidates:
+                            candidate_text = _display_label(candidate_label)
+                            pair = (gt_text, candidate_text)
+                            all_overlap_counts[pair] += 1
+                            all_overlap_frames[pair] += pair_overlap_frames
+                            all_overlap_match_counts[pair] += int(
+                                labels_match(
+                                    anchor[2], candidate_label, actor, granularity
+                                )
+                            )
+                    else:
+                        all_overlap_counts[(gt_text, NO_OVERLAP)] += 1
                     level_anchor_rows.append(
                         {
                             "pipeline": "v3.1",
@@ -223,7 +265,7 @@ def main() -> None:
                             "end_frame": anchor[1],
                             "gt_label": gt_text,
                             "pred_label": pred_text,
-                            "max_overlap_frames": overlap_frames,
+                            "max_overlap_frames": winning_overlap_frames,
                             "n_tied_winners": len(winning_labels),
                             "evaluator_match": evaluator_match,
                         }
@@ -252,6 +294,38 @@ def main() -> None:
                 args.output_dir / f"{stem}_row_normalized.png",
                 f"v3.1 {actor.title()} {level.title()} Confusion Matrix",
             )
+            all_overlap_pred_labels = sorted(
+                {pred for _, pred in all_overlap_counts},
+                key=lambda label: (label == NO_OVERLAP, label),
+            )
+            all_overlap_fieldnames = ["gt_label", *all_overlap_pred_labels]
+            _write_csv(
+                args.output_dir / f"{stem}_all_overlaps_counts.csv",
+                _matrix_rows(
+                    all_overlap_counts,
+                    gt_labels,
+                    all_overlap_pred_labels,
+                    normalized=False,
+                ),
+                all_overlap_fieldnames,
+            )
+            _write_csv(
+                args.output_dir / f"{stem}_all_overlaps_row_normalized.csv",
+                _matrix_rows(
+                    all_overlap_counts,
+                    gt_labels,
+                    all_overlap_pred_labels,
+                    normalized=True,
+                ),
+                all_overlap_fieldnames,
+            )
+            _plot_matrix(
+                args.output_dir / f"{stem}_all_overlaps_counts.csv",
+                args.output_dir / f"{stem}_all_overlaps_row_normalized.csv",
+                args.output_dir / f"{stem}_all_overlaps_row_normalized.png",
+                f"v3.1 {actor.title()} {level.title()} All-Overlap Confusion Matrix",
+                all_overlaps=True,
+            )
             for (gt_label, pred_label), count in sorted(
                 counts.items(), key=lambda item: (-item[1], item[0])
             ):
@@ -272,6 +346,31 @@ def main() -> None:
                         "evaluator_match_count": match_counts[(gt_label, pred_label)],
                     }
                 )
+            for (gt_label, pred_label), count in sorted(
+                all_overlap_counts.items(), key=lambda item: (-item[1], item[0])
+            ):
+                gt_total = sum(
+                    pair_count
+                    for (candidate_gt, _), pair_count in all_overlap_counts.items()
+                    if candidate_gt == gt_label
+                )
+                all_overlap_pair_rows.append(
+                    {
+                        "pipeline": "v3.1",
+                        "actor": actor,
+                        "level": level,
+                        "gt_label": gt_label,
+                        "pred_label": pred_label,
+                        "overlap_pair_count": count,
+                        "gt_row_pair_rate": count / gt_total,
+                        "overlap_frames_total": all_overlap_frames[
+                            (gt_label, pred_label)
+                        ],
+                        "evaluator_match_pair_count": all_overlap_match_counts[
+                            (gt_label, pred_label)
+                        ],
+                    }
+                )
             anchor_rows.extend(level_anchor_rows)
             n_anchors = len(level_anchor_rows)
             true_labels = [row["gt_label"] for row in level_anchor_rows]
@@ -290,6 +389,12 @@ def main() -> None:
                     "majority_gt_share": majority_count / n_anchors,
                     "no_overlap_count": sum(
                         row["pred_label"] == NO_OVERLAP for row in level_anchor_rows
+                    ),
+                    "all_overlap_pair_count_including_misses": sum(
+                        all_overlap_counts.values()
+                    ),
+                    "all_overlap_matching_pair_count": sum(
+                        all_overlap_match_counts.values()
                     ),
                     "class_macro_f1_gt_anchored_max": _multiclass_macro_f1(
                         true_labels, predicted_labels
@@ -318,6 +423,10 @@ def main() -> None:
 
     _write_csv(args.output_dir / "confusion_summary.csv", summary_rows)
     _write_csv(args.output_dir / "confusion_pairs_long.csv", pair_rows)
+    _write_csv(
+        args.output_dir / "confusion_all_overlaps_pairs_long.csv",
+        all_overlap_pair_rows,
+    )
     _write_csv(args.output_dir / "confusion_anchors.csv", anchor_rows)
 
 

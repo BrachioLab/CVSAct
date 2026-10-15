@@ -57,6 +57,24 @@ Two different questions must be kept separate:
 
 The majority baseline always predicts the most frequent GT class at that actor/granularity. The class-macro values are pooled across 83 left, 123 right, or 68 camera GT intervals from the 90 development clips. `<no_overlap>` is retained as an incorrect predicted outcome. Right-raw is exact-string scoring here; the historical raw evaluator instead allows partial unordered context matching. Neither table is an independent held-out test.
 
+### What happens as interval matching becomes stricter
+
+The historical metric uses one-to-one segment matching at intersection-over-union (IoU) thresholds 0.10, 0.25, and 0.50. A larger threshold requires predicted boundaries to align more closely with GT. These are sometimes called “different interval sizes,” but the interval length does not change; the required overlap fraction does. `@any` and `@max` are separate, non-one-to-one diagnostics and are not additional IoU thresholds.
+
+| Actor | Level | F1@IoU=.10 | F1@IoU=.25 | F1@IoU=.50 | F1@any | F1@max |
+|---|---|---:|---:|---:|---:|---:|
+| Left | Raw | 0.533 | 0.523 | 0.518 | 0.565 | 0.539 |
+| Left | Medium | 0.764 | 0.644 | 0.611 | 0.867 | 0.859 |
+| Left | Coarse | 0.574 | 0.564 | 0.559 | 0.598 | 0.577 |
+| Right | Raw | 0.056 | 0.056 | 0.056 | 0.096 | 0.094 |
+| Right | Medium | 0.345 | 0.312 | 0.254 | 0.411 | 0.368 |
+| Right | Coarse | 0.386 | 0.342 | 0.284 | 0.462 | 0.419 |
+| Camera | Raw | 0.162 | 0.119 | 0.068 | 0.178 | 0.146 |
+| Camera | Medium | 0.190 | 0.150 | 0.088 | 0.214 | 0.168 |
+| Camera | Coarse | 0.321 | 0.256 | 0.158 | 0.367 | 0.271 |
+
+The decline from IoU 0.10 to 0.50 exposes boundary errors, especially for camera and right-medium/coarse. Right-raw stays at 0.056 because label identity, rather than boundary strictness, is already the dominant failure. Left-medium remains high under every overlap metric because the dominant `lateral` class is common; its low class-macro F1 above is the necessary counter-check. Do not rank `@max` against an IoU column as if one were simply stricter: `@max` uses dominant accumulated label overlap without one-to-one assignment, while IoU F1 greedily matches whole intervals one-to-one.
+
 ## Three examples that explain the scores
 
 ### 1. Why left-medium can be correct while left-raw and left-coarse are wrong
@@ -102,17 +120,27 @@ The model defaults heavily to `KEEP_RETRACT_LATERAL`. It recognizes the eventual
 
 [View left raw confusion plot](results/current/confusion_matrices/left_raw_row_normalized.png)
 
+[View left raw all-overlap plot](results/current/confusion_matrices/left_raw_all_overlaps_row_normalized.png)
+
 ### Right
 
 The model often recognizes “Hook dissection” but chooses the wrong nearby anatomy. Fine-grained anatomical context makes raw accuracy especially low. Removing context helps, but target confusion remains.
 
 [View right medium confusion plot](results/current/confusion_matrices/right_medium_row_normalized.png)
 
+[View right medium all-overlap plot](results/current/confusion_matrices/right_medium_all_overlaps_row_normalized.png)
+
 ### Camera
 
 The problem is both classification and detection: many camera changes are called no-change, and many have no predicted interval at all.
 
 [View camera coarse confusion plot](results/current/confusion_matrices/camera_coarse_row_normalized.png)
+
+[View camera coarse all-overlap plot](results/current/confusion_matrices/camera_coarse_all_overlaps_row_normalized.png)
+
+The original confusion plots assign one max-overlap label to each GT interval. The new **all-overlap** plots count every GT–prediction interval pair with positive overlap; a fragmented prediction can therefore contribute multiple counts to one GT row. If nothing overlaps, `<no_overlap>` is counted once. Row normalization in this view is over overlap-pair counts, not over unique GT intervals, so use it to reveal secondary labels and fragmentation rather than as an accuracy score.
+
+The all-overlap view does not reverse the diagnosis. For left-medium GT, medial intervals overlap 12 `lateral` predictions but only 2 `medial` predictions, while upward intervals overlap 7 `lateral` predictions and only 1 `upward` prediction. The 123 right GT intervals produce 263 overlap pairs, exposing substantial segmentation/label fragmentation. For camera-coarse GT `change`, there are 38 overlaps with predicted `change`, 39 with predicted `no_change`, and 22 intervals with no overlap; one GT interval can appear in both overlap columns.
 
 ## What worked in previous experiments—and what did not
 

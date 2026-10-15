@@ -73,6 +73,22 @@ The historical evaluator is prediction-first, greedy, one-to-one segment matchin
 
 Intervals use half-open `[start_frame, end_frame)` boundaries, so merely touching endpoints do not overlap. Matching is deliberately **not one-to-one**: one interval may make several opposite-direction anchors correct. This makes both metrics diagnostic and lenient. In particular, F1@any can reward fragmented predictions, while F1@max ignores how much of the anchor is covered once the correct label has the largest share. Always report both directional rates and retain IoU F1 for publication-quality evaluation.
 
+For current v3.1, the stricter one-to-one IoU results compare with the lenient diagnostics as follows. “Different interval size” here means a different required IoU fraction; the underlying intervals are unchanged.
+
+| Actor | Level | F1@IoU=.10 | F1@IoU=.25 | F1@IoU=.50 | F1@any | F1@max |
+|---|---|---:|---:|---:|---:|---:|
+| Left | Raw | 0.533 | 0.523 | 0.518 | 0.565 | 0.539 |
+| Left | Medium | 0.764 | 0.644 | 0.611 | 0.867 | 0.859 |
+| Left | Coarse | 0.574 | 0.564 | 0.559 | 0.598 | 0.577 |
+| Right | Raw | 0.056 | 0.056 | 0.056 | 0.096 | 0.094 |
+| Right | Medium | 0.345 | 0.312 | 0.254 | 0.411 | 0.368 |
+| Right | Coarse | 0.386 | 0.342 | 0.284 | 0.462 | 0.419 |
+| Camera | Raw | 0.162 | 0.119 | 0.068 | 0.178 | 0.146 |
+| Camera | Medium | 0.190 | 0.150 | 0.088 | 0.214 | 0.168 |
+| Camera | Coarse | 0.321 | 0.256 | 0.158 | 0.367 | 0.271 |
+
+Camera and right-medium/coarse degrade substantially as boundary agreement becomes stricter. Right-raw is flat because label mismatch already dominates. Left-medium remains deceptively high because these metrics are not class-macro; the class-balance check below shows that it underperforms the constant-majority baseline. The IoU and `@max` columns are not strictly ordered because their assignment rules differ.
+
 On the same 90 development clips, using each prompt family's structured LLM extraction output:
 
 | Pipeline | F1@any | Pred-anchored @any | GT-anchored @any | F1@max | Pred-anchored @max | GT-anchored @max |
@@ -188,6 +204,10 @@ The largest error patterns are interpretable:
 - Camera coarse has 57 GT `change` intervals: 15 are labeled `change`, 20 become `no_change`, and 22 have no overlap. This shows both label confusion and missed camera segments.
 
 Use [`confusion_matrices.ipynb`](confusion_matrices.ipynb) to inspect each actor independently. Static row-normalized heatmaps are saved beside the complete count and normalized CSV matrices under [`results/current/confusion_matrices/`](results/current/confusion_matrices/). Each annotated cell shows count and within-GT-row percentage; the 45-class right-raw plot omits cell text to remain legible. [`confusion_pairs_long.csv`](results/current/confusion_matrices/confusion_pairs_long.csv) is easier to filter than that large matrix, and [`confusion_anchors.csv`](results/current/confusion_matrices/confusion_anchors.csv) retains every source video/interval assignment. Recompute with [`scripts/evaluate_overlap_confusions.py`](../../scripts/evaluate_overlap_confusions.py).
+
+The archive also contains an **all-overlap** version for every actor/granularity. It counts each positively overlapping GT–prediction interval pair rather than selecting one dominant label; a GT interval split across several predictions therefore contributes several counts. A GT interval contributes one `<no_overlap>` count only when it has no overlapping prediction. These matrices reveal secondary labels and fragmentation but must not be read as per-interval accuracy because their row denominators are overlap-pair counts. Use filenames ending in `_all_overlaps_counts.csv`, `_all_overlaps_row_normalized.csv`, and `_all_overlaps_row_normalized.png`; the aggregate pairs with overlap-frame totals are in [`confusion_all_overlaps_pairs_long.csv`](results/current/confusion_matrices/confusion_all_overlaps_pairs_long.csv).
+
+In this view, left-medium medial GT intervals overlap 12 `lateral` predictions versus 2 `medial`, and upward intervals overlap 7 `lateral` versus 1 `upward`. Right produces 263 overlap pairs from 123 GT intervals. Camera-coarse `change` intervals contribute 38 `change` pairs, 39 `no_change` pairs, and 22 non-overlapping intervals. These counts reinforce the majority-collapse and fragmentation findings; because one GT interval may contribute to both predicted columns, they must not be summed as unique intervals.
 
 ### Prompt/output-format ablations
 
