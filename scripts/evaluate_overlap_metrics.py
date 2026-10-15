@@ -108,6 +108,7 @@ def main() -> None:
     detailed = {}
     provenance = {"ground_truth": {"path": str(gt_path), "sha256": _sha256(gt_path)}}
     component_rows = []
+    breakdown_rows = []
     summary_rows = []
     selected_rows = []
 
@@ -182,11 +183,29 @@ def main() -> None:
                     "components": "left/exact+right/medium+camera/coarse",
                 }
             )
+            component_lookup = {
+                (row["actor"], row["granularity"]): row["f1_mean"]
+                for row in mode_rows
+            }
+            breakdown_rows.append(
+                {
+                    "pipeline": pipeline,
+                    "overlap_mode": mode,
+                    **{
+                        f"{actor}_{'raw' if granularity == 'exact' else granularity}": component_lookup[
+                            (actor, granularity)
+                        ]
+                        for actor in ("left", "right", "camera")
+                        for granularity in ("exact", "medium", "coarse")
+                    },
+                }
+            )
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     _write_csv(args.output_dir / "overlap_metrics_summary.csv", summary_rows)
     _write_csv(args.output_dir / "overlap_metrics_selected_components.csv", selected_rows)
     _write_csv(args.output_dir / "overlap_metrics_by_actor_granularity.csv", component_rows)
+    _write_csv(args.output_dir / "overlap_metrics_f1_breakdown.csv", breakdown_rows)
     (args.output_dir / "overlap_metric_results.json").write_text(
         json.dumps(
             {

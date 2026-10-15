@@ -97,7 +97,55 @@ That broad average contains all ten actor/granularity rows (left, right, and cam
 
 For current v3.1 on those three components, F1@any has prediction-/GT-anchored rates `0.449/0.525`; F1@max has `0.419/0.443`. v3.2 is numerically only `0.002` above v3.1 on both new F1 summaries, so these metrics do not establish a meaningful v3.2 improvement. v4's broad average is highest, but its release-component score is lower because its right-medium result regresses; this is another reason not to select a pipeline on one global average.
 
-Exact component rows are in [`overlap_metrics_by_actor_granularity.csv`](results/current/overlap_metrics_by_actor_granularity.csv), summaries are in [`overlap_metrics_summary.csv`](results/current/overlap_metrics_summary.csv), and per-video counts/rates plus SHA-256 provenance are in [`overlap_metric_results.json`](results/current/overlap_metric_results.json). Recompute them with [`scripts/evaluate_overlap_metrics.py`](../../scripts/evaluate_overlap_metrics.py). The comparison uses the GT conversion archived inside the original base experiment; that file is byte-identical across the base, CVS-v1, CVS-v2, CVS-v3, and CVS-v4 experiment directories. A separately regenerated shared GT artifact differs in five right-action records and three camera records, so it is intentionally not mixed into this comparison. The raw prediction files remain in the preserved legacy artifact tree and are identified by path and hash in the JSON; they are not duplicated into this Git archive.
+#### Actor and label-granularity breakdown
+
+Here **raw means the evaluator's `exact` label**, before its actor-specific collapsing:
+
+- left: raw = retraction code; medium = retraction direction; coarse = maintain versus change;
+- right: raw = tool + action + target + optional contexts; medium = tool + action + target; coarse = action + target;
+- camera: raw = camera action code; medium = zoom/reposition/no-change; coarse = change/no-change.
+
+The left levels are different tasks rather than a strictly nested hierarchy: medium emphasizes direction, while coarse emphasizes whether retraction is maintained or changed. Therefore left-coarse need not score above left-medium. Right-raw uses the evaluator's partial, unordered context-overlap rule rather than requiring both context slots to be identical.
+
+Current v3.1, including both anchor directions:
+
+| Actor | Level | Any F1 | Any pred. | Any GT | Max F1 | Max pred. | Max GT |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Left | Raw | 0.565 | 0.593 | 0.582 | 0.539 | 0.593 | 0.525 |
+| Left | Medium | 0.867 | 0.865 | 0.897 | 0.859 | 0.865 | 0.874 |
+| Left | Coarse | 0.598 | 0.626 | 0.615 | 0.577 | 0.626 | 0.567 |
+| Right | Raw | 0.096 | 0.080 | 0.142 | 0.094 | 0.080 | 0.136 |
+| Right | Medium | 0.411 | 0.370 | 0.497 | 0.368 | 0.342 | 0.438 |
+| Right | Coarse | 0.462 | 0.419 | 0.554 | 0.419 | 0.392 | 0.495 |
+| Camera | Raw | 0.178 | 0.171 | 0.228 | 0.146 | 0.171 | 0.174 |
+| Camera | Medium | 0.214 | 0.249 | 0.261 | 0.168 | 0.209 | 0.198 |
+| Camera | Coarse | 0.367 | 0.384 | 0.496 | 0.271 | 0.320 | 0.366 |
+
+F1@any:
+
+| Pipeline | Left raw | Left med. | Left coarse | Right raw | Right med. | Right coarse | Camera raw | Camera med. | Camera coarse |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Base | 0.273 | 0.393 | 0.456 | 0.042 | 0.222 | 0.270 | 0.101 | 0.135 | 0.208 |
+| CVS v1 | 0.497 | 0.814 | 0.603 | 0.083 | 0.343 | 0.445 | 0.172 | 0.229 | 0.314 |
+| CVS v2 | 0.546 | 0.833 | 0.598 | 0.053 | 0.306 | 0.433 | 0.179 | 0.244 | 0.372 |
+| CVS v3 | 0.565 | 0.867 | 0.598 | 0.083 | 0.341 | 0.462 | 0.178 | 0.214 | 0.367 |
+| **v3.1** | 0.565 | 0.867 | 0.598 | 0.096 | 0.411 | 0.462 | 0.178 | 0.214 | 0.367 |
+| v3.2 | 0.565 | 0.867 | 0.598 | 0.096 | 0.417 | 0.462 | 0.178 | 0.214 | 0.367 |
+| v4 | 0.561 | 0.845 | 0.599 | 0.049 | 0.291 | 0.392 | 0.172 | 0.238 | 0.380 |
+
+F1@max:
+
+| Pipeline | Left raw | Left med. | Left coarse | Right raw | Right med. | Right coarse | Camera raw | Camera med. | Camera coarse |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Base | 0.263 | 0.349 | 0.422 | 0.018 | 0.188 | 0.231 | 0.093 | 0.118 | 0.138 |
+| CVS v1 | 0.473 | 0.807 | 0.593 | 0.069 | 0.311 | 0.407 | 0.128 | 0.187 | 0.256 |
+| CVS v2 | 0.546 | 0.829 | 0.598 | 0.051 | 0.278 | 0.401 | 0.132 | 0.189 | 0.305 |
+| CVS v3 | 0.539 | 0.859 | 0.577 | 0.081 | 0.307 | 0.419 | 0.146 | 0.168 | 0.271 |
+| **v3.1** | 0.539 | 0.859 | 0.577 | 0.094 | 0.368 | 0.419 | 0.146 | 0.168 | 0.271 |
+| v3.2 | 0.539 | 0.859 | 0.577 | 0.094 | 0.374 | 0.419 | 0.146 | 0.168 | 0.271 |
+| v4 | 0.544 | 0.836 | 0.582 | 0.037 | 0.247 | 0.345 | 0.094 | 0.141 | 0.293 |
+
+The compact wide table is in [`overlap_metrics_f1_breakdown.csv`](results/current/overlap_metrics_f1_breakdown.csv). Exact component and directional rows are in [`overlap_metrics_by_actor_granularity.csv`](results/current/overlap_metrics_by_actor_granularity.csv), summaries are in [`overlap_metrics_summary.csv`](results/current/overlap_metrics_summary.csv), and per-video counts/rates plus SHA-256 provenance are in [`overlap_metric_results.json`](results/current/overlap_metric_results.json). Recompute them with [`scripts/evaluate_overlap_metrics.py`](../../scripts/evaluate_overlap_metrics.py). The comparison uses the GT conversion archived inside the original base experiment; that file is byte-identical across the base, CVS-v1, CVS-v2, CVS-v3, and CVS-v4 experiment directories. A separately regenerated shared GT artifact differs in five right-action records and three camera records, so it is intentionally not mixed into this comparison. The raw prediction files remain in the preserved legacy artifact tree and are identified by path and hash in the JSON; they are not duplicated into this Git archive.
 
 ### Prompt/output-format ablations
 
