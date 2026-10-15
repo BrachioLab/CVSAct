@@ -2,21 +2,38 @@
 
 This page is the starting point for a student who is new to the project. It explains what the current pipeline predicts, what the evaluation says is working, what is failing, and what should happen next.
 
-These are separate references:
-
-- [Fair evaluation protocol](EVALUATION_PROTOCOL.md): a potential future direction for replacing the current problematic evaluation with fixed expert support, one-to-one matching, and separate detection, timing, and classification metrics. It is proposed, not yet implemented.
-- [Full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts): complete segmentation, structured-extraction, and morphology-checker prompts.
-- [Comprehensive technical report](README_COMPREHENSIVE.md): experiment history, provenance, full results, limitations, and publication gates.
-
 **CVS** means the *Critical View of Safety*, a safety view surgeons establish during laparoscopic gallbladder removal. The source clips are centered around changes in the three CVS criteria, but this pipeline's output is more detailed: timestamped grasper, working-tool, and camera actions that may explain how the view changed.
 
-## Bottom line
+## Current pipeline: v3.1
 
-The current selected pipeline is **v3.1**. It watches short surgical-video clips and produces timestamped labels for three actors:
+The selected pipeline is **v3.1 structured extraction**. It converts a short laparoscopic video clip around a CVS transition into timestamped action segments for three actors:
+
+```text
+CVS-transition clip → sampled/scored frame bundle → multimodal segmentation
+                    → structured taxonomy extraction → optional tool correction → export
+```
 
 - **Left:** how the left grasper retracts the gallbladder.
 - **Right:** what the active right-hand tool is doing and to which anatomy.
 - **Camera:** whether the camera zooms, repositions, or stays unchanged.
+
+### How one clip is processed
+
+1. **Construct the clip.** Start with one clip around a transition in CVS criterion C1, C2, or C3.
+2. **Sample ordered frames.** Use anchor frames every 150 frames, or about 5 seconds at 30 fps; add four evenly spaced frames between anchors and include the endpoint.
+3. **Attach CVS context.** Each anchor is labeled with `C1=k/3, C2=k/3, C3=k/3`, where `k` is the number of three reviewers who judged that criterion satisfied. In-between frames contain only their frame number.
+4. **Segment with the multimodal model.** `Qwen/Qwen3.6-35B-A3B-FP8`, at temperature 0 with thinking disabled, receives the ordered images, CVS context, and segmentation prompt. It describes continuous left, right, camera, and visibility behavior over timestamped ranges.
+5. **Extract the controlled taxonomy.** A second, text-only LLM call receives the complete segmentation response and maps it into the fixed left/right/camera/other JSON schema. It does not see images or human GT.
+6. **Validate and normalize.** Invalid labels are dropped, timestamps are clipped to the clip range, and adjacent identical segments are merged.
+7. **Apply the optional v3.1 right-tool correction.** A separate morphology questionnaire examines the clip. The deterministic rule changes `Hook` to `Maryland` only when the base prediction is exactly `Hook` and the checker predicts `Maryland`; no other disagreement is changed.
+8. **Export by video.** Only structured-extraction records are retained. The 1,312 training records are split by video into 1,119 train and 193 validation records; 481 test records are kept separately.
+
+The [full v3.1 prompt stack](README_COMPREHENSIVE.md#exact-prompts) contains the complete first-call segmentation prompt, second-call structured extraction prompt, and additional morphology-checker prompt. Importantly, v3.1 does not change the base v3 generation prompts; it adds the checker and narrow deterministic post-processing rule.
+
+> [!IMPORTANT]
+> **The evaluated v3.1 run and the full exports did not receive the same effective correction.** On the 90-clip development artifact, the wrapper changed 10 of 90 structured predictions. In the full train and test exports it changed zero labels because checker coverage or the exact `Hook`-to-`Maryland` condition was missing. The wrapper is present in the export code, but the exported labels equal their immediately preceding base-v3 predictions apart from v3.1 provenance metadata.
+
+## Bottom line on current quality
 
 > [!WARNING]
 > **Current release status: do not publish these labels as trusted ground truth.**
