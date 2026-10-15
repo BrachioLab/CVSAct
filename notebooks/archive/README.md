@@ -8,7 +8,7 @@ This page is the starting point for a student who is new to the project. It expl
 
 The selected pipeline is **v3.1 structured extraction**. It converts a short laparoscopic video clip around a CVS transition into timestamped action segments for three actors:
 
-![CVS-Act v3.1 component diagram showing an abstract surgical clip, sampled frames, reviewer-score attachment, two model calls, synchronized actor timelines, taxonomy extraction, correction logic, and dataset files](pipeline_overview.svg)
+![CVS-Act v3.1 component diagram emphasizing the three main modules: the multimodal first call, text-only second call, and right-tool morphology branch](pipeline_overview_core_components.svg)
 
 The diagram shows the actual information representations between components: sampled images and reviewer scores enter the first call; its free-text temporal segmentation becomes synchronized left/right/camera lanes; the second call maps those descriptions to controlled JSON; deterministic code then validates, optionally corrects the right-tool identity, and writes the dataset splits.
 
