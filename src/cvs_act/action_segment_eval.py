@@ -1081,6 +1081,18 @@ def _anchor_matches_max_overlap(
     A duration tie counts as correct when any tied winning label matches the anchor;
     this avoids an arbitrary label-order tie break.
     """
+    winning_labels, _ = max_overlap_labels(anchor, candidates)
+    return any(
+        labels_match(anchor[2], label, actor, granularity)
+        for label in winning_labels
+    )
+
+
+def max_overlap_labels(
+    anchor: Tuple[int, int, Any],
+    candidates: List[Tuple[int, int, Any]],
+) -> Tuple[List[Any], int]:
+    """Return all labels tied for greatest unioned overlap and that duration."""
     overlaps_by_label: Dict[Any, List[Tuple[int, int]]] = defaultdict(list)
     for start, end, label in candidates:
         overlap_start = max(anchor[0], start)
@@ -1088,17 +1100,14 @@ def _anchor_matches_max_overlap(
         if overlap_end > overlap_start:
             overlaps_by_label[label].append((overlap_start, overlap_end))
     if not overlaps_by_label:
-        return False
+        return [], 0
 
     durations = {
         label: _union_duration(intervals)
         for label, intervals in overlaps_by_label.items()
     }
     max_duration = max(durations.values())
-    return any(
-        duration == max_duration and labels_match(anchor[2], label, actor, granularity)
-        for label, duration in durations.items()
-    )
+    return [label for label, duration in durations.items() if duration == max_duration], max_duration
 
 
 def interval_anchored_f1(

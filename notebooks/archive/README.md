@@ -147,6 +147,30 @@ F1@max:
 
 The compact wide table is in [`overlap_metrics_f1_breakdown.csv`](results/current/overlap_metrics_f1_breakdown.csv). Exact component and directional rows are in [`overlap_metrics_by_actor_granularity.csv`](results/current/overlap_metrics_by_actor_granularity.csv), summaries are in [`overlap_metrics_summary.csv`](results/current/overlap_metrics_summary.csv), and per-video counts/rates plus SHA-256 provenance are in [`overlap_metric_results.json`](results/current/overlap_metric_results.json). Recompute them with [`scripts/evaluate_overlap_metrics.py`](../../scripts/evaluate_overlap_metrics.py). The comparison uses the GT conversion archived inside the original base experiment; that file is byte-identical across the base, CVS-v1, CVS-v2, CVS-v3, and CVS-v4 experiment directories. A separately regenerated shared GT artifact differs in five right-action records and three camera records, so it is intentionally not mixed into this comparison. The raw prediction files remain in the preserved legacy artifact tree and are identified by path and hash in the JSON; they are not duplicated into this Git archive.
 
+#### Current v3.1 confusion matrices
+
+The confusion matrices use **GT intervals as rows** and the v3.1 label with greatest accumulated overlap as the predicted column. This is the micro-count, GT-anchored view of F1@max. `<no_overlap>` means no prediction overlaps the GT interval. If multiple labels tie for maximum duration, a label accepted by the evaluator is preferred; remaining ties use stable text order. Because these are micro counts across intervals, their match rates differ from the macro-per-video rates in the F1 tables above.
+
+| Actor | Level | GT intervals | No overlap | Evaluator-matched | Micro match rate |
+|---|---|---:|---:|---:|---:|
+| Left | Raw | 83 | 1 | 38 | 0.458 |
+| Left | Medium | 83 | 1 | 68 | 0.819 |
+| Left | Coarse | 83 | 1 | 43 | 0.518 |
+| Right | Raw | 123 | 7 | 14 | 0.114 |
+| Right | Medium | 123 | 7 | 54 | 0.439 |
+| Right | Coarse | 123 | 7 | 60 | 0.488 |
+| Camera | Raw | 68 | 23 | 8 | 0.118 |
+| Camera | Medium | 68 | 23 | 12 | 0.176 |
+| Camera | Coarse | 68 | 23 | 23 | 0.338 |
+
+The largest error patterns are interpretable:
+
+- Left raw collapses change actions into `KEEP_RETRACT_LATERAL`: all 14 `RETRACT_LATERAL` intervals and 10 of 11 `RETRACT_MEDIAL_TO_LATERAL` intervals receive that label. At coarse level, all 39 GT `change` intervals are predicted as `maintain`.
+- Right medium commonly confuses dissection targets: `CysticArtery → CysticDuct` occurs 8 times and `CysticDuct → HepatocysticTriangle` occurs 8 times. Seven GT intervals have no temporal overlap.
+- Camera coarse has 57 GT `change` intervals: 15 are labeled `change`, 20 become `no_change`, and 22 have no overlap. This shows both label confusion and missed camera segments.
+
+Use [`confusion_matrices.ipynb`](confusion_matrices.ipynb) to inspect each actor independently. Complete count and row-normalized CSV matrices are under [`results/current/confusion_matrices/`](results/current/confusion_matrices/); [`confusion_pairs_long.csv`](results/current/confusion_matrices/confusion_pairs_long.csv) is easier to filter than the 45-class right-raw matrix, and [`confusion_anchors.csv`](results/current/confusion_matrices/confusion_anchors.csv) retains every source video/interval assignment. Recompute with [`scripts/evaluate_overlap_confusions.py`](../../scripts/evaluate_overlap_confusions.py).
+
 ### Prompt/output-format ablations
 
 Each version notebook evaluated the same four output strategies. Structured segmentation followed by an LLM taxonomy-extraction call was consistently strongest.
@@ -619,5 +643,6 @@ The numeric thresholds above are **proposed**, not measured community standards.
 - [`results/`](results/): compact source artifacts consumed by the reproducibility notebook.
 - [`pipeline_metrics.ipynb`](pipeline_metrics.ipynb): single entry point that loads the archived results and produces every headline quantitative table.
 - [`overlap_metrics.ipynb`](overlap_metrics.ipynb): loads the F1@any/F1@max summaries, directional rates, exact actor/granularity rows, and raw-artifact provenance.
+- [`confusion_matrices.ipynb`](confusion_matrices.ipynb): displays separate GT-anchored count or row-normalized matrices for left, right, and camera at raw/medium/coarse levels.
 
 The copied historical notebooks retain their original absolute paths and are evidence snapshots; some will need path updates before rerunning. The metrics notebook is the portable, read-only audit entry point.
